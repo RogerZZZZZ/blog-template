@@ -1,12 +1,15 @@
-import * as React from 'react';
-import './App.css';
+import * as React from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import './App.css'
 
-import LoginBox from './components/login/LoginBox'
+import Login from './Login/Login'
 
 export default function App() {
   return (
-    <div className="App">
-      <LoginBox />
-    </div>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Switch>
+        <Route exact path="/login" component={Login}/>
+      </Switch>
+    </BrowserRouter>
   )
 }
