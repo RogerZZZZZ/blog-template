@@ -2,10 +2,12 @@ import * as React from 'react'
 import injectSheet from 'react-jss'
 import { useState } from 'react'
 import IProps from '../@interface/InjectStyle'
+import service from '../service'
 
 import { 
   Layout,
   Input, Card,
+  Button,
 } from 'antd'
 
 const { Header, Content} = Layout
@@ -13,6 +15,21 @@ const { Header, Content} = Layout
 const LoginBox = ({classes}: IProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [loging, setLoging] = useState(false)
+
+  const loginAction = async (event: any) => {
+    console.log(username, password);
+    setLoging(true)
+    try {
+      await service.auth.login({
+        username,
+        password,
+      })
+      setLoging(false)
+    } catch(err) {
+      setLoging(false)
+    }
+  }
 
   return (
     <Layout className={classes.fullHeight}>
@@ -21,6 +38,7 @@ const LoginBox = ({classes}: IProps) => {
         <Card className={classes.card}>
           <Input placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} className={classes.inputItem}/>
           <Input placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} className={classes.inputItem}/>
+          <Button type="primary" onClick={loginAction} loading={loging}>Login</Button>
         </Card>
       </Content>
     </Layout>
