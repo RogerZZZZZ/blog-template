@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^1.1.15",
     "@ant-design/icons-react": "^1.1.2",
+    "@koa/cors": "2",
     "antd": "^3.10.9",
     "axios": "^0.18.0",
     "koa": "^2.6.2",
@@ -23,7 +24,9 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "react-app-rewired start --scripts-version react-scripts-ts",
+    "dev": "concurrently \"npm:dev:*\"",
+    "dev:front": "react-app-rewired start --scripts-version react-scripts-ts",
+    "dev:back": "NODE_ENV=development DEBUG=koa-* PORT=8080 nodemon --watch 'server/**/*' -e ts,tsx --exec 'ts-node' -O '{\"module\": \"commonjs\"}' ./back/index.ts",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test"
   },
@@ -37,20 +40,23 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@types/koa": "^2.0.47",
+    "@types/koa-bodyparser": "^4.2.1",
+    "@types/koa-router": "^7.0.35",
+    "@types/koa__cors": "^2.2.3",
     "@types/react": "^16.4.16",
     "@types/react-color": "^2.13.6",
     "@types/react-dom": "^16.0.4",
     "@types/react-jss": "^8.6.0",
     "@types/react-loadable": "^5.4.1",
     "@types/react-router-dom": "^4.3.1",
-    "@types/koa": "^2.0.47",
-    "@types/koa-bodyparser": "^4.2.1",
-    "@types/koa-router": "^7.0.35",
     "@types/uuid": "^3.4.4",
     "concurrently": "^4.1.0",
+    "nodemon": "^1.18.9",
     "react-app-rewire-typescript": "^2.0.2",
     "react-app-rewired": "^1.6.2",
     "react-scripts-ts": "^4.0.8",
+    "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
   }
 }
