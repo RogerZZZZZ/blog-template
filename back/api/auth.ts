@@ -1,4 +1,5 @@
 import * as Router from 'koa-router'
+const passwordHash = require('password-hash')
 
 const router = new Router()
 
