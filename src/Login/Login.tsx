@@ -47,7 +47,13 @@ const LoginBox = ({classes}: IProps) => {
 
 const Login = injectSheet({
   card: {
-    width: '500px'
+    width: '500px',
+    height: '300px',
+    position: 'relative',
+    top: '50%',
+    left: '50%',
+    marginTop: '200px',
+    marginLeft: '-250px'
   },
   fullHeight: {
     height: '100vh'
