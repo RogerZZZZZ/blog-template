@@ -1,3 +1,3 @@
 export interface IVersion {
-  version: Number,
+  version: number,
 }

@@ -1,7 +1,6 @@
 import { Document, Schema, Model, model } from 'mongoose'
 import { IUser } from './IUser'
-
-const passwordHash = require('password-hash')
+import * as passwordHash from 'password-hash'
 
 export interface IUserModel extends IUser, Document {
   fullName(): string;

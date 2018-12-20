@@ -3,6 +3,7 @@ import * as Router from 'koa-router'
 import * as bodyParser from 'koa-bodyparser'
 import api from './api'
 import * as cors from '@koa/cors'
+import * as mongoose from 'mongoose'
 
 (() => {
   const app = new Koa()
@@ -11,6 +12,8 @@ import * as cors from '@koa/cors'
 
   app.use(bodyParser())
   app.use(cors())
+
+  mongoose.connect('mongodb://localhost:27017/blog')
 
   router.use('/api', api.routes())
   app.use(router.routes())
