@@ -21,10 +21,11 @@ const LoginBox = ({classes}: IProps) => {
     console.log(username, password);
     setLoging(true)
     try {
-      await service.auth.login({
+      const data = await service.auth.login({
         username,
         password,
       })
+      console.log(data)
       setLoging(false)
     } catch(err) {
       setLoging(false)
@@ -37,7 +38,7 @@ const LoginBox = ({classes}: IProps) => {
       <Content>
         <Card className={classes.card}>
           <Input placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} className={classes.inputItem}/>
-          <Input placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} className={classes.inputItem}/>
+          <Input placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} className={classes.inputItem} type="password"/>
           <Button type="primary" onClick={loginAction} loading={loging}>Login</Button>
         </Card>
       </Content>

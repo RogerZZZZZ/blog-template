@@ -5,6 +5,7 @@ import api from './api'
 import * as cors from '@koa/cors'
 import * as mongoose from 'mongoose'
 import migrate from './migration'
+import * as jwt from 'koa-jwt'
 
 (async () => {
   const app = new Koa()
@@ -17,6 +18,18 @@ import migrate from './migration'
   mongoose.connect('mongodb://localhost:27017/blog')
 
   await migrate.up()
+
+  app.use((ctx, next) => {
+    return next().catch((err) => {
+      if (401 === err.status) {
+        ctx.status = 401
+      } else {
+        throw err
+      }
+    })
+  })
+
+  app.use(jwt({ secret: 'secretKey' }).unless({ path: [/^\/api\/auth/] }))
 
   router.use('/api', api.routes())
   app.use(router.routes())
