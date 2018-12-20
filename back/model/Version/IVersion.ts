@@ -1,3 +1,4 @@
 export interface IVersion {
-  version: number,
+  version: string,
+  value: number,
 }

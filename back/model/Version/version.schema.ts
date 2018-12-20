@@ -7,6 +7,10 @@ export interface IVersionModel extends IVersion, Document {
 
 export const VersionSchema: Schema = new Schema ({
   version: {
+    type: String,
+    required: true,
+  },
+  value: {
     type: Number,
     required: true,
   }
