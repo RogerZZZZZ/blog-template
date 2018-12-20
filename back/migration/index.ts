@@ -1,5 +1,4 @@
-import { User } from './../model/User/user.schema';
-import { Version } from './../model/Version/version.schema';
+import { userModel, versionModel } from '../model'
 
 enum VERSION {
   FIRST_DEPLOY,
@@ -8,11 +7,11 @@ enum VERSION {
 
 const action = {
   [VERSION.FIRST_DEPLOY]: async () => {
-    await User.create({
+    await userModel.create({
       username: 'admin',
       password: 'rogerzzzz'
     })
-    await Version.create({
+    await userModel.create({
       version: 'version',
       value: 1,
     })
@@ -23,9 +22,8 @@ const action = {
 }
 
 const up = async () => {
-  const versionModel = await Version.findOne({ version: 'version' });
-  console.log('version ', versionModel)
-  const version = (versionModel && versionModel.value) || 0
+  const model = await versionModel.findOne({ version: 'version' });
+  const version = (model && model.value) || 0
   for (let v = version; v <= getVersion(); v++) {
     const migrate = action[v]
     await migrate()
