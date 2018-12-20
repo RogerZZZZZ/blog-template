@@ -3,6 +3,7 @@ import injectSheet from 'react-jss'
 import { useState } from 'react'
 import IProps from '../@interface/InjectStyle'
 import service from '../service'
+import { useDispatch } from 'redux-react-hook'
 
 import { 
   Layout,
@@ -16,6 +17,7 @@ const LoginBox = ({classes}: IProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loging, setLoging] = useState(false)
+  const dispath = useDispatch()
 
   const loginAction = async (event: any) => {
     console.log(username, password);
