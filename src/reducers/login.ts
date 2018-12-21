@@ -8,6 +8,7 @@ export interface ILoginState {
 export default function loginReducer (state: ILoginState, action: LoginAction) {
   switch (action.type) {
     case 'login':
+      console.log('login reducers')
       return {
         ...state,
         login: true,
