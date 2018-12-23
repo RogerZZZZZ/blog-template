@@ -2,7 +2,6 @@ import * as React from 'react'
 import injectSheet from 'react-jss'
 import { useState } from 'react'
 import IProps from '../@interface/InjectStyle'
-import service from '../service'
 import { useDispatch } from 'redux-react-hook'
 
 import { 
@@ -27,16 +26,16 @@ const LoginBox = ({classes}: IProps) => {
     }
     setLoging(true)
     dispath({type: 'LOGIN', ...data})
-    try {
-      const res = await service.auth.login({
-        username,
-        password,
-      })
-      console.log(res)
-      setLoging(false)
-    } catch(err) {
-      setLoging(false)
-    }
+    // try {
+    //   const res = await service.auth.login({
+    //     username,
+    //     password,
+    //   })
+    //   console.log(res)
+    //   setLoging(false)
+    // } catch(err) {
+    //   setLoging(false)
+    // }
   }
 
   return (
