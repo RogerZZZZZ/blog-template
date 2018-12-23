@@ -26,7 +26,7 @@ const LoginBox = ({classes}: IProps) => {
       password,
     }
     setLoging(true)
-    dispath({type: 'login', ...data})
+    dispath({type: 'LOGIN', ...data})
     try {
       const res = await service.auth.login({
         username,

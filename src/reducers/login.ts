@@ -1,19 +1,27 @@
-import { LoginAction } from './../actions/login'
+import * as actions from './../actions/login'
+import { ActionType } from 'typesafe-actions'
+import { LogCons } from '../constants'
+
+type LoginAction = ActionType<typeof actions>
 
 export interface ILoginState {
-  token: string,
+  token?: string,
   login: boolean,
 }
 
-export default function loginReducer (state: ILoginState, action: LoginAction) {
+const defaultState: ILoginState = {
+  login: false,
+}
+
+export const loginReducer = (state: ILoginState = defaultState, action: LoginAction) => {
   switch (action.type) {
-    case 'login':
+    case LogCons.LOGIN:
       console.log('login reducers')
       return {
         ...state,
         login: true,
       }
-    case 'logout':
+    case LogCons.LOGOUT:
       return {
         ...state,
         login: false,

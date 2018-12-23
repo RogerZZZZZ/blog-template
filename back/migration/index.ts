@@ -11,7 +11,7 @@ const action = {
       username: 'admin',
       password: 'rogerzzzz'
     })
-    await userModel.create({
+    await versionModel.create({
       version: 'version',
       value: 1,
     })
