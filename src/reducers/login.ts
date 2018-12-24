@@ -27,6 +27,9 @@ export const loginReducer = (state: ILoginState = defaultState, action: LoginAct
         login: false,
         token: null,
       }
+    case LogCons.LOGGING:
+      console.log('logging')
+      return state
     default:
       return state
   }

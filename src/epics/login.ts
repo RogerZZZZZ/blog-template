@@ -1,19 +1,19 @@
-import { of, throwError, from } from 'rxjs'
-import { map, filter, catchError, mergeMap, switchMap, mapTo } from 'rxjs/operators'
-import { Epic, ofType } from 'redux-observable'
+import { of, from } from 'rxjs'
+import { catchError, mergeMap, mapTo } from 'rxjs/operators'
+import { Epic, ofType, ActionsObservable } from 'redux-observable'
 import * as actions from '../actions/login'
-import { ActionType, isOfType, getType } from 'typesafe-actions';
-import { RootState } from '../reducers'
+import { ActionType } from 'typesafe-actions';
+import { IRootState } from '../reducers'
 import { LogCons } from '../constants'
 import auth from '../services/auth'
 
 type LoginAction = ActionType<typeof actions.loginAction>
+type Actions = ActionType<typeof actions>
 
-const loginEpic: Epic<LoginAction, LoginAction, RootState> = (action$, store) => 
+const loginEpic: Epic<Actions, Actions, IRootState> = (action$: ActionsObservable<Actions>, store) => 
   action$.pipe(
-    ofType(LogCons.LOGIN),
-    mapTo(LogCons.LOGGING),
-    switchMap((action: LoginAction) => {
+    ofType<Actions, LoginAction>(LogCons.LOGIN),
+    mergeMap((action: any) =>
       from(auth.login({
         username: action.payload.username,
         password: action.payload.password
@@ -21,7 +21,7 @@ const loginEpic: Epic<LoginAction, LoginAction, RootState> = (action$, store) =>
         mapTo(LogCons.LOGOUT),
         catchError(error => of(actions.logFailAction(error)))
       )
-    })
+    )
   )
 
 export default [

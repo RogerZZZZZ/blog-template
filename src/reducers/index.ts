@@ -1,7 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import { loginReducer, ILoginState } from './login'
 
-export type RootState = {
+export interface IRootState {
   loginReducer: ILoginState,
 }
 

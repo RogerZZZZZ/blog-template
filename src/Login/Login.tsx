@@ -20,22 +20,11 @@ const LoginBox = ({classes}: IProps) => {
 
   const loginAction = async (event: any) => {
     console.log(username, password);
-    const data = {
+    const payload = {
       username,
       password,
     }
-    setLoging(true)
-    dispath({type: 'LOGIN', ...data})
-    // try {
-    //   const res = await service.auth.login({
-    //     username,
-    //     password,
-    //   })
-    //   console.log(res)
-    //   setLoging(false)
-    // } catch(err) {
-    //   setLoging(false)
-    // }
+    dispath({type: 'LOGIN', payload})
   }
 
   return (
