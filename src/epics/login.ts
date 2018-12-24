@@ -24,7 +24,7 @@ const loginEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable
           ? actions.logSuccessAction(res.data)
           : actions.logFailAction('Authentication failed')
         ),
-        catchError((error: Error) => of(actions.logFailAction(error.message)))
+        catchError((error: Error) => of(actions.logFailAction('Authentication failed')))
       )
     )
   )

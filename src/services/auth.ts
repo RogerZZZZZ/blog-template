@@ -4,14 +4,11 @@ axios.defaults.baseURL = 'http://localhost:8080/api'
 
 axios.interceptors.response.use(response => {
   // Do something with response data
-  console.log(response.status)
   return response;
 }, error => {
   if (error.response.status === 401) {
     if (process.env.NODE_ENV === 'production') {
       window.location.reload();
-    } else {
-      alert('Login Error');
     }
   }
 });
