@@ -9,4 +9,4 @@ export const logoutAction = createAction<string, any>(LogCons.LOGOUT)
 
 export const logFailAction = createAction<string, any>(LogCons.LOGFAIL, resolve => (error: Error) => resolve(error))
 
-export const loggingAction = createAction<string, any>(LogCons.LOGGING)
+export const logSuccessAction = createAction<string, any>(LogCons.LOGSUCCESS)

@@ -2,7 +2,8 @@ import * as React from 'react'
 import injectSheet from 'react-jss'
 import { useState } from 'react'
 import IProps from '../@interface/InjectStyle'
-import { useDispatch } from 'redux-react-hook'
+import { RootState } from '../reducers'
+import { useDispatch, useMappedState } from 'redux-react-hook'
 
 import { 
   Layout,
@@ -12,11 +13,15 @@ import {
 
 const { Header, Content} = Layout
 
-const LoginBox = ({classes}: IProps) => {
+const logState = (state: RootState) => ({
+  logging: state.auth.logging,
+})
+
+const LoginBox = ({ classes }: IProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [loging, setLoging] = useState(false)
-  const dispath = useDispatch()
+  const dispatch = useDispatch()
+  const { logging } = useMappedState(logState)
 
   const loginAction = async (event: any) => {
     console.log(username, password);
@@ -24,7 +29,7 @@ const LoginBox = ({classes}: IProps) => {
       username,
       password,
     }
-    dispath({type: 'LOGIN', payload})
+    dispatch({type: 'LOGIN', payload})
   }
 
   return (
@@ -34,7 +39,7 @@ const LoginBox = ({classes}: IProps) => {
         <Card className={classes.card}>
           <Input placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} className={classes.inputItem}/>
           <Input placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} className={classes.inputItem} type="password"/>
-          <Button type="primary" onClick={loginAction} loading={loging}>Login</Button>
+          <Button type="primary" onClick={loginAction} loading={logging}>Login</Button>
         </Card>
       </Content>
     </Layout>

@@ -8,7 +8,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { ActionType } from 'typesafe-actions';
 
 import * as logActions from './actions/login'
-import reducers, { IRootState } from './reducers'
+import reducers, { RootState, initRootState } from './reducers'
 import epics from './epics'
 
 declare global {
@@ -18,9 +18,9 @@ declare global {
 }
 
 type LogActions = ActionType<typeof logActions>
-const logEpicMiddleware = createEpicMiddleware<LogActions, LogActions, IRootState>()
+const logEpicMiddleware = createEpicMiddleware<LogActions, LogActions, RootState>()
 
-const configStore = (initState?: IRootState) => {
+const configStore = (initState?: RootState) => {
   const middlewares = [
     logEpicMiddleware,
   ]
@@ -36,7 +36,7 @@ const configStore = (initState?: IRootState) => {
   )
 }
 
-const store = configStore()
+const store = configStore(initRootState)
 
 logEpicMiddleware.run(epics)
 
