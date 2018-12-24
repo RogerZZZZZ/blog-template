@@ -1,6 +1,7 @@
 import * as actions from './../actions/login'
 import { ActionType } from 'typesafe-actions'
 import { LogCons } from '../constants'
+import { ReducersUtils } from './utils';
 
 type LoginAction = ActionType<typeof actions>
 
@@ -10,38 +11,43 @@ export interface ILoginState {
   readonly logging?: boolean,
 }
 
+const reducersUtils: ReducersUtils<LoginAction, ILoginState> = new ReducersUtils()
+
 export const defaultState: ILoginState = {
   login: false,
   token: '',
   logging: false,
 }
 
-export const loginReducer = (state: ILoginState = defaultState, action: LoginAction): ILoginState => {
-  switch (action.type) {
-    case LogCons.LOGIN:
-      console.log('login reducers')
-      return {
-        ...state,
-        login: true,
-        logging: true,
-      }
-    case LogCons.LOGSUCCESS:
-      console.log('login success')
-      return {
-        ...state,
-        login: true,
-        logging: false,
-      }
-    case LogCons.LOGFAIL:
-      return {
-        ...state,
-      }
-    case LogCons.LOGOUT:
-      return {
-        ...state,
-        login: false,
-      }
-    default:
-      return state
-  }
-}
+export default reducersUtils.createReducers(defaultState, {
+  [LogCons.LOGIN]: (state: ILoginState, payload: any) => {
+    return {
+      ...state,
+      logging: true,
+    }
+  },
+  [LogCons.LOGSUCCESS]: (state: ILoginState, payload: any) => {
+    return {
+      ...state,
+      login: true,
+      logging: false,
+      token: payload.token,
+    }
+  },
+  [LogCons.LOGFAIL]: (state: ILoginState, payload: any) => {
+    return {
+      ...state,
+      login: false,
+      logging: false,
+      token: undefined,
+    }
+  },
+  [LogCons.LOGOUT]: (state: ILoginState, payload: any) => {
+    return {
+      ...state,
+      login: false,
+      logging: false,
+      token: undefined
+    }
+  },
+})

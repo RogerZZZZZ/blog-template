@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { loginReducer, ILoginState } from './login'
+import loginReducer, { ILoginState } from './login'
 
 export type RootState = {
   auth: ILoginState,

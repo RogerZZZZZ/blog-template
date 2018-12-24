@@ -8,7 +8,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { ActionType } from 'typesafe-actions';
 
 import * as logActions from './actions/login'
-import reducers, { RootState, initRootState } from './reducers'
+import reducers, { RootState } from './reducers'
 import epics from './epics'
 
 declare global {
@@ -36,7 +36,7 @@ const configStore = (initState?: RootState) => {
   )
 }
 
-const store = configStore(initRootState)
+const store = configStore()
 
 logEpicMiddleware.run(epics)
 

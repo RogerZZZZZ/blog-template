@@ -15,13 +15,14 @@ const { Header, Content} = Layout
 
 const logState = (state: RootState) => ({
   logging: state.auth.logging,
+  token: state.auth.token,
 })
 
 const LoginBox = ({ classes }: IProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
-  const { logging } = useMappedState(logState)
+  const { logging, token } = useMappedState(logState)
 
   const loginAction = async (event: any) => {
     console.log(username, password);
@@ -40,6 +41,7 @@ const LoginBox = ({ classes }: IProps) => {
           <Input placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} className={classes.inputItem}/>
           <Input placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} className={classes.inputItem} type="password"/>
           <Button type="primary" onClick={loginAction} loading={logging}>Login</Button>
+          <span>token: {token}</span>
         </Card>
       </Content>
     </Layout>

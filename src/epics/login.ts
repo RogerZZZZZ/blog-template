@@ -1,5 +1,5 @@
 import { of, from } from 'rxjs'
-import { catchError, mergeMap, map, delay } from 'rxjs/operators'
+import { catchError, mergeMap, map, delay, subscribeOn } from 'rxjs/operators'
 import { Epic, ofType, ActionsObservable } from 'redux-observable'
 import * as actions from '../actions/login'
 import { ActionType } from 'typesafe-actions';
@@ -18,8 +18,12 @@ const loginEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable
       from(auth.login({
         username: action.payload.username,
         password: action.payload.password
-      })).pipe(
-        map(actions.logSuccessAction),
+      }))
+      .pipe(
+        map((res) => {
+          console.log(res.data)
+          return actions.logSuccessAction(res.data)
+        }),
         catchError(error => of(actions.logFailAction(error)))
       )
     )
