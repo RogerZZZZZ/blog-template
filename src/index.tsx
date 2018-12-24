@@ -6,6 +6,9 @@ import { StoreContext } from 'redux-react-hook'
 import { createEpicMiddleware } from 'redux-observable';
 import { createStore, applyMiddleware, compose } from 'redux'
 import { ActionType } from 'typesafe-actions';
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import * as logActions from './actions/login'
 import reducers, { RootState } from './reducers'
@@ -20,6 +23,11 @@ declare global {
 type LogActions = ActionType<typeof logActions>
 const logEpicMiddleware = createEpicMiddleware<LogActions, LogActions, RootState>()
 
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+
 const configStore = (initState?: RootState) => {
   const middlewares = [
     logEpicMiddleware,
@@ -29,19 +37,25 @@ const configStore = (initState?: RootState) => {
     applyMiddleware(...middlewares)
   )
 
-  return createStore(
-    reducers,
+  const persistedReducer = persistReducer(persistConfig, reducers)
+
+  const createdStore = createStore(
+    persistedReducer,
     initState,
     enhancer,
   )
+  
+  return { store: createdStore,  persistor: persistStore(createdStore)}
 }
 
-const store = configStore()
+const { store, persistor } = configStore()
 
 logEpicMiddleware.run(epics)
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>
-    <App />
+    <PersistGate persistor={persistor}>
+      <App />
+    </PersistGate>
   </StoreContext.Provider>,
   document.getElementById('root'));
