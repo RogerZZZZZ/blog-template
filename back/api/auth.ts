@@ -14,7 +14,9 @@ router.post('/login', async (ctx) => {
     ctx.body = {
       token: jwt.sign({
         role: 'admin',
-      }, 'secretKey') // Todo add to file.
+      }, 'secretKey', {
+        expiresIn: '2h'
+      }) // Todo add to file.
     }
     ctx.status = 200
   } else {

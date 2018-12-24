@@ -10,7 +10,7 @@ export type RootState = {
 const authPersistConfig = {
   key: 'auth',
   storage,
-  blacklist: ['logging']
+  blacklist: ['logging', 'message']
 }
 
 export default combineReducers({
