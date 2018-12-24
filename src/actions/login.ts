@@ -7,7 +7,9 @@ export const loginAction = createAction<string, any>(LogCons.LOGIN, resolve => {
 
 export const logoutAction = createAction<string, any>(LogCons.LOGOUT)
 
-export const logFailAction = createAction<string, any>(LogCons.LOGFAIL, resolve => (error: Error) => resolve(error))
+export const logFailAction = createAction<string, any>(LogCons.LOGFAIL, resolve => {
+  return (message: string) => resolve({ message })
+})
 
 export const logSuccessAction = createAction<string, any>(LogCons.LOGSUCCESS, resolve => {
   return (payload: {token: string}) => resolve(payload)

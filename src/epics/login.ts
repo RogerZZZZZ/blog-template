@@ -1,5 +1,5 @@
 import { of, from } from 'rxjs'
-import { catchError, mergeMap, map, delay, subscribeOn } from 'rxjs/operators'
+import { catchError, mergeMap, map, delay } from 'rxjs/operators'
 import { Epic, ofType, ActionsObservable } from 'redux-observable'
 import * as actions from '../actions/login'
 import { ActionType } from 'typesafe-actions';
@@ -10,7 +10,7 @@ import auth from '../services/auth'
 type LoginAction = ActionType<typeof actions.loginAction>
 type Actions = ActionType<typeof actions>
 
-const loginEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable<Actions>, store) =>
+const loginEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable<Actions>) =>
   action$.pipe(
     ofType<Actions, LoginAction>(LogCons.LOGIN),
     delay(2000),
@@ -20,11 +20,11 @@ const loginEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable
         password: action.payload.password
       }))
       .pipe(
-        map((res) => {
-          console.log(res.data)
-          return actions.logSuccessAction(res.data)
-        }),
-        catchError(error => of(actions.logFailAction(error)))
+        map((res) => res.status === 200
+          ? actions.logSuccessAction(res.data)
+          : actions.logFailAction('Authentication failed')
+        ),
+        catchError((error: Error) => of(actions.logFailAction(error.message)))
       )
     )
   )

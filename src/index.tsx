@@ -26,6 +26,7 @@ const logEpicMiddleware = createEpicMiddleware<LogActions, LogActions, RootState
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['auth'],
 }
 
 const configStore = (initState?: RootState) => {
@@ -44,7 +45,7 @@ const configStore = (initState?: RootState) => {
     initState,
     enhancer,
   )
-  
+
   return { store: createdStore,  persistor: persistStore(createdStore)}
 }
 

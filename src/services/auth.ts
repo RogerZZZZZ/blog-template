@@ -8,7 +8,6 @@ axios.interceptors.response.use(response => {
   return response;
 }, error => {
   if (error.response.status === 401) {
-    console.log('fail fail')
     if (process.env.NODE_ENV === 'production') {
       window.location.reload();
     } else {

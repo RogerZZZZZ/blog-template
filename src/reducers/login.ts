@@ -9,6 +9,7 @@ export interface ILoginState {
   readonly token?: string,
   login: boolean,
   readonly logging?: boolean,
+  readonly message?: string,
 }
 
 const reducersUtils: ReducersUtils<LoginAction, ILoginState> = new ReducersUtils()
@@ -32,6 +33,7 @@ export default reducersUtils.createReducers(defaultState, {
       login: true,
       logging: false,
       token: payload.token,
+      message: '',
     }
   },
   [LogCons.LOGFAIL]: (state: ILoginState, payload: any) => {
@@ -40,6 +42,7 @@ export default reducersUtils.createReducers(defaultState, {
       login: false,
       logging: false,
       token: undefined,
+      message: payload.message,
     }
   },
   [LogCons.LOGOUT]: (state: ILoginState, payload: any) => {
