@@ -5,7 +5,7 @@ import api from './api'
 import * as cors from '@koa/cors'
 import * as mongoose from 'mongoose'
 import migrate from './migration'
-import * as jwt from 'koa-jwt'
+import * as jwt from 'jsonwebtoken'
 
 (async () => {
   const app = new Koa()
@@ -29,7 +29,23 @@ import * as jwt from 'koa-jwt'
     })
   })
 
-  app.use(jwt({ secret: 'secretKey' }).unless({ path: [/^\/api\/auth/] }))
+  const publicPaths = [/^\/api\/auth/]
+  const authorizedPath = [/^\/api\/blog/]
+
+  app.use((ctx, next) => {
+    const token = ctx.get('Authorization')
+    if (!publicPaths.find(v => !!v.exec(ctx.path))
+    && authorizedPath.find(v => !!v.exec(ctx.path))) {
+      jwt.verify(token, 'secretKey', (err, decode) => {
+        if (err) {
+          console.log(err)
+          ctx.throw(401, 'Authentication Error')
+        }
+        console.log(decode)
+      })
+    }
+    return next()
+  })
 
   router.use('/api', api.routes())
   app.use(router.routes())
