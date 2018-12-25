@@ -1,8 +1,8 @@
 import * as React from 'react'
 import injectSheet from 'react-jss'
 import { useState } from 'react'
-import IProps from '../@interface/InjectStyle'
-import { RootState } from '../reducers'
+import IProps from '../../@interface/InjectStyle'
+import { RootState } from '../../reducers'
 import { useDispatch, useMappedState } from 'redux-react-hook'
 
 import { 
