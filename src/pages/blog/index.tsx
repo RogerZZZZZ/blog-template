@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, Fragment } from 'react'
 import { useEventCallback } from 'rxjs-hooks'
 import { fromEvent } from 'rxjs'
 import { map, switchMap, takeUntil, withLatestFrom, debounceTime } from 'rxjs/operators'
@@ -51,13 +51,13 @@ const Blog = ({ classes }: IProps) => {
   const [editingPost, renderMarked] = useEventCallback(
     (event$: any, input$: any) =>
       event$.pipe(
-        debounceTime(1000),
-        map((val: string) => {
-          console.log(val)
-          return marked(val)
-        })
+        withLatestFrom(input$),
+        map(([event]) => {
+          return marked(event.target.value)
+        }),
+        debounceTime(1000)
       ),
-      marked('# begin')
+      marked('')
   )
 
   const leftStyle = {
@@ -78,8 +78,9 @@ const Blog = ({ classes }: IProps) => {
         <div className={classes.resizer} onMouseDown={onMouseDown}/>
 
         <div className={classes.content}>
-          {/* <TextArea autosize={false} readOnly value={renderMarked}/> */}
-          <p>{renderMarked}</p>
+          <div className={classes.renderPart}>
+            <p dangerouslySetInnerHTML={{__html: renderMarked}}/>
+          </div>
         </div>
       </Content>
     </Layout>
@@ -117,4 +118,10 @@ export default injectSheet({
     cursor: 'col-resize',
     userSelect: 'none',
   },
+  renderPart: {
+    padding: '4px 11px',
+    backgroundColor: 'white',
+    width: '100%',
+    overflow: 'auto'
+  }
 })(Blog)
