@@ -13,7 +13,7 @@ const PostCard = (props: IPostCardProps) => {
 
   const dateRender = () => {
     const date = (new Date(props.createTime)).toDateString()
-    const pinTag = props.pinned ? '-PINNED' : ''
+    const pinTag = props.pinned ? ' - PINNED' : ''
     return (
       <span>{date}{pinTag}</span>
     )
@@ -24,9 +24,9 @@ const PostCard = (props: IPostCardProps) => {
   }
 
   return (
-    <Card>
+    <Card className={classes.post}>
       <div className={classes.titleContent}>
-        <h2>{props.title}</h2>
+        <a className={classes.title}>{props.title}</a>
         {dateRender()}
       </div>
 
@@ -35,7 +35,7 @@ const PostCard = (props: IPostCardProps) => {
       </div>
 
       <Button onClick={continueToRead}>
-        Continue To Read<Icon type="Right" />
+        Continue To Read<Icon type="right" />
       </Button>
     </Card>
   )
@@ -43,10 +43,19 @@ const PostCard = (props: IPostCardProps) => {
 
 
 export default injectSheet({
+  post: {
+    width: '700px',
+    margin: '20px auto',
+  },
   titleContent: {
-    marginBottom: '5px'
+    marginBottom: '5px',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  title: {
+    fontSize: '2rem',
   },
   postContent: {
-
+    marginBottom: '10px',
   },
 })(PostCard)

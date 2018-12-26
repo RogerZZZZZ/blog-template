@@ -30,8 +30,8 @@ const Home = ({ classes }: IProps) => {
 
   const renderPostCard = (datas: IPostCardProps[]) => {
     return (
-      datas.map((data: IPostCardProps) => 
-        <PostCard {...data} />
+      datas.map((data: IPostCardProps, idx: number) => 
+        <PostCard {...data} key={idx}/>
       )
     )
   }
