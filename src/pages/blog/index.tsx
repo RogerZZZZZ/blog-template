@@ -2,9 +2,10 @@ import * as React from 'react'
 import { useRef, useState, useEffect } from 'react'
 import { useEventCallback } from 'rxjs-hooks'
 import { fromEvent } from 'rxjs'
-import { map, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators'
+import { map, switchMap, takeUntil, withLatestFrom, debounceTime } from 'rxjs/operators'
 import injectSheet from 'react-jss'
 import IProps from '../../@interface/InjectStyle'
+import * as marked from 'marked'
 
 import { 
   Layout,
@@ -22,7 +23,7 @@ const useMaxOffsetWidth = () => {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  })
+  }, [width])
   return width - 600
 }
 
@@ -47,6 +48,18 @@ const Blog = ({ classes }: IProps) => {
     [editorEle]
   )
 
+  const [editingPost, renderMarked] = useEventCallback(
+    (event$: any, input$: any) =>
+      event$.pipe(
+        debounceTime(1000),
+        map((val: string) => {
+          console.log(val)
+          return marked(val)
+        })
+      ),
+      marked('# begin')
+  )
+
   const leftStyle = {
     flexBasis: leftX === null ? 0 : (leftX > maxOffset ? maxOffset : leftX ),
     flexGrow: leftX === null ? 1 : 0,
@@ -59,13 +72,14 @@ const Blog = ({ classes }: IProps) => {
 
       <Content className={classes.container}>
         <div className={classes.content} ref={editorEle} style={leftStyle}>
-          <TextArea/>
+          <TextArea autosize={false} onChange={editingPost}/>
         </div>
         
         <div className={classes.resizer} onMouseDown={onMouseDown}/>
 
         <div className={classes.content}>
-          <TextArea/>
+          {/* <TextArea autosize={false} readOnly value={renderMarked}/> */}
+          <p>{renderMarked}</p>
         </div>
       </Content>
     </Layout>
