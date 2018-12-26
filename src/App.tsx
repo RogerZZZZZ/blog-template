@@ -4,6 +4,7 @@ import './App.css'
 
 import Login from './pages/login'
 import Home from './pages/home'
+import Blog from './pages/blog'
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Switch>
         <Route exact path="/login" component={Login}/>
         <Route exact path="/" component={Home} />
+        <Route exact path="/blog" component={Blog} />
       </Switch>
     </BrowserRouter>
   )
