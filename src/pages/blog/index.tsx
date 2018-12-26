@@ -5,7 +5,8 @@ import { fromEvent } from 'rxjs'
 import { map, switchMap, takeUntil, withLatestFrom, debounceTime } from 'rxjs/operators'
 import injectSheet from 'react-jss'
 import IProps from '../../@interface/InjectStyle'
-import * as marked from 'marked'
+import * as MarkDown from 'markdown-it'
+import * as hljs from 'highlight.js'
 
 import { 
   Layout,
@@ -14,6 +15,21 @@ import {
 
 const { TextArea } = Input
 const { Header, Content} = Layout
+// const md = new MarkDown({
+//   html: true,
+//   linkify: true,
+//   typographer: true,
+//   highlight: (str, lang) => {
+//     if (lang && hljs.getLanguage(lang)) {
+//       try {
+//         return hljs.highlight(lang, str).value;
+//       } catch (__) {console.log(__)}
+//     }
+//     return ''; // use external default escaping
+//   }
+// })
+
+const md = new MarkDown('commonmark')
 
 const useMaxOffsetWidth = () => {
   const [width, setWidth] = useState(window.innerWidth)
@@ -53,11 +69,11 @@ const Blog = ({ classes }: IProps) => {
       event$.pipe(
         withLatestFrom(input$),
         map(([event]) => {
-          return marked(event.target.value)
+          return  md.render(event.target.value)
         }),
         debounceTime(1000)
       ),
-      marked('')
+      md.render('')
   )
 
   const leftStyle = {
@@ -79,7 +95,7 @@ const Blog = ({ classes }: IProps) => {
 
         <div className={classes.content}>
           <div className={classes.renderPart}>
-            <p dangerouslySetInnerHTML={{__html: renderMarked}}/>
+            <div dangerouslySetInnerHTML={{__html: renderMarked}}/>
           </div>
         </div>
       </Content>
