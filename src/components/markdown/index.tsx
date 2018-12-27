@@ -22,6 +22,7 @@ interface IProps {
 }
 
 const md = new MarkDown({
+  html: true,
   highlight: (str, lang) => {
     if (lang && hljs.getLanguage(lang)) {
       try {
