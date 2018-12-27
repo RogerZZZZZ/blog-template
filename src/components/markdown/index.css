@@ -36,3 +36,7 @@ table tr:nth-child(2n) {
 p {
   margin: 0 0 10px;
 }
+
+textarea {
+  resize: none;
+}
