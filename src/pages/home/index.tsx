@@ -46,7 +46,7 @@ const Home = ({ classes }: IProps) => {
           </div>
 
           <div className={classes.postBox}>
-          {renderPostCard(mockData)}
+            {renderPostCard(mockData)}
           </div>
         </div>
       </Content>

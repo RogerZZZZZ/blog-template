@@ -1,0 +1,34 @@
+blockquote {
+  padding: 10px 20px;
+  margin: 0 0 20px;
+  font-size: 17.5px;
+  border-left: 5px solid #eee;
+}
+
+pre {
+  border: 1px solid #ccc;
+  display: block;
+  overflow-x: auto;
+  padding: 0.5rem;
+  color: #333;
+  background: #f8f8f8;
+}
+
+img {
+  max-width: 45%;
+}
+
+tr {
+  border-top: 1px solid #c6cbd1;
+  background: #fff;
+}
+
+th,
+td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+table tr:nth-child(2n) {
+  background: #f6f8fa;
+}
