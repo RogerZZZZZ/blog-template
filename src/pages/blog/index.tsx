@@ -2,12 +2,21 @@ import * as React from 'react'
 import IProps from 'src/@interface/InjectStyle';
 import injectSheet from 'react-jss';
 import MarkDownEditor from '../../components/markdown'
+import ColorPicker from '../../components/colorpicker'
 
 import { 
   Layout,
 } from 'antd'
 
 const { Header, Content} = Layout
+
+const tags = [{
+  name: 'V8',
+  hex: '#eeeeee'
+}, {
+  name: 'Javascript',
+  hex: '#BA68C8',
+}]
 
 const Blog = ({ classes }: IProps) => {
 
@@ -16,6 +25,9 @@ const Blog = ({ classes }: IProps) => {
       <Header>Header</Header>
 
       <Content className={classes.container}>
+        <div>
+          <ColorPicker tags={tags} editable/>
+        </div>
         <MarkDownEditor />
       </Content>
     </Layout>

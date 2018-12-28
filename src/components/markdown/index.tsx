@@ -15,7 +15,7 @@ import {
 } from 'antd'
 
 const { TextArea } = Input
-const { Content} = Layout
+const { Content } = Layout
 
 interface IProps {
   classes?: any,
