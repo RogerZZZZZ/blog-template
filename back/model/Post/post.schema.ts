@@ -3,7 +3,7 @@ import { IPost } from './IPost'
 import * as uuid from 'uuid/v4'
 
 export interface IPostModel extends IPost, Document {
-  createdAt: number;
+  updatedAt: number;
   postId: string;
 }
 
@@ -23,7 +23,7 @@ export const PostSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  createdAt: {
+  updatedAt: {
     type: Number,
     required: true,
   },
@@ -35,8 +35,8 @@ export const PostSchema: Schema = new Schema({
 })
 
 PostSchema.pre<IPostModel>('save', function (next: any) {
-  if (!this.createdAt) {
-    this.createdAt = (new Date()).getTime()
+  if (!this.updatedAt) {
+    this.updatedAt = (new Date()).getTime()
   }
   if (!this.postId) {
     this.postId = uuid()
