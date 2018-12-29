@@ -11,11 +11,13 @@ import {
 const { Header, Content} = Layout
 
 const tags = [{
-  name: 'V8',
-  hex: '#eeeeee'
+  name: 'test-tags',
+  hex: '#654321',
+  tagId: '1'
 }, {
-  name: 'Javascript',
-  hex: '#BA68C8',
+  name: 'tesat-tags-2',
+  hex: '#123456',
+  tagId: '2'
 }]
 
 const Blog = ({ classes }: IProps) => {
@@ -25,9 +27,11 @@ const Blog = ({ classes }: IProps) => {
       <Header>Header</Header>
 
       <Content className={classes.container}>
-        <div>
-          <ColorPicker tags={tags} editable/>
-        </div>
+        <Layout>
+          <div className={classes.editArea}>
+            <ColorPicker tags={tags} editable/>
+          </div>
+        </Layout> 
         <MarkDownEditor />
       </Content>
     </Layout>
@@ -48,5 +52,10 @@ export default injectSheet({
     height: '100%',
     margin: '24px auto',
     width: '100%',
+    flexDirection: 'column',
   },
+  editArea: {
+    backgroundColor: '#fff',
+    margin: '24px'
+  }
 })(Blog)

@@ -1,10 +1,13 @@
 import * as React from 'react'
 import injectSheet from 'react-jss'
 import { useState } from 'react'
+import { BlockPicker } from 'react-color'
 
 import {
   Button,
   Modal,
+  Icon,
+  Input,
 } from 'antd'
 
 interface IProps {
@@ -22,12 +25,12 @@ const ColorAdd = ({ classes }: IProps) => {
 
   return (
     <div>
-      <Button type="primary" onClick={() => setVisible(true)}>
-          Open Modal with customized footer
+      <Button onClick={() => setVisible(true)} shape="circle">
+        <Icon type="plus"/>
       </Button>
       <Modal
         visible={visible}
-        title="Title"
+        title="Choose tag"
         onOk={closeAction}
         onCancel={closeAction}
         footer={[
@@ -37,7 +40,8 @@ const ColorAdd = ({ classes }: IProps) => {
           </Button>,
         ]}
       >
-        <p>Some contents...</p>
+        <Input placeholder='Input new tag name'/>
+        <BlockPicker triangle="hide"/>
       </Modal>
     </div>
   )

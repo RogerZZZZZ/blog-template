@@ -2,6 +2,7 @@ import * as React from 'react'
 import injectStyle from 'react-jss'
 import { useEventCallback } from 'rxjs-hooks'
 import ColorAdd from './ColorAdd'
+import ColorSearch from './ColorSearch'
 
 import {
   Layout,
@@ -13,6 +14,7 @@ const { Content } = Layout
 interface ITag {
   name: string,
   hex: string,
+  tagId: string
 }
 
 interface IProps {
@@ -23,28 +25,19 @@ interface IProps {
 
 const ColorPicker = ({ classes, tags }: IProps) => {
 
-  const renderTags = () => {
-    return (
-      tags.map((tag: ITag, idx: number) =>
-        <Tag key={idx} closable color={tag.hex}>{tag.name}</Tag>
-      )
-    )
-  }
-
   return (
     <Content className={classes.container}>
-      {/* <BlockPicker onChangeComplete={}/> */}
+      <ColorSearch tags={tags}/>
       <ColorAdd />
-      {renderTags()}
     </Content>
   )
 }
 
 export default injectStyle({
-  colorPickBody: {
-
-  },
   container: {
-
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: '24px'
   },
 })(ColorPicker)
