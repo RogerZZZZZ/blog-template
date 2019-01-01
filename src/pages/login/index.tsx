@@ -23,7 +23,7 @@ const logState = (state: RootState) => ({
 const LoginBox = ({ classes }: IProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const dispatch = useDispatch()
+  const dispatch = useDispatch() 
   const { logging, token, message } = useMappedState(logState)
 
   const loginAction = async (event: any) => {

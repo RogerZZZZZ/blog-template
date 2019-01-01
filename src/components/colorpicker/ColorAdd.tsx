@@ -2,6 +2,7 @@ import * as React from 'react'
 import injectSheet from 'react-jss'
 import { useState } from 'react'
 import { BlockPicker } from 'react-color'
+import service from '../../services'
 
 import {
   Button,
@@ -16,9 +17,15 @@ interface IProps {
 
 const ColorAdd = ({ classes }: IProps) => {
   const [visible, setVisible] = useState(false)
+  const [hex, setHex] = useState('#000')
+  const [name, setName] = useState('')
 
-  const tmpAction = () => {
-    console.log('test action')
+  const submitTag = async () => {
+    console.log(hex, name)
+    const data = await service.tag.create({
+      name,
+      hex,
+    })
   }
 
   const closeAction = () => setVisible(false)
@@ -31,17 +38,18 @@ const ColorAdd = ({ classes }: IProps) => {
       <Modal
         visible={visible}
         title="Choose tag"
-        onOk={closeAction}
         onCancel={closeAction}
         footer={[
-          <Button key="back" onClick={tmpAction}>Return</Button>,
-          <Button key="submit" type="primary" loading={false} onClick={tmpAction}>
+          <Button key="back" onClick={closeAction}>Cancel</Button>,
+          <Button key="submit" type="primary" loading={false} onClick={submitTag}>
             Submit
           </Button>,
         ]}
       >
-        <Input placeholder='Input new tag name'/>
-        <BlockPicker triangle="hide"/>
+        <Input placeholder='Input new tag name' value={name}
+          onChange={(e) => setName(e.target.value)}/>
+        <BlockPicker triangle="hide" color={hex} 
+          onChangeComplete={(color) => setHex(color.hex)}/>
       </Modal>
     </div>
   )

@@ -5,7 +5,7 @@ import * as actions from '../actions/login'
 import { ActionType } from 'typesafe-actions';
 import { RootState } from '../reducers'
 import { LogCons } from '../constants'
-import auth from '../services/auth'
+import service from '../services'
 
 type LoginAction = ActionType<typeof actions.loginAction>
 type Actions = ActionType<typeof actions>
@@ -15,7 +15,7 @@ const loginEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable
     ofType<Actions, LoginAction>(LogCons.LOGIN),
     delay(2000),
     mergeMap((action: any) =>
-      from(auth.login({
+      from(service.auth.login({
         username: action.payload.username,
         password: action.payload.password
       }))

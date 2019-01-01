@@ -30,7 +30,7 @@ import * as jwt from 'jsonwebtoken'
   })
 
   const publicPaths = [/^\/api\/auth/]
-  const authorizedPath = [/^\/api\/blog/]
+  const authorizedPath = [/^\/api\/blog/, /^\/api\/tag/]
 
   app.use((ctx, next) => {
     const token = ctx.get('Authorization')

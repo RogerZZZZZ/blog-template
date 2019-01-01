@@ -5,7 +5,6 @@ import {
   Tag,
   Select,
 } from 'antd'
-import './ColorSearch.css'
 
 interface IProps {
   classes?: any,
