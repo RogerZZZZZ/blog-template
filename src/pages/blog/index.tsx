@@ -1,12 +1,10 @@
-import * as React from 'react'
-import { IProps } from '@interface';
+import { Layout } from 'antd';
+import * as React from 'react';
 import injectSheet from 'react-jss';
-import MarkDownEditor from '../../components/markdown'
-import ColorPicker from '../../components/colorpicker'
 
-import { 
-  Layout,
-} from 'antd'
+import ColorPicker from '@components/colorpicker';
+import MarkDownEditor from '@components/markdown';
+import { IProps } from '@interface';
 
 const { Header, Content} = Layout
 

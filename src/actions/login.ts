@@ -1,5 +1,5 @@
+import { LogCons } from '@constants'
 import { createAction } from 'typesafe-actions'
-import { LogCons } from '../constants'
 
 export const loginAction = createAction<string, any>(LogCons.LOGIN, resolve => {
   return (username: string, password: string) => resolve({ username, password })

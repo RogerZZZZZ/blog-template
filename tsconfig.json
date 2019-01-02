@@ -20,8 +20,11 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
     "paths": {
+      "@actions/*": ["src/actions/*"],
+      "@components/*": ["src/components/*"],
+      "@constants": ["src/constants"],
       "@interface": ["src/@interface"],
-      "@components/*": ["src/components/*"]
+      "@reducers": ["src/reducers"]
     }
   },
   "exclude": [

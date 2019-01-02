@@ -1,6 +1,6 @@
-import { Document, Schema, Model, model } from 'mongoose'
-import { ITag } from './ITag'
+import { Document, Model, model, Schema } from 'mongoose'
 import * as uuid from 'uuid'
+import { ITag } from './ITag'
 
 export interface ITagModel extends ITag, Document {
 

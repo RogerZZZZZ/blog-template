@@ -1,18 +1,19 @@
+import './index.css';
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { StoreContext } from 'redux-react-hook'
+import { applyMiddleware, compose, createStore } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
-import { createStore, applyMiddleware, compose } from 'redux'
+import { persistReducer, persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import storage from 'redux-persist/lib/storage';
+import { StoreContext } from 'redux-react-hook';
 import { ActionType } from 'typesafe-actions';
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import { PersistGate } from 'redux-persist/integration/react'
 
-import * as logActions from './actions/login'
-import reducers, { RootState } from './reducers'
-import epics from './epics'
+import * as logActions from './actions/login';
+import App from './App';
+import epics from './epics';
+import reducers, { RootState } from './reducers';
 
 declare global {
   interface IWindow {

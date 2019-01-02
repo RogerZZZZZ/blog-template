@@ -1,14 +1,14 @@
 import * as React from 'react'
-import injectSheet from 'react-jss'
 import { useState } from 'react'
 import { BlockPicker } from 'react-color'
+import injectSheet from 'react-jss'
 import service from '../../services'
 
 import {
   Button,
-  Modal,
   Icon,
   Input,
+  Modal,
 } from 'antd'
 
 interface IProps {

@@ -1,10 +1,11 @@
-import * as React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import './App.css'
+import './App.css';
 
-import Login from './pages/login'
-import Home from './pages/home'
-import Blog from './pages/blog'
+import * as React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import Blog from './pages/blog';
+import Home from './pages/home';
+import Login from './pages/login';
 
 export default function App() {
   return (

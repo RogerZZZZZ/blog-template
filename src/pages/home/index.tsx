@@ -1,7 +1,7 @@
+import PostCard from '@components/postcard'
+import { IPostCardProps, IRouterProps } from '@interface'
 import * as React from 'react'
 import injectSheet from 'react-jss'
-import { IRouterProps, IPostCardProps } from '@interface'
-import PostCard from '@components/postcard'
 
 import { 
   Layout,

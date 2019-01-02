@@ -1,6 +1,6 @@
-import { Document, Schema, Model, model } from 'mongoose'
-import { IPost } from './IPost'
+import { Document, Model, model, Schema } from 'mongoose'
 import * as uuid from 'uuid/v4'
+import { IPost } from './IPost'
 
 export interface IPostModel extends IPost, Document {
   updatedAt: number;

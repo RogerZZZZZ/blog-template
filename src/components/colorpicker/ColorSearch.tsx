@@ -1,10 +1,10 @@
-import * as React from 'react'
-import injectSheet from 'react-jss'
-import { useState } from 'react'
 import {
-  Tag,
   Select,
+  Tag,
 } from 'antd'
+import * as React from 'react'
+import { useState } from 'react'
+import injectSheet from 'react-jss'
 
 interface IProps {
   classes?: any,

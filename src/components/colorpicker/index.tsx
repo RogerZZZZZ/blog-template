@@ -6,7 +6,6 @@ import ColorSearch from './ColorSearch'
 
 import {
   Layout,
-  Tag,
 } from 'antd'
 
 const { Content } = Layout

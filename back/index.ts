@@ -1,11 +1,13 @@
-import * as Koa from 'koa'
-import * as Router from 'koa-router'
-import * as bodyParser from 'koa-bodyparser'
-import api from './api'
-import * as cors from '@koa/cors'
-import * as mongoose from 'mongoose'
-import migrate from './migration'
-import * as jwt from 'jsonwebtoken'
+import * as jwt from 'jsonwebtoken';
+import * as Koa from 'koa';
+import * as bodyParser from 'koa-bodyparser';
+import * as Router from 'koa-router';
+import * as mongoose from 'mongoose';
+
+import * as cors from '@koa/cors';
+
+import api from './api';
+import migrate from './migration';
 
 (async () => {
   const app = new Koa()
@@ -36,7 +38,7 @@ import * as jwt from 'jsonwebtoken'
     const token = ctx.get('Authorization')
     console.log(token)
     if (!publicPaths.find(v => !!v.exec(ctx.path))
-    && authorizedPath.find(v => !!v.exec(ctx.path))) {
+      && authorizedPath.find(v => !!v.exec(ctx.path))) {
       jwt.verify(token, 'secretKey', (err, decode) => {
         if (err) {
           console.log(err)

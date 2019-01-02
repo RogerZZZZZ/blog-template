@@ -1,4 +1,4 @@
-import { Document, Schema, Model, model } from 'mongoose'
+import { Document, Model, model, Schema } from 'mongoose'
 import { IVersion } from './IVersion'
 
 export interface IVersionModel extends IVersion, Document {
