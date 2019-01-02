@@ -11,6 +11,7 @@ module.exports = function override(config, env) {
     "@constants": path.resolve(__dirname, 'src/constants'),
     '@interface': path.resolve(__dirname, 'src/@interface'),
     '@reducers':path.resolve(__dirname, 'src/reducers'),
+    "@services": path.resolve(__dirname, 'src/services'),
   })
   const rewires = compose(
     rewireTypescript,

@@ -28,6 +28,7 @@ export const TagSchema: Schema = new Schema({
 })
 
 TagSchema.pre<ITagModel>('save', function (next: any) {
+  console.log('pre save tag')
   if (!this.tagId) {
     this.tagId = uuid()
   }
@@ -35,6 +36,8 @@ TagSchema.pre<ITagModel>('save', function (next: any) {
   if (!this.createdAt) {
     this.createdAt = (new Date()).getTime()
   }
+
+  next()
 })
 
 

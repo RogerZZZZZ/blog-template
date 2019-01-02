@@ -24,7 +24,8 @@
       "@components/*": ["src/components/*"],
       "@constants": ["src/constants"],
       "@interface": ["src/@interface"],
-      "@reducers": ["src/reducers"]
+      "@reducers": ["src/reducers"],
+      "@services": ["src/services"]
     }
   },
   "exclude": [

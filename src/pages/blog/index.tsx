@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 
 import ColorPicker from '@components/colorpicker';
 import MarkDownEditor from '@components/markdown';
-import { IProps } from '@interface';
+import { IRouterProps } from '@interface';
 
 const { Header, Content} = Layout
 
@@ -18,7 +18,7 @@ const tags = [{
   tagId: '2'
 }]
 
-const Blog = ({ classes }: IProps) => {
+const Blog = ({ classes }: IRouterProps) => {
 
   return (
     <Layout className={classes.blogBody}>

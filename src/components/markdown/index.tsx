@@ -1,4 +1,4 @@
-import { IProps } from '@interface'
+import { IBasicProps } from '@interface'
 import * as hljs from 'highlight.js'
 import * as MarkDown from 'markdown-it'
 import * as React from 'react'
@@ -43,7 +43,7 @@ const useMaxOffsetWidth = () => {
   return width - 600
 }
 
-const MarkDownEditor = ({ classes }: IProps) => {
+const MarkDownEditor = ({ classes }: IBasicProps) => {
   const editorEle = useRef(null)
   const maxOffset = useMaxOffsetWidth()
   const [onMouseDown, leftX] = useEventCallback(

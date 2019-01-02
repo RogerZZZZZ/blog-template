@@ -1,8 +1,11 @@
+import { IBasicProps } from '@interface';
+import { RootState } from '@reducers'
+import service from '@services'
 import * as React from 'react'
 import { useState } from 'react'
 import { BlockPicker } from 'react-color'
 import injectSheet from 'react-jss'
-import service from '../../services'
+import { useMappedState } from 'redux-react-hook'
 
 import {
   Button,
@@ -11,21 +14,26 @@ import {
   Modal,
 } from 'antd'
 
-interface IProps {
-  classes: any
-}
+const tokenState = (state: RootState) => ({
+  token: state.auth.token,
+})
 
-const ColorAdd = ({ classes }: IProps) => {
+const ColorAdd = ({ classes }: IBasicProps) => {
+  const { token } = useMappedState(tokenState)
   const [visible, setVisible] = useState(false)
   const [hex, setHex] = useState('#000')
   const [name, setName] = useState('')
 
   const submitTag = async () => {
-    console.log(hex, name)
-    const data = await service.tag.create({
-      name,
-      hex,
-    })
+    if (token) {
+      const data = await service.requestFactory(service.tag.create, {
+        name,
+        hex,
+      }, token)
+      if (data) {
+        closeAction()
+      }
+    }
   }
 
   const closeAction = () => setVisible(false)

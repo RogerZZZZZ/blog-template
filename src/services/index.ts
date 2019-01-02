@@ -15,15 +15,38 @@ axios.interceptors.response.use(response => {
   }
 });
 
+interface IOpt {
+  method: string
+  url: string
+}
+
 const auth = {
   login: (obj: any) => axios.post('auth/login', obj).then(r => r),
 }
 
 const tag = {
-  create: (obj: any) => axios.post('tag/create', obj).then(r => r),
+  create: {
+    method: 'POST',
+    url: 'tag/create',
+  }
+}
+
+const OptsFactory = (url: string, method: string, data: any, token: string) => ({
+  method,
+  url,
+  data,
+  headers: {
+    'Authorization': token,
+  },
+  json: true,
+})
+
+const requestFactory = (opt: IOpt, data: any, token: string) => {
+  return axios(OptsFactory(opt.url, opt.method, data, token)).then(r => r)
 }
 
 export default {
   auth,
   tag,
+  requestFactory,
 }

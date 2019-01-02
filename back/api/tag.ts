@@ -8,7 +8,9 @@ router.post('/create', async (ctx) => {
   const data = ctx.request.body
   const tag = await tagModel.create(data)
   console.log(tag)
-  ctx.body = {}
+  ctx.body = {
+    tag
+  }
   ctx.status = 200
   return ctx
 })

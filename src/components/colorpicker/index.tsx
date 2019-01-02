@@ -1,3 +1,4 @@
+import { IBasicProps, ITag } from '@interface'
 import * as React from 'react'
 import injectStyle from 'react-jss'
 import { useEventCallback } from 'rxjs-hooks'
@@ -10,15 +11,8 @@ import {
 
 const { Content } = Layout
 
-interface ITag {
-  name: string,
-  hex: string,
-  tagId: string
-}
-
-interface IProps {
+interface IProps extends IBasicProps{
   editable: boolean,
-  classes?: any,
   tags: ITag[],
 }
 

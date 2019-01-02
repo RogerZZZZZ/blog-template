@@ -1,3 +1,4 @@
+import { IBasicProps, ITag } from '@interface'
 import {
   Select,
   Tag,
@@ -6,15 +7,8 @@ import * as React from 'react'
 import { useState } from 'react'
 import injectSheet from 'react-jss'
 
-interface IProps {
-  classes?: any,
+interface IProps extends IBasicProps {
   tags: ITag[]
-}
-
-interface ITag {
-  name: string
-  hex: string
-  tagId: string
 }
 
 const tagsDatasource: ITag[] = [{
