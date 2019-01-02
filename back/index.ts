@@ -34,6 +34,7 @@ import * as jwt from 'jsonwebtoken'
 
   app.use((ctx, next) => {
     const token = ctx.get('Authorization')
+    console.log(token)
     if (!publicPaths.find(v => !!v.exec(ctx.path))
     && authorizedPath.find(v => !!v.exec(ctx.path))) {
       jwt.verify(token, 'secretKey', (err, decode) => {

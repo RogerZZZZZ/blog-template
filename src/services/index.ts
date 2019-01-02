@@ -2,15 +2,16 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:8080/api'
 
+// const key = 'Authorization'
+// axios.defaults.headers.common[key] = useMappedState(tokenState)
+
 axios.interceptors.response.use(response => {
   // Do something with response data
   return response;
 }, error => {
   console.log(error)
   if (error.response.status === 401) {
-    if (process.env.NODE_ENV === 'production') {
-      window.location.reload();
-    }
+    window.location.href = '/login'
   }
 });
 

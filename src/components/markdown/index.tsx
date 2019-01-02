@@ -6,6 +6,7 @@ import { map, switchMap, takeUntil, withLatestFrom, debounceTime } from 'rxjs/op
 import injectSheet from 'react-jss'
 import * as MarkDown from 'markdown-it'
 import * as hljs from 'highlight.js'
+import { IProps } from '@interface'
 import 'highlight.js/styles/github.css'
 import './index.css'
 
@@ -16,10 +17,6 @@ import {
 
 const { TextArea } = Input
 const { Content } = Layout
-
-interface IProps {
-  classes?: any,
-}
 
 const md = new MarkDown({
   html: true,

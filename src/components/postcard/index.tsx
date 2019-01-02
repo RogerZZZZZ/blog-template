@@ -1,6 +1,6 @@
 import * as React from 'react'
 import injectSheet from 'react-jss'
-import { IPostCardProps } from '../@interface/InjectStyle'
+import { IPostCardProps } from '@interface'
 
 import {
   Card,

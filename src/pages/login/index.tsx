@@ -1,7 +1,7 @@
 import * as React from 'react'
 import injectSheet from 'react-jss'
 import { useState } from 'react'
-import IProps from '../../@interface/InjectStyle'
+import { IRouterProps } from '@interface'
 import { RootState } from '../../reducers'
 import { useDispatch, useMappedState } from 'redux-react-hook'
 
@@ -20,7 +20,7 @@ const logState = (state: RootState) => ({
   message: state.auth.message,
 })
 
-const LoginBox = ({ classes }: IProps) => {
+const LoginBox = ({ classes }: IRouterProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch() 

@@ -69,6 +69,7 @@
     "@types/uuid": "^3.4.4",
     "concurrently": "^4.1.0",
     "nodemon": "^1.18.9",
+    "react-app-rewire-aliases": "^0.2.0",
     "react-app-rewire-typescript": "^2.0.2",
     "react-app-rewired": "^1.6.2",
     "react-scripts-ts": "^4.0.8",

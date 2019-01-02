@@ -1,7 +1,7 @@
 import * as React from 'react'
 import injectSheet from 'react-jss'
-import IProps, { IPostCardProps } from '../../@interface/InjectStyle'
-import PostCard from '../../components/PostCard'
+import { IRouterProps, IPostCardProps } from '@interface'
+import PostCard from '@components/postcard'
 
 import { 
   Layout,
@@ -23,7 +23,7 @@ const mockData: IPostCardProps[] = [{
   pinned: false,
 }]
 
-const Home = ({ classes }: IProps) => {
+const Home = ({ classes }: IRouterProps) => {
   
   const title = 'Work In Progress'
   const author = 'RogerZZZZ'

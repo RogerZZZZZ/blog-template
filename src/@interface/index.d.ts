@@ -1,7 +1,11 @@
 import { RouteComponentProps } from 'react-router-dom'
 
-interface IProps extends RouteComponentProps<{}> {
-  classes?: any;
+export interface IProps {
+  classes?: any
+}
+
+export interface IRouterProps extends RouteComponentProps<{}>, IProps {
+
 }
 
 export interface IPostCardProps{
@@ -12,5 +16,3 @@ export interface IPostCardProps{
   pinned: boolean;
   classes?: any;
 }
-
-export default IProps

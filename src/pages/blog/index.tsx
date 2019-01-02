@@ -1,5 +1,5 @@
 import * as React from 'react'
-import IProps from 'src/@interface/InjectStyle';
+import { IProps } from '@interface';
 import injectSheet from 'react-jss';
 import MarkDownEditor from '../../components/markdown'
 import ColorPicker from '../../components/colorpicker'
