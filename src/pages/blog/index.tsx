@@ -8,16 +8,6 @@ import { IRouterProps } from '@interface';
 
 const { Header, Content} = Layout
 
-const tags = [{
-  name: 'test-tags',
-  hex: '#654321',
-  tagId: '1'
-}, {
-  name: 'tesat-tags-2',
-  hex: '#123456',
-  tagId: '2'
-}]
-
 const Blog = ({ classes }: IRouterProps) => {
 
   return (
@@ -27,7 +17,7 @@ const Blog = ({ classes }: IRouterProps) => {
       <Content className={classes.container}>
         <Layout>
           <div className={classes.editArea}>
-            <ColorPicker tags={tags} editable/>
+            <ColorPicker editable/>
           </div>
         </Layout> 
         <MarkDownEditor />

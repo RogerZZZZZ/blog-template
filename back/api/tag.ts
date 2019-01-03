@@ -15,11 +15,9 @@ router.post('/create', async (ctx) => {
   return ctx
 })
 
-router.get('/getAll', async (ctx) => {
-  console.log('get all tags')
-  const data = ctx.query
-  console.log(data)
-  ctx.body = {}
+router.get('/fetchAll', async (ctx) => {
+  console.log('fetch all tags')
+  ctx.body = await tagModel.find({})
   ctx.status = 200
   return ctx
 })

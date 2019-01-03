@@ -1,5 +1,5 @@
 import { IBasicProps } from '@interface';
-import { RootState } from '@reducers'
+import { tokenState } from '@reducers/state'
 import service from '@services'
 import * as React from 'react'
 import { useState } from 'react'
@@ -14,10 +14,6 @@ import {
   Modal,
 } from 'antd'
 
-const tokenState = (state: RootState) => ({
-  token: state.auth.token,
-})
-
 const ColorAdd = ({ classes }: IBasicProps) => {
   const { token } = useMappedState(tokenState)
   const [visible, setVisible] = useState(false)
@@ -26,7 +22,7 @@ const ColorAdd = ({ classes }: IBasicProps) => {
 
   const submitTag = async () => {
     if (token) {
-      const data = await service.requestFactory(service.tag.create, {
+      const data = await service.send(service.tag.create, {
         name,
         hex,
       }, token)

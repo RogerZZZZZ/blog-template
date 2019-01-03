@@ -1,5 +1,5 @@
 import { IRouterProps } from '@interface'
-import { RootState } from '@reducers'
+import { logState } from '@reducers/state'
 import * as React from 'react'
 import { useState } from 'react'
 import injectSheet from 'react-jss'
@@ -14,12 +14,6 @@ import {
 } from 'antd'
 
 const { Header, Content} = Layout
-
-const logState = (state: RootState) => ({
-  logging: state.auth.logging,
-  token: state.auth.token,
-  message: state.auth.message,
-})
 
 const LoginBox = ({ classes }: IRouterProps) => {
   const [username, setUsername] = useState('')

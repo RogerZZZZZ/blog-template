@@ -13,7 +13,7 @@ const { Content } = Layout
 
 interface IProps extends IBasicProps{
   editable: boolean,
-  tags: ITag[],
+  tags?: ITag[],
 }
 
 const ColorPicker = ({ classes, tags }: IProps) => {

@@ -1,9 +1,6 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:8080/api'
-
-// const key = 'Authorization'
-// axios.defaults.headers.common[key] = useMappedState(tokenState)
 
 axios.interceptors.response.use(response => {
   // Do something with response data
@@ -24,14 +21,17 @@ const auth = {
   login: (obj: any) => axios.post('auth/login', obj).then(r => r),
 }
 
+const optFactory = (method: string, url: string) => ({
+  method,
+  url,
+})
+
 const tag = {
-  create: {
-    method: 'POST',
-    url: 'tag/create',
-  }
+  create: optFactory('POST', 'tag/create'),
+  fetchAll: optFactory('GET', 'tag/fetchAll')
 }
 
-const OptsFactory = (url: string, method: string, data: any, token: string) => ({
+const headerFactory = (url: string, method: string, data: any, token: string) => ({
   method,
   url,
   data,
@@ -41,12 +41,13 @@ const OptsFactory = (url: string, method: string, data: any, token: string) => (
   json: true,
 })
 
-const requestFactory = (opt: IOpt, data: any, token: string) => {
-  return axios(OptsFactory(opt.url, opt.method, data, token)).then(r => r)
+function send<T>(opt: IOpt, data: any, token: string) {
+  return axios(headerFactory(opt.url, opt.method, data, token))
+    .then((r: AxiosResponse<T>) => r.data)
 }
 
 export default {
   auth,
   tag,
-  requestFactory,
+  send,
 }

@@ -17,10 +17,6 @@ export interface IPostCardProps{
   classes?: any
 }
 
-export interface IToken {
-  token: string
-}
-
 export interface ITag {
   name: string
   hex: string

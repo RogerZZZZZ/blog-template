@@ -5,7 +5,7 @@ import { ActionType } from 'typesafe-actions';
 
 import * as actions from '@actions/login';
 import { LogCons } from '@constants';
-import { RootState } from '@reducers';
+import { RootState } from '@reducers/index';
 
 import service from '../services';
 

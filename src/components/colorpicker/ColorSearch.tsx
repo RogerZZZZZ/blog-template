@@ -1,4 +1,6 @@
 import { IBasicProps, ITag } from '@interface'
+import { tokenState } from '@reducers/state'
+import service from '@services'
 import {
   Select,
   Tag,
@@ -6,28 +8,18 @@ import {
 import * as React from 'react'
 import { useState } from 'react'
 import injectSheet from 'react-jss'
+import { useMappedState } from 'redux-react-hook'
 
 interface IProps extends IBasicProps {
-  tags: ITag[]
+  tags?: ITag[]
 }
 
-const tagsDatasource: ITag[] = [{
-  name: 'test-tags',
-  hex: '#654321',
-  tagId: '1'
-}, {
-  name: 'tesat-tags-2',
-  hex: '#123456',
-  tagId: '2'
-}, {
-  name: 'tesat-tags-3',
-  hex: '#123456',
-  tagId: '3'
-}]
+const initDataSource: ITag[] = []
 
 const ColorSearch = ({ classes, tags }: IProps) => {
-  const [dataSource, updateData] = useState(tagsDatasource)
-  const [selectedItems, itemChange] = useState(tags.map(tag => tag.tagId))
+  const [dataSource, updateData] = useState(initDataSource)
+  const { token } = useMappedState(tokenState)
+  const [selectedItems, itemChange] = useState(tags ? tags.map(tag => tag.tagId) : [])
 
   const renderOption = () => {
     return (
@@ -40,8 +32,14 @@ const ColorSearch = ({ classes, tags }: IProps) => {
   }
 
   const onSelect = (val: any) => {
-    console.log(val)
     itemChange(val)
+  }
+
+  const fetchSelections = async () => {
+    if (!dataSource.length && token) {
+      const tagResult = await service.send<ITag[]>(service.tag.fetchAll, null, token)
+      updateData(tagResult)
+    }
   }
 
   return (
@@ -50,6 +48,7 @@ const ColorSearch = ({ classes, tags }: IProps) => {
         mode='multiple'
         className={classes.colorSelector}
         onChange={onSelect}
+        onFocus={fetchSelections}
         value={selectedItems}
         placeholder='Select tags'
       >
