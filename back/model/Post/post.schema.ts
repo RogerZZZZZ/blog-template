@@ -7,17 +7,6 @@ export interface IPostModel extends IPost, Document {
   postId: string;
 }
 
-const TagSchema: Schema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  hex: {
-    type: String,
-    required: true,
-  },
-})
-
 export const PostSchema: Schema = new Schema({
   postId: {
     type: String,
@@ -31,7 +20,7 @@ export const PostSchema: Schema = new Schema({
   abstract: String,
   content: String,
   title: String,
-  tags:  [TagSchema],
+  tags:  [String],
 })
 
 PostSchema.pre<IPostModel>('save', function (next: any) {

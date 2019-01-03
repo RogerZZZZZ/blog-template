@@ -83,40 +83,32 @@ const MarkDownEditor = ({ classes }: IBasicProps) => {
   }
 
   return (
-    <Layout className={classes.markdownBody}>
-      <Content className={classes.container}>
-        <div className={classes.content} ref={editorEle} style={leftStyle}>
-          <TextArea autosize={false} onChange={editingPost}/>
-        </div>
-        
-        <div className={classes.resizer} onMouseDown={onMouseDown}/>
+    <Content className={classes.container}>
+      <div className={classes.content} ref={editorEle} style={leftStyle}>
+        <TextArea autosize={false} onChange={editingPost}/>
+      </div>
+      
+      <div className={classes.resizer} onMouseDown={onMouseDown}/>
 
-        <div className={classes.content}>
-          <div className={classes.renderPart}>
-            <div dangerouslySetInnerHTML={{__html: renderMarked}}/>
-          </div>
+      <div className={classes.content}>
+        <div className={classes.renderPart}>
+          <div dangerouslySetInnerHTML={{__html: renderMarked}}/>
         </div>
-      </Content>
-    </Layout>
+      </div>
+    </Content>
   )
 }
 
 export default injectSheet({
-  markdownBody: {
-    width: '100%',
-    height: '100%',
-    margin: 0,
-    padding: 0,
-  },
   container: {
     display: 'flex',
-    height: '100%',
-    margin: '24px auto',
+    height: '500px',
+    minHeight: '500px',
+    margin: '0 auto',
     width: '100%',
   },
   content: {
     flex: '1 1 0',
-    padding: '0 20px',
     minWidth: '500px',
     height: '100%',
     display: 'flex'
@@ -134,6 +126,7 @@ export default injectSheet({
     padding: '4px 11px',
     backgroundColor: 'white',
     width: '100%',
-    overflow: 'auto'
+    overflow: 'auto',
+    border: '1px solid #d9d9d9'
   }
 })(MarkDownEditor)

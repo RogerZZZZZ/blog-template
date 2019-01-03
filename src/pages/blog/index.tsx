@@ -1,12 +1,13 @@
-import { Layout } from 'antd';
+import { Input, Layout } from 'antd';
 import * as React from 'react';
 import injectSheet from 'react-jss';
 
-import ColorPicker from '@components/colorpicker';
-import MarkDownEditor from '@components/markdown';
-import { IRouterProps } from '@interface';
+import MarkDownEditor from '@components/markdown'
+import TagPicker from '@components/tagpicker'
+import { IRouterProps } from '@interface'
 
 const { Header, Content} = Layout
+const { TextArea } = Input
 
 const Blog = ({ classes }: IRouterProps) => {
 
@@ -15,12 +16,19 @@ const Blog = ({ classes }: IRouterProps) => {
       <Header>Header</Header>
 
       <Content className={classes.container}>
-        <Layout>
+        <Layout className={classes.content}>
           <div className={classes.editArea}>
-            <ColorPicker editable/>
+            <TagPicker editable/>
           </div>
-        </Layout> 
-        <MarkDownEditor />
+        </Layout>
+
+        <Layout className={classes.content}>
+          <TextArea autosize={false} />
+        </Layout>
+
+        <Layout className={classes.content}>
+          <MarkDownEditor />
+        </Layout>
       </Content>
     </Layout>
   )
@@ -29,21 +37,22 @@ const Blog = ({ classes }: IRouterProps) => {
 export default injectSheet({
   blogBody: {
     width: '100%',
-    height: '100vh',
+    height: 'auto',
     margin: 0,
     padding: 0,
     backgroundColor: '#e8e8e8',
   },
   container: {
     display: 'flex',
-    padding: '0 50px',
     height: '100%',
-    margin: '24px auto',
-    width: '100%',
+    margin: '24px 50px',
     flexDirection: 'column',
+    backgroundColor: '#fff',
+  },
+  content: {
+    margin: '24px',
   },
   editArea: {
     backgroundColor: '#fff',
-    margin: '24px'
   }
 })(Blog)

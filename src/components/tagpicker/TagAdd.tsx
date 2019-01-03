@@ -3,7 +3,7 @@ import { tokenState } from '@reducers/state'
 import service from '@services'
 import * as React from 'react'
 import { useState } from 'react'
-import { BlockPicker } from 'react-color'
+import { TwitterPicker } from 'react-color'
 import injectSheet from 'react-jss'
 import { useMappedState } from 'redux-react-hook'
 
@@ -14,7 +14,7 @@ import {
   Modal,
 } from 'antd'
 
-const ColorAdd = ({ classes }: IBasicProps) => {
+const TagAdd = ({ classes }: IBasicProps) => {
   const { token } = useMappedState(tokenState)
   const [visible, setVisible] = useState(false)
   const [hex, setHex] = useState('#000')
@@ -44,21 +44,25 @@ const ColorAdd = ({ classes }: IBasicProps) => {
         title="Choose tag"
         onCancel={closeAction}
         footer={[
-          <Button key="back" onClick={closeAction}>Cancel</Button>,
+          <Button key="back" onClick={closeAction}>Back</Button>,
           <Button key="submit" type="primary" loading={false} onClick={submitTag}>
-            Submit
+            Create
           </Button>,
         ]}
       >
         <Input placeholder='Input new tag name' value={name}
           onChange={(e) => setName(e.target.value)}/>
-        <BlockPicker triangle="hide" color={hex} 
-          onChangeComplete={(color) => setHex(color.hex)}/>
+        <div className={classes.colorSelect}>
+          <TwitterPicker triangle="hide" color={hex}
+            onChangeComplete={(color) => setHex(color.hex)}/>
+        </div>
       </Modal>
     </div>
   )
 }
 
 export default injectSheet({
-
-})(ColorAdd)
+  colorSelect: {
+    marginTop: '20px',
+  },
+})(TagAdd)

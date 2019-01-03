@@ -2,8 +2,8 @@ import { IBasicProps, ITag } from '@interface'
 import * as React from 'react'
 import injectStyle from 'react-jss'
 import { useEventCallback } from 'rxjs-hooks'
-import ColorAdd from './ColorAdd'
-import ColorSearch from './ColorSearch'
+import TagAdd from './TagAdd'
+import TagSearch from './TagSearch'
 
 import {
   Layout,
@@ -20,8 +20,8 @@ const ColorPicker = ({ classes, tags }: IProps) => {
 
   return (
     <Content className={classes.container}>
-      <ColorSearch tags={tags}/>
-      <ColorAdd />
+      <TagSearch tags={tags}/>
+      <TagAdd />
     </Content>
   )
 }
@@ -31,6 +31,5 @@ export default injectStyle({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: '24px'
   },
 })(ColorPicker)

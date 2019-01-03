@@ -16,7 +16,7 @@ interface IProps extends IBasicProps {
 
 const initDataSource: ITag[] = []
 
-const ColorSearch = ({ classes, tags }: IProps) => {
+const TagSearch = ({ classes, tags }: IProps) => {
   const [dataSource, updateData] = useState(initDataSource)
   const { token } = useMappedState(tokenState)
   const [selectedItems, itemChange] = useState(tags ? tags.map(tag => tag.tagId) : [])
@@ -36,14 +36,14 @@ const ColorSearch = ({ classes, tags }: IProps) => {
   }
 
   const fetchSelections = async () => {
-    if (!dataSource.length && token) {
+    if (token) {
       const tagResult = await service.send<ITag[]>(service.tag.fetchAll, null, token)
       updateData(tagResult)
     }
   }
 
   return (
-    <div>
+    <div className={classes.container}>
       <Select
         mode='multiple'
         className={classes.colorSelector}
@@ -59,8 +59,11 @@ const ColorSearch = ({ classes, tags }: IProps) => {
 }
 
 export default injectSheet({
+  container: {
+    marginRight: '20px',
+  },
   colorSelector: {
     width: 'auo',
     minWidth: '400px',
   }
-})(ColorSearch)
+})(TagSearch)
