@@ -21,8 +21,8 @@ router.post('/login', async (ctx) => {
     }
     ctx.status = 200
   } else {
-    console.log('fail')
-    ctx.status = 401
+    console.log('Login Fail')
+    ctx.status = 402
   }
   return ctx
 })

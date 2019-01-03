@@ -2,7 +2,7 @@ import { LogCons } from '@constants'
 import { IRouterProps } from '@interface'
 import { logState } from '@reducers/state'
 import * as React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
 import { useDispatch, useMappedState } from 'redux-react-hook'
 
@@ -16,11 +16,17 @@ import {
 
 const { Header, Content} = Layout
 
-const LoginBox = ({ classes }: IRouterProps) => {
+const LoginBox = ({ classes, history }: IRouterProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch() 
-  const { logging, message } = useMappedState(logState)
+  const { login, logging, message } = useMappedState(logState)
+
+  useEffect(() => {
+    if (login) {
+      history.push('/')
+    }
+  }, [login])
 
   const loginAction = () => {
     const payload = {

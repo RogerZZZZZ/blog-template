@@ -36,7 +36,6 @@ import migrate from './migration';
 
   app.use((ctx, next) => {
     const token = ctx.get('Authorization')
-    console.log(token)
     if (!publicPaths.find(v => !!v.exec(ctx.path))
       && authorizedPath.find(v => !!v.exec(ctx.path))) {
       jwt.verify(token, 'secretKey', (err, decode) => {
@@ -44,7 +43,6 @@ import migrate from './migration';
           console.log(err)
           ctx.throw(401, 'Authentication Error')
         }
-        console.log(decode)
       })
     }
     return next()
