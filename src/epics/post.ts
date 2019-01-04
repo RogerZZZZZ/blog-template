@@ -24,9 +24,17 @@ const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable
         pinned: action.payload.pinned,
       }, action.payload.token))
       .pipe(
-        map((res) => res.status === 200
-          ? actions.postSuccessAction()
-          : actions.postFailAction('Fail to post')),
+        map((res) => 
+          from(service.send<any>(service.tag.uptPostsList, {
+            postId: res._id,
+            tags: action.payload.tags,
+          }, action.payload.token))
+          .pipe(
+            map((res) => res
+            ? actions.postSuccessAction()
+            : actions.postFailAction('Fail to post'))
+          )
+        ),
         catchError((error: Error) => of(actions.postFailAction(error.message)))
       )
     )

@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+import { headerFactory, optFactory } from './utils'
 
 axios.defaults.baseURL = 'http://localhost:8080/api'
 
@@ -21,14 +22,10 @@ const auth = {
   login: (obj: any) => axios.post('auth/login', obj).then(r => r),
 }
 
-const optFactory = (method: string, url: string) => ({
-  method,
-  url,
-})
-
 const tag = {
   create: optFactory('POST', 'tag/create'),
-  fetchAll: optFactory('GET', 'tag/fetchAll')
+  fetchAll: optFactory('GET', 'tag/fetchAll'),
+  uptPostsList: optFactory('GET', 'tag/uptPostsList'),
 }
 
 const post = {
@@ -38,16 +35,6 @@ const post = {
   fetchById: optFactory('GET', 'post/fetchById'),
   deleteById: optFactory('GET', 'post/deleteById'),
 }
-
-const headerFactory = (url: string, method: string, data: any, token: string) => ({
-  method,
-  url,
-  data,
-  headers: {
-    'Authorization': token,
-  },
-  json: true,
-})
 
 function send<T>(opt: IOpt, data: any, token: string) {
   return axios(headerFactory(opt.url, opt.method, data, token))

@@ -22,5 +22,13 @@ router.get('/fetchAll', async (ctx) => {
   return ctx
 })
 
+router.get('/uptPostsList', async (ctx) => {
+  console.log('update posts list')
+  console.log(ctx.query)
+
+  ctx.status = 200
+  return ctx
+})
+
 
 export default router
