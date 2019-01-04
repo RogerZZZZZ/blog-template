@@ -12,11 +12,12 @@ import { useMappedState } from 'redux-react-hook'
 
 interface IProps extends IBasicProps {
   tags?: ITag[]
+  exposeFn: (v: string[]) => void
 }
 
 const initDataSource: ITag[] = []
 
-const TagSearch = ({ classes, tags }: IProps) => {
+const TagSearch = ({ classes, tags, exposeFn }: IProps) => {
   const [dataSource, updateData] = useState(initDataSource)
   const { token } = useMappedState(tokenState)
   const [selectedItems, itemChange] = useState(tags ? tags.map(tag => tag.tagId) : [])
@@ -31,8 +32,9 @@ const TagSearch = ({ classes, tags }: IProps) => {
     )
   }
 
-  const onSelect = (val: any) => {
+  const onSelect = (val: string[]) => {
     itemChange(val)
+    exposeFn(val)
   }
 
   const fetchSelections = async () => {

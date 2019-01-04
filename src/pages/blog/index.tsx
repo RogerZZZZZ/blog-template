@@ -1,4 +1,5 @@
-import { Input, Layout } from 'antd';
+import { Button, Input, Layout } from 'antd';
+import { useState } from 'react'
 import * as React from 'react';
 import injectSheet from 'react-jss';
 
@@ -11,6 +12,17 @@ const { TextArea } = Input
 
 const Blog = ({ classes }: IRouterProps) => {
 
+  const [post, updatePost] = useState('')
+  const [abstract, updateAbstract] = useState('')
+  const [tags, updateTags] = useState<string[]>([])
+
+  const submitAction = () => {
+    console.log('click')
+    console.log(post)
+    console.log(abstract)
+    console.log(tags)
+  }
+
   return (
     <Layout className={classes.blogBody}>
       <Header>Header</Header>
@@ -18,16 +30,20 @@ const Blog = ({ classes }: IRouterProps) => {
       <Content className={classes.container}>
         <Layout className={classes.content}>
           <div className={classes.editArea}>
-            <TagPicker editable/>
+            <TagPicker editable exposeFn={updateTags}/>
           </div>
         </Layout>
 
         <Layout className={classes.content}>
-          <TextArea autosize={false} />
+          <TextArea autosize={false} onChange={(e) => updateAbstract(e.target.value)}/>
         </Layout>
 
         <Layout className={classes.content}>
-          <MarkDownEditor />
+          <MarkDownEditor exposeFn={updatePost}/>
+        </Layout>
+
+        <Layout className={classes.content}>
+          <Button onClick={submitAction} type="primary">Submit</Button>
         </Layout>
       </Content>
     </Layout>

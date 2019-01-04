@@ -12,15 +12,16 @@ import {
 const { Content } = Layout
 
 interface IProps extends IBasicProps{
-  editable: boolean,
-  tags?: ITag[],
+  editable: boolean
+  exposeFn: (v: string[]) => void
+  tags?: ITag[]
 }
 
-const ColorPicker = ({ classes, tags }: IProps) => {
+const ColorPicker = ({ classes, tags, exposeFn }: IProps) => {
 
   return (
     <Content className={classes.container}>
-      <TagSearch tags={tags}/>
+      <TagSearch tags={tags} exposeFn={exposeFn}/>
       <TagAdd />
     </Content>
   )

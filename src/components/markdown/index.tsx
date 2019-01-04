@@ -15,9 +15,14 @@ import {
   Input,
   Layout,
 } from 'antd'
+import { version } from 'react-dom';
 
 const { TextArea } = Input
 const { Content } = Layout
+
+interface IProps extends IBasicProps {
+  exposeFn: (v: string) => void
+}
 
 const md = new MarkDown({
   html: true,
@@ -43,7 +48,7 @@ const useMaxOffsetWidth = () => {
   return width - 600
 }
 
-const MarkDownEditor = ({ classes }: IBasicProps) => {
+const MarkDownEditor = ({ classes, exposeFn }: IProps) => {
   const editorEle = useRef(null)
   const maxOffset = useMaxOffsetWidth()
   const [onMouseDown, leftX] = useEventCallback(
@@ -69,7 +74,9 @@ const MarkDownEditor = ({ classes }: IBasicProps) => {
       event$.pipe(
         withLatestFrom(input$),
         map(([event]) => {
-          return  md.render(event.target.value)
+          const v = event.target.value
+          exposeFn(v)
+          return md.render(v)
         }),
         debounceTime(1000)
       ),
