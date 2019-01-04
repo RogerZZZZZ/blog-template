@@ -33,7 +33,10 @@ const tag = {
 
 const post = {
   create: optFactory('POST', 'post/create'),
-  delete: optFactory('GET', 'post/delete'),
+  fetchPinned: optFactory('GET', 'post/fetchPinned'),
+  fetchByCategory: optFactory('GET', 'post/fetchByCategory'),
+  fetchById: optFactory('GET', 'post/fetchById'),
+  deleteById: optFactory('GET', 'post/deleteById'),
 }
 
 const headerFactory = (url: string, method: string, data: any, token: string) => ({

@@ -12,26 +12,25 @@ import service from '@services'
 type PostAction = ActionType<typeof actions.postAction>
 type Actions = ActionType<typeof actions>
 
-const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable<Actions>) => {
-  console.log('post epic')
-  return actions$.pipe(
+const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable<Actions>) =>
+  actions$.pipe(
     ofType<Actions, PostAction>(PostCons.POST_CREATE),
     mergeMap((action: any) =>
-      from(service.send(service.post.create, {
+      from(service.send<any>(service.post.create, {
         title: action.payload.title,
         post: action.payload.post,
         abstract: action.payload.abstract,
         tags: action.payload.tags,
+        pinned: action.payload.pinned,
       }, action.payload.token))
       .pipe(
-        map((res: any) => res.status === 200
+        map((res) => res.status === 200
           ? actions.postSuccessAction()
           : actions.postFailAction('Fail to post')),
         catchError((error: Error) => of(actions.postFailAction(error.message)))
+      )
     )
   )
-)
-}
 
 export default [
   postEpic,

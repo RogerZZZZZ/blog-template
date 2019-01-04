@@ -8,19 +8,24 @@ export interface IPostModel extends IPost, Document {
 }
 
 export const PostSchema: Schema = new Schema({
-  postId: {
+  categoryId: String,
+  abstract: {
     type: String,
     required: true,
   },
-  updatedAt: {
-    type: Number,
+  post: {
+    type: String,
     required: true,
   },
-  categoryId: String,
-  abstract: String,
-  content: String,
-  title: String,
+  title: {
+    type: String,
+    required: true,
+  },
   tags:  [String],
+  pinned: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 PostSchema.pre<IPostModel>('save', function (next: any) {

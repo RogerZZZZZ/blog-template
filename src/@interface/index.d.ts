@@ -8,13 +8,13 @@ export interface IRouterProps extends RouteComponentProps<{}>, IBasicProps {
 
 }
 
-export interface IPostCardProps{
+export interface IPostCard extends IBasicProps {
   abstract: string
   title: string
-  tid: number
-  createTime: number
+  post?: string
   pinned: boolean
-  classes?: any
+  postId: string
+  updatedAt: number
 }
 
 export interface ITag {

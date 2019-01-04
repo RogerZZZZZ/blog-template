@@ -1,4 +1,4 @@
-import { IPostCardProps } from '@interface'
+import { IPostCard } from '@interface'
 import * as React from 'react'
 import injectSheet from 'react-jss'
 
@@ -8,11 +8,11 @@ import {
   Icon,
 } from 'antd'
 
-const PostCard = (props: IPostCardProps) => {
+const PostCard = (props: IPostCard) => {
   const { classes } = props
 
   const dateRender = () => {
-    const date = (new Date(props.createTime)).toDateString()
+    const date = (new Date(props.updatedAt)).toDateString()
     const pinTag = props.pinned ? ' - PINNED' : ''
     return (
       <span>{date}{pinTag}</span>
@@ -20,7 +20,7 @@ const PostCard = (props: IPostCardProps) => {
   }
 
   const continueToRead = () => {
-    console.log('continue to read pid: ', props.tid)
+    console.log('continue to read pid: ', props.postId)
   }
 
   return (

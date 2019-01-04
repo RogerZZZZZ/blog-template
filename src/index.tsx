@@ -31,7 +31,7 @@ const postEpicMiddleware = createEpicMiddleware<PostActions, PostActions, RootSt
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['auth'],
+  blacklist: ['auth', 'post'],
 }
 
 const configStore = (initState?: RootState) => {

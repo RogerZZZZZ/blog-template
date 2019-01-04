@@ -1,4 +1,4 @@
-import { Button, Input, Layout } from 'antd';
+import { Button, Input, Layout, Switch } from 'antd';
 import { useState } from 'react'
 import * as React from 'react';
 import injectSheet from 'react-jss';
@@ -19,6 +19,7 @@ const Blog = ({ classes }: IRouterProps) => {
   const [abstract, updateAbstract] = useState('')
   const [tags, updateTags] = useState<string[]>([])
   const [title, updateTitle] = useState('')
+  const [pinned, updatePinned] = useState(false)
 
   const { token } = useMappedState(tokenState)
 
@@ -31,10 +32,10 @@ const Blog = ({ classes }: IRouterProps) => {
       tags,
       title,
       token,
+      pinned,
     }
     console.log(payload)
     dispatch({type: PostCons.POST_CREATE, payload})
-    console.log('aaaaaa')
   }
 
   return (
@@ -49,6 +50,13 @@ const Blog = ({ classes }: IRouterProps) => {
         <Layout className={classes.content}>
           <div className={classes.editArea}>
             <TagPicker editable exposeFn={updateTags}/>
+          </div>
+        </Layout>
+
+        <Layout className={classes.content}>
+          <div className={classes.editArea}>
+            <Switch checkedChildren="Pinned" unCheckedChildren="Unpinned"
+              checked={pinned} onChange={updatePinned}/>
           </div>
         </Layout>
 

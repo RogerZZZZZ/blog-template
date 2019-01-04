@@ -1,7 +1,8 @@
 export interface IPost {
   categoryId?: string,
   abstract: string,
-  content: string,
+  post: string,
+  pinned: boolean,
   title: string,
   tags: string[],
 }

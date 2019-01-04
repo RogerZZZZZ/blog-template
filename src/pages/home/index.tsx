@@ -1,7 +1,11 @@
 import PostCard from '@components/postcard'
-import { IPostCardProps, IRouterProps } from '@interface'
+import { IPostCard, IRouterProps } from '@interface'
+import { tokenState } from '@reducers/state'
+import services from '@services';
+import { useEffect, useState } from 'react'
 import * as React from 'react'
 import injectSheet from 'react-jss'
+import { useMappedState } from 'redux-react-hook'
 
 import { 
   Layout,
@@ -9,28 +13,43 @@ import {
 
 const { Header, Content} = Layout
 
-const mockData: IPostCardProps[] = [{
+const mockData: IPostCard[] = [{
   abstract: 'I have hundreds of files and folders in my dotfiles repo, and nearly 1000 commits—there are quite a few hidden gems buried in there that generally don’t get to see the light of day. Rather than wander aimlessly through them, let me give you the guided tour.',
   title: 'Noteworthy Dotfile Hacks',
-  tid: 1,
-  createTime: 1545751566244,
+  postId: '1',
+  updatedAt: 1545751566244,
   pinned: true,
 }, {
   abstract: 'I’ve written in the past (twice) about how to streamline the writing process when using LaTeX. Since then, I’ve found that I enjoy writing even more when I don’t have to reach for LaTeX at all. By reaching first for Markdown, then for LaTeX when necessary, writing is easier and more enjoyable.',
   title: 'Reach for Markdown, not LaTeX',
-  tid: 2,
-  createTime: 1545751566244,
+  postId: '2',
+  updatedAt: 1545751566244,
   pinned: false,
 }]
+
 
 const Home = ({ classes }: IRouterProps) => {
   
   const title = 'Work In Progress'
   const author = 'RogerZZZZ'
+  
+  const { token } = useMappedState(tokenState)
 
-  const renderPostCard = (datas: IPostCardProps[]) => {
+  const [pinnedBlog, updatePinnedBlog] = useState([] as IPostCard[])
+
+  const fetchBlog = async () => {
+    console.log('fetch')
+    const blogs: IPostCard[] = await services.send<IPostCard[]>(services.post.fetchPinned, null, token || '')
+    updatePinnedBlog(blogs)
+  }
+
+  useEffect(() => {
+    fetchBlog()
+  }, [])
+
+  const renderPostCard = (datas: IPostCard[]) => {
     return (
-      datas.map((data: IPostCardProps, idx: number) => 
+      datas.map((data: IPostCard, idx: number) => 
         <PostCard {...data} key={idx}/>
       )
     )
@@ -46,7 +65,7 @@ const Home = ({ classes }: IRouterProps) => {
           </div>
 
           <div className={classes.postBox}>
-            {renderPostCard(mockData)}
+            {renderPostCard(pinnedBlog)}
           </div>
         </div>
       </Content>
