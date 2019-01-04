@@ -1,5 +1,4 @@
 import { Document, Model, model, Schema } from 'mongoose'
-import * as uuid from 'uuid/v4'
 import { IPost } from './IPost'
 
 export interface IPostModel extends IPost, Document {
@@ -26,15 +25,11 @@ export const PostSchema: Schema = new Schema({
     type: Boolean,
     default: false,
   },
+  updatedAt: Number,
 })
 
 PostSchema.pre<IPostModel>('save', function (next: any) {
-  if (!this.updatedAt) {
-    this.updatedAt = (new Date()).getTime()
-  }
-  if (!this.postId) {
-    this.postId = uuid()
-  }
+  this.updatedAt = (new Date()).getTime()
   next()
 })
 

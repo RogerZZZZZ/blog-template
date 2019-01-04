@@ -7,26 +7,9 @@ import * as React from 'react'
 import injectSheet from 'react-jss'
 import { useMappedState } from 'redux-react-hook'
 
-import { 
-  Layout,
-} from 'antd'
+import { Layout, Skeleton} from 'antd'
 
 const { Header, Content} = Layout
-
-const mockData: IPostCard[] = [{
-  abstract: 'I have hundreds of files and folders in my dotfiles repo, and nearly 1000 commits—there are quite a few hidden gems buried in there that generally don’t get to see the light of day. Rather than wander aimlessly through them, let me give you the guided tour.',
-  title: 'Noteworthy Dotfile Hacks',
-  postId: '1',
-  updatedAt: 1545751566244,
-  pinned: true,
-}, {
-  abstract: 'I’ve written in the past (twice) about how to streamline the writing process when using LaTeX. Since then, I’ve found that I enjoy writing even more when I don’t have to reach for LaTeX at all. By reaching first for Markdown, then for LaTeX when necessary, writing is easier and more enjoyable.',
-  title: 'Reach for Markdown, not LaTeX',
-  postId: '2',
-  updatedAt: 1545751566244,
-  pinned: false,
-}]
-
 
 const Home = ({ classes }: IRouterProps) => {
   
@@ -36,11 +19,12 @@ const Home = ({ classes }: IRouterProps) => {
   const { token } = useMappedState(tokenState)
 
   const [pinnedBlog, updatePinnedBlog] = useState([] as IPostCard[])
+  const [fetching, updateFetching] = useState(true)
 
   const fetchBlog = async () => {
-    console.log('fetch')
     const blogs: IPostCard[] = await services.send<IPostCard[]>(services.post.fetchPinned, null, token || '')
     updatePinnedBlog(blogs)
+    updateFetching(false)
   }
 
   useEffect(() => {
@@ -49,9 +33,11 @@ const Home = ({ classes }: IRouterProps) => {
 
   const renderPostCard = (datas: IPostCard[]) => {
     return (
-      datas.map((data: IPostCard, idx: number) => 
-        <PostCard {...data} key={idx}/>
-      )
+      fetching
+        ? <Skeleton />
+        : datas.map((data: IPostCard, idx: number) => 
+            <PostCard {...data} key={idx}/>
+          )
     )
   }
   return (
@@ -76,7 +62,8 @@ const Home = ({ classes }: IRouterProps) => {
 export default injectSheet({
   homeBody: {
     width: '100%',
-    height: '100vh',
+    minHeight: '100vh',
+    height: '100%',
     margin: 0,
     padding: 0,
     backgroundColor: '#e8e8e8',

@@ -20,7 +20,7 @@ const PostCard = (props: IPostCard) => {
   }
 
   const continueToRead = () => {
-    console.log('continue to read pid: ', props.postId)
+    console.log('continue to read pid: ', props._id)
   }
 
   return (
