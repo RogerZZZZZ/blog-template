@@ -4,3 +4,9 @@ export const LogCons = {
   LOGOUT: 'LOG_OUT',
   LOGFAIL: 'LOG_FAIL',
 }
+
+export const PostCons = {
+  POST_CREATE: 'POST_CREATE',
+  POST_SUCCESS: 'POST_SUCCESS',
+  POST_FAIL: 'POST_FAIL',
+}

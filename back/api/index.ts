@@ -6,7 +6,7 @@ import tag from './tag'
 const router = new Router()
 
 router.use('/auth', auth.routes())
-router.use('/blog', blog.routes())
+router.use('/post', blog.routes())
 router.use('/tag', tag.routes())
 
 export default router

@@ -31,6 +31,11 @@ const tag = {
   fetchAll: optFactory('GET', 'tag/fetchAll')
 }
 
+const post = {
+  create: optFactory('POST', 'post/create'),
+  delete: optFactory('GET', 'post/delete'),
+}
+
 const headerFactory = (url: string, method: string, data: any, token: string) => ({
   method,
   url,
@@ -48,6 +53,7 @@ function send<T>(opt: IOpt, data: any, token: string) {
 
 export default {
   auth,
+  post,
   tag,
   send,
 }

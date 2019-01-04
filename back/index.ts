@@ -32,7 +32,7 @@ import migrate from './migration';
   })
 
   const publicPaths = [/^\/api\/auth/]
-  const authorizedPath = [/^\/api\/blog/, /^\/api\/tag/]
+  const authorizedPath = [/^\/api\/post/, /^\/api\/tag/]
 
   app.use((ctx, next) => {
     const token = ctx.get('Authorization')

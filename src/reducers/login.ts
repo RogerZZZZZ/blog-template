@@ -8,10 +8,10 @@ import { ReducersUtils } from './utils';
 type LoginAction = ActionType<typeof actions>
 
 export interface ILoginState {
-  readonly token?: string,
-  login: boolean,
-  readonly logging?: boolean,
-  readonly message?: string,
+  readonly token?: string
+  login: boolean
+  readonly logging?: boolean
+  readonly message?: string
 }
 
 const reducersUtils: ReducersUtils<LoginAction, ILoginState> = new ReducersUtils()

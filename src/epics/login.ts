@@ -1,6 +1,6 @@
 import { ActionsObservable, Epic, ofType } from 'redux-observable';
 import { from, of } from 'rxjs';
-import { catchError, delay, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ActionType } from 'typesafe-actions';
 
 import * as actions from '@actions/login';
@@ -15,7 +15,6 @@ type Actions = ActionType<typeof actions>
 const loginEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable<Actions>) =>
   action$.pipe(
     ofType<Actions, LoginAction>(LogCons.LOGIN),
-    delay(2000),
     mergeMap((action: any) =>
       from(service.auth.login({
         username: action.payload.username,

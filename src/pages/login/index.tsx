@@ -1,3 +1,4 @@
+import { LogCons } from '@constants'
 import { IRouterProps } from '@interface'
 import { logState } from '@reducers/state'
 import * as React from 'react'
@@ -19,14 +20,14 @@ const LoginBox = ({ classes }: IRouterProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch() 
-  const { logging, token, message } = useMappedState(logState)
+  const { logging, message } = useMappedState(logState)
 
-  const loginAction = async (event: any) => {
+  const loginAction = () => {
     const payload = {
       username,
       password,
     }
-    dispatch({type: 'LOGIN', payload})
+    dispatch({type: LogCons.LOGIN, payload})
   }
 
   const showAlert = (msg: string | undefined) => {

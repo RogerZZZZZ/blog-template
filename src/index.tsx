@@ -5,15 +5,16 @@ import * as ReactDOM from 'react-dom';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import { persistReducer, persistStore } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react';
-import storage from 'redux-persist/lib/storage';
-import { StoreContext } from 'redux-react-hook';
-import { ActionType } from 'typesafe-actions';
+import { PersistGate } from 'redux-persist/integration/react'
+import storage from 'redux-persist/lib/storage'
+import { StoreContext } from 'redux-react-hook'
+import { ActionType } from 'typesafe-actions'
 
-import * as logActions from './actions/login';
-import App from './App';
-import epics from './epics';
-import reducers, { RootState } from './reducers';
+import * as logActions from '@actions/login'
+import * as postActions from '@actions/post'
+import App from './App'
+import { loginEpics, postEpics } from './epics'
+import reducers, { RootState } from './reducers'
 
 declare global {
   interface IWindow {
@@ -24,6 +25,9 @@ declare global {
 type LogActions = ActionType<typeof logActions>
 const logEpicMiddleware = createEpicMiddleware<LogActions, LogActions, RootState>()
 
+type PostActions = ActionType<typeof postActions>
+const postEpicMiddleware = createEpicMiddleware<PostActions, PostActions, RootState>()
+
 const persistConfig = {
   key: 'root',
   storage,
@@ -33,6 +37,7 @@ const persistConfig = {
 const configStore = (initState?: RootState) => {
   const middlewares = [
     logEpicMiddleware,
+    postEpicMiddleware,
   ]
 
   const enhancer = compose(
@@ -52,7 +57,8 @@ const configStore = (initState?: RootState) => {
 
 const { store, persistor } = configStore()
 
-logEpicMiddleware.run(epics)
+logEpicMiddleware.run(loginEpics)
+postEpicMiddleware.run(postEpics)
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>

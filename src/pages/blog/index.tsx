@@ -5,7 +5,10 @@ import injectSheet from 'react-jss';
 
 import MarkDownEditor from '@components/markdown'
 import TagPicker from '@components/tagpicker'
+import { PostCons } from '@constants'
 import { IRouterProps } from '@interface'
+import { tokenState } from '@reducers/state'
+import { useDispatch, useMappedState } from 'redux-react-hook'
 
 const { Header, Content} = Layout
 const { TextArea } = Input
@@ -15,12 +18,23 @@ const Blog = ({ classes }: IRouterProps) => {
   const [post, updatePost] = useState('')
   const [abstract, updateAbstract] = useState('')
   const [tags, updateTags] = useState<string[]>([])
+  const [title, updateTitle] = useState('')
+
+  const { token } = useMappedState(tokenState)
+
+  const dispatch = useDispatch()
 
   const submitAction = () => {
-    console.log('click')
-    console.log(post)
-    console.log(abstract)
-    console.log(tags)
+    const payload = {
+      post,
+      abstract,
+      tags,
+      title,
+      token,
+    }
+    console.log(payload)
+    dispatch({type: PostCons.POST_CREATE, payload})
+    console.log('aaaaaa')
   }
 
   return (
@@ -28,6 +42,10 @@ const Blog = ({ classes }: IRouterProps) => {
       <Header>Header</Header>
 
       <Content className={classes.container}>
+        <Layout className={classes.content}>
+          <Input value={title} onChange={(e) => updateTitle(e.target.value)}/>
+        </Layout>
+
         <Layout className={classes.content}>
           <div className={classes.editArea}>
             <TagPicker editable exposeFn={updateTags}/>
