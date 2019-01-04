@@ -20,5 +20,5 @@ export interface IPostCard extends IBasicProps {
 export interface ITag {
   name: string
   hex: string
-  tagId: string
+  _id: string
 }

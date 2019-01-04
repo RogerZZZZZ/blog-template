@@ -24,8 +24,11 @@ router.get('/fetchAll', async (ctx) => {
 
 router.get('/uptPostsList', async (ctx) => {
   console.log('update posts list')
-  console.log(ctx.query)
-
+  const { postId, tags } = ctx.query
+  const tagList = tags.split(',')
+  tagList.map((tag: string) => {
+    console.log(tag)
+  })
   ctx.status = 200
   return ctx
 })

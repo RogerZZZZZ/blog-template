@@ -1,5 +1,4 @@
 import { Document, Model, model, Schema } from 'mongoose'
-import * as uuid from 'uuid'
 import { ITag } from './ITag'
 
 export interface ITagModel extends ITag, Document {
@@ -29,10 +28,6 @@ export const TagSchema: Schema = new Schema({
 
 TagSchema.pre<ITagModel>('save', function (next: any) {
   console.log('pre save tag')
-  if (!this.tagId) {
-    this.tagId = uuid()
-  }
-
   if (!this.createdAt) {
     this.createdAt = (new Date()).getTime()
   }

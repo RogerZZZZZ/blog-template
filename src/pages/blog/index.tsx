@@ -34,7 +34,6 @@ const Blog = ({ classes }: IRouterProps) => {
       token,
       pinned,
     }
-    console.log(payload)
     dispatch({type: PostCons.POST_CREATE, payload})
   }
 

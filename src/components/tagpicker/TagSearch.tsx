@@ -20,12 +20,12 @@ const initDataSource: ITag[] = []
 const TagSearch = ({ classes, tags, exposeFn }: IProps) => {
   const [dataSource, updateData] = useState(initDataSource)
   const { token } = useMappedState(tokenState)
-  const [selectedItems, itemChange] = useState(tags ? tags.map(tag => tag.tagId) : [])
+  const [selectedItems, itemChange] = useState(tags ? tags.map(tag => tag._id) : [])
 
   const renderOption = () => {
     return (
       dataSource.map(item =>
-        <Select.Option key={item.tagId}>
+        <Select.Option key={item._id}>
           <Tag color={item.hex}>{item.name}</Tag>
         </Select.Option>
       )
