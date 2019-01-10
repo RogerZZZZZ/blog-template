@@ -24,6 +24,13 @@ const ArticleList = ({ classes }: IRouterProps) => {
     fetchBlog()
   }, [])
 
+  const iconText = (type: string, text: string) => (
+    <span>
+      <Icon type={type} style={{ marginRight: 8}}/>
+      {text}
+    </span>
+  )
+
   const renderBlogList = (datas: IPostCard[]) => {
     return (
       fetching
@@ -40,6 +47,10 @@ const ArticleList = ({ classes }: IRouterProps) => {
           dataSource={datas}
           renderItem={(item: IPostCard) => (
             <List.Item
+              actions={[
+                iconText('edit', 'Edit'),
+                iconText('delete', 'Remove'),
+              ]}
               key={item._id}>
               <List.Item.Meta 
                 title={<a>{item.title}</a>}/>
