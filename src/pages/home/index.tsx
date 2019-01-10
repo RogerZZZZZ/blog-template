@@ -7,7 +7,7 @@ import * as React from 'react'
 import injectSheet from 'react-jss'
 import { useMappedState } from 'redux-react-hook'
 
-import { Layout, Skeleton} from 'antd'
+import { Layout, Skeleton } from 'antd'
 
 const { Header, Content} = Layout
 

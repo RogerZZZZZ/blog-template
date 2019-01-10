@@ -6,7 +6,7 @@
     "@ant-design/icons": "^1.1.15",
     "@ant-design/icons-react": "^1.1.2",
     "@koa/cors": "2",
-    "antd": "^3.10.9",
+    "antd": "3.10.9",
     "axios": "^0.18.0",
     "highlight.js": "^9.13.1",
     "jsonwebtoken": "^8.4.0",

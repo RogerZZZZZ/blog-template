@@ -32,6 +32,7 @@ const tag = {
 const post = {
   create: optFactory('POST', 'post/create'),
   fetchPinned: optFactory('GET', 'post/fetchPinned'),
+  fetchAll: optFactory('GET', 'post/fetchAll'),
   fetchByCategory: optFactory('GET', 'post/fetchByCategory'),
   fetchById: optFactory('GET', 'post/fetchById'),
   deleteById: optFactory('GET', 'post/deleteById'),

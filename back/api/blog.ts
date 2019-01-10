@@ -22,6 +22,13 @@ router.get('/fetchPinned', async (ctx) => {
   return ctx
 })
 
+router.get('/fetchAll', async (ctx) => {
+  const posts = await postModel.find({})
+  ctx.body = posts
+  ctx.status = 200
+  return ctx
+})
+
 router.get('/fetchByCategory', async (ctx) => {
   ctx.body = await postModel.find({
     categoryId: ctx.query.categoryId
