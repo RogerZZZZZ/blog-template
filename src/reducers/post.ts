@@ -37,4 +37,10 @@ export default reducersUtils.createReducers(defaultState, {
       message: payload.message,
     }
   },
+  [PostCons.DELETE_POST]: (state: IPostState, payload: any) => {
+    return {
+      ...state,
+      creating: false,
+    }
+  }
 })
