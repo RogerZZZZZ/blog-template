@@ -8,39 +8,48 @@ import { ReducersUtils } from './utils'
 type PostAction = ActionType<typeof actions>
 
 export interface IPostState {
-  readonly creating: boolean,
+  readonly doing: boolean,
+  readonly message: string,
 }
 
 const reducersUtils: ReducersUtils<PostAction, IPostState> = new ReducersUtils()
 
 export const defaultState: IPostState = {
-  creating: false,
+  doing: false,
+  message: '',
 }
 
 export default reducersUtils.createReducers(defaultState, {
   [PostCons.POST_CREATE]: (state: IPostState, payload: any) => {
     return {
       ...state,
-      creating: true,
+      doing: true,
     }
   },
   [PostCons.POST_SUCCESS]: (state: IPostState, payload: any) => {
     return {
       ...state,
-      creating: false,
+      doing: false,
     }
   },
   [PostCons.POST_FAIL]: (state: IPostState, payload: any) => {
     return {
       ...state,
-      creating: false,
+      doing: false,
       message: payload.message,
     }
   },
   [PostCons.DELETE_POST]: (state: IPostState, payload: any) => {
     return {
       ...state,
-      creating: false,
+      doing: true,
+    }
+  },
+  [PostCons.CLEAR_ACTION]: (state: IPostState, payload: any) => {
+    return {
+      ...state,
+      doing: false,
+      message: '',
     }
   }
 })

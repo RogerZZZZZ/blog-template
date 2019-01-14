@@ -14,3 +14,5 @@ export const postFailAction = createAction<string, any>(PostCons.POST_FAIL, reso
 export const deletePostAction = createAction<string, any>(PostCons.DELETE_POST, resolve => {
   return (payload: {id: string}) => resolve(payload)
 })
+
+export const clearAction = createAction<string, any>(PostCons.CLEAR_ACTION)

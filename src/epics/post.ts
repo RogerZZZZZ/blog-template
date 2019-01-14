@@ -1,6 +1,6 @@
 import { ActionsObservable, Epic, ofType } from 'redux-observable'
 import { from, of } from 'rxjs'
-import { catchError, concatMap, map } from 'rxjs/operators'
+import { catchError, concatMap, delay, map } from 'rxjs/operators'
 import { ActionType } from 'typesafe-actions'
 
 import * as actions from '@actions/post'

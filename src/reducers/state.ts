@@ -10,3 +10,8 @@ export const logState = (state: RootState) => ({
 export const tokenState = (state: RootState) => ({
   token: state.auth.token,
 })
+
+export const postState = (state: RootState) => ({
+  doing: state.post.doing,
+  message: state.post.message,
+})

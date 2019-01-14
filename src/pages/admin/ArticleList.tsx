@@ -1,8 +1,8 @@
 import { PostCons } from '@constants';
 import { IPostCard, IRouterProps } from '@interface'
-import { tokenState } from '@reducers/state'
+import { postState, tokenState } from '@reducers/state'
 import service from '@services';
-import { Button, Icon, Layout, List, message, Popconfirm, Skeleton, } from 'antd'
+import { Icon, List, message as Message, Popconfirm, Skeleton, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 import * as React from 'react'
 import injectSheet from 'react-jss'
@@ -15,6 +15,7 @@ const ArticleList = ({ classes }: IRouterProps) => {
   const dispatch = useDispatch()
 
   const { token } = useMappedState(tokenState)
+  const { doing, message } = useMappedState(postState)
 
   const fetchBlog = async () => {
     const blogs: IPostCard[] = await service.send<IPostCard[]>(service.post.fetchAll, null, token || '')
@@ -25,6 +26,13 @@ const ArticleList = ({ classes }: IRouterProps) => {
   useEffect(() => {
     fetchBlog()
   }, [])
+
+  useEffect(() => {
+    if (!!message) {
+      Message.error(message)
+    }
+    console.log('message change')
+  }, [message])
 
   const editFn = (id: string) => {
     console.log(id)
@@ -37,11 +45,11 @@ const ArticleList = ({ classes }: IRouterProps) => {
       token,
     }
     dispatch({type: PostCons.DELETE_POST, payload})
-    message.success('Successfully delete this article!')
+    Message.success('Successfully delete this article!')
   }
 
   const cancelAction = () => {
-    message.info('Cancel this action.')
+    Message.info('Cancel this action.')
   }
 
   const remvoeIcon = (id: string) => (
@@ -60,6 +68,12 @@ const ArticleList = ({ classes }: IRouterProps) => {
       <Icon type="edit" style={{ marginRight: 8 }} />
       Edit
     </span>
+  )
+
+  const loadingIcon = () => (
+    doing
+      ? <Spin />
+      : <span />
   )
 
   const renderBlogList = (datas: IPostCard[]) => {
@@ -81,6 +95,7 @@ const ArticleList = ({ classes }: IRouterProps) => {
               actions={[
                 editIcon(item._id),
                 remvoeIcon(item._id),
+                loadingIcon(),
               ]}
               key={item._id}>
               <List.Item.Meta

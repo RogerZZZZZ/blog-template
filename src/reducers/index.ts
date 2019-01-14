@@ -18,7 +18,7 @@ const authPersistConfig = {
 const postPersistConfig = {
   key: 'post',
   storage,
-  blacklist: ['creating', 'message'],
+  blacklist: ['doing', 'message'],
 }
 
 export default combineReducers({
