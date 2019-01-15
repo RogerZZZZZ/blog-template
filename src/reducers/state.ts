@@ -15,4 +15,5 @@ export const postState = (state: RootState) => ({
   doing: state.post.doing,
   deleteSuccess: state.post.deleteSuccess,
   message: state.post.message,
+  postSuccess: state.post.postSuccess,
 })

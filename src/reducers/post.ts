@@ -12,6 +12,7 @@ export interface IPostState {
   readonly doing: boolean,
   readonly deleteSuccess: boolean,
   readonly message: string,
+  readonly postSuccess: boolean,
 }
 
 const reducersUtils: ReducersUtils<PostAction, IPostState> = new ReducersUtils()
@@ -20,6 +21,7 @@ export const defaultState: IPostState = {
   doing: false,
   deleteSuccess: false,
   message: '',
+  postSuccess: false,
 }
 
 export default reducersUtils.createReducers(defaultState, {
@@ -27,12 +29,14 @@ export default reducersUtils.createReducers(defaultState, {
     return {
       ...state,
       doing: true,
+      postSuccess: false,
     }
   },
   [PostCons.POST_SUCCESS]: (state: IPostState, payload: any) => {
     return {
       ...state,
       doing: false,
+      postSuccess: true,
     }
   },
   [PostCons.POST_FAIL]: (state: IPostState, payload: any) => {
@@ -40,6 +44,7 @@ export default reducersUtils.createReducers(defaultState, {
       ...state,
       doing: false,
       message: payload.message,
+      postSuccess: false,
     }
   },
   [PostCons.DELETE_POST]: (state: IPostState, payload: any) => {
@@ -62,6 +67,7 @@ export default reducersUtils.createReducers(defaultState, {
       doing: false,
       message: '',
       deleteSuccess: false,
+      postSuccess: false,
     }
   }
 })

@@ -24,6 +24,7 @@ const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable
                 abstract: action.payload.abstract,
                 tags: action.payload.tags,
                 pinned: action.payload.pinned,
+                _id: action.payload.id,
         }, action.payload.token),
         token: action.payload.token
       })

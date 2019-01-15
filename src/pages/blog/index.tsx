@@ -7,14 +7,14 @@ import MarkDownEditor from '@components/markdown'
 import TagPicker from '@components/tagpicker'
 import { PostCons } from '@constants'
 import { IPostCard, IRouterProps } from '@interface'
-import { tokenState } from '@reducers/state'
+import { postState, tokenState } from '@reducers/state'
 import service from '@services';
 import { useDispatch, useMappedState } from 'redux-react-hook'
 
 const { Header, Content} = Layout
 const { TextArea } = Input
 
-const Blog = ({ classes, location }: IRouterProps) => {
+const Blog = ({ classes, history, location }: IRouterProps) => {
 
   const [post, updatePost] = useState('')
   const [abstract, updateAbstract] = useState('')
@@ -24,6 +24,7 @@ const Blog = ({ classes, location }: IRouterProps) => {
   const [editId, setEditId] = useState('')
 
   const { token } = useMappedState(tokenState)
+  const { postSuccess } = useMappedState(postState)
 
   const dispatch = useDispatch()
 
@@ -44,6 +45,13 @@ const Blog = ({ classes, location }: IRouterProps) => {
       }
     }
   }
+
+  useEffect(() => {
+    if (postSuccess) {
+      history.push('/admin')
+      dispatch({type: PostCons.CLEAR_ACTION})
+    }
+  }, [postSuccess])
 
   useEffect(() => {
     fetchBlog()

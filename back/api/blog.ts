@@ -4,10 +4,16 @@ import { postModel } from '../model'
 const router = new Router()
 
 router.post('/create', async (ctx) => {
-  console.log('create post')
+  console.log('createOrUpdate post')
   const data = ctx.request.body
-  const post = await postModel.create(data)
-  console.log(post)
+  let post
+  const _id = data._id
+  delete data._id
+  if (_id !== '') {
+    post = await postModel.findByIdAndUpdate(_id, data)
+  } else {
+    post = await postModel.create(data)
+  }
   ctx.body = post
   ctx.status = 200
   return ctx
