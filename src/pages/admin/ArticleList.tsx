@@ -11,11 +11,12 @@ import { useDispatch, useMappedState } from 'redux-react-hook'
 const ArticleList = ({ classes }: IRouterProps) => {
 
   const [blogs, setBlogs] = useState([] as IPostCard[])
+  const [curDlt, setCurDlt] = useState('')
   const [fetching, setFetching] = useState(true)
   const dispatch = useDispatch()
 
   const { token } = useMappedState(tokenState)
-  const { doing, message } = useMappedState(postState)
+  const { deleteSuccess, doing, message } = useMappedState(postState)
 
   const fetchBlog = async () => {
     const blogs: IPostCard[] = await service.send<IPostCard[]>(service.post.fetchAll, null, token || '')
@@ -28,10 +29,18 @@ const ArticleList = ({ classes }: IRouterProps) => {
   }, [])
 
   useEffect(() => {
+    if (deleteSuccess && curDlt !== '') {
+      setBlogs(blogs.filter(v => v._id !== curDlt))
+      Message.success('Successfully delete this article!')
+      setCurDlt('')
+      dispatch({type: PostCons.CLEAR_ACTION})
+    }
+  }, [deleteSuccess])
+
+  useEffect(() => {
     if (!!message) {
       Message.error(message)
     }
-    console.log('message change')
   }, [message])
 
   const editFn = (id: string) => {
@@ -39,13 +48,12 @@ const ArticleList = ({ classes }: IRouterProps) => {
   }
 
   const deleteFn = (id: string) => {
-    console.log(id)
+    setCurDlt(id)
     const payload = {
       id,
       token,
     }
     dispatch({type: PostCons.DELETE_POST, payload})
-    Message.success('Successfully delete this article!')
   }
 
   const cancelAction = () => {
@@ -70,8 +78,8 @@ const ArticleList = ({ classes }: IRouterProps) => {
     </span>
   )
 
-  const loadingIcon = () => (
-    doing
+  const loadingIcon = (id: string) => (
+    doing && curDlt === id 
       ? <Spin />
       : <span />
   )
@@ -95,7 +103,7 @@ const ArticleList = ({ classes }: IRouterProps) => {
               actions={[
                 editIcon(item._id),
                 remvoeIcon(item._id),
-                loadingIcon(),
+                loadingIcon(item._id),
               ]}
               key={item._id}>
               <List.Item.Meta

@@ -13,5 +13,6 @@ export const tokenState = (state: RootState) => ({
 
 export const postState = (state: RootState) => ({
   doing: state.post.doing,
+  deleteSuccess: state.post.deleteSuccess,
   message: state.post.message,
 })
