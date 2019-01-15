@@ -15,13 +15,13 @@ import {
   Input,
   Layout,
 } from 'antd'
-import { version } from 'react-dom';
 
 const { TextArea } = Input
 const { Content } = Layout
 
 interface IProps extends IBasicProps {
   exposeFn: (v: string) => void
+  value?: string
 }
 
 const md = new MarkDown({
@@ -48,7 +48,7 @@ const useMaxOffsetWidth = () => {
   return width - 600
 }
 
-const MarkDownEditor = ({ classes, exposeFn }: IProps) => {
+const MarkDownEditor = ({ classes, exposeFn, value }: IProps) => {
   const editorEle = useRef(null)
   const maxOffset = useMaxOffsetWidth()
   const [onMouseDown, leftX] = useEventCallback(
@@ -92,7 +92,7 @@ const MarkDownEditor = ({ classes, exposeFn }: IProps) => {
   return (
     <Content className={classes.container}>
       <div className={classes.content} ref={editorEle} style={leftStyle}>
-        <TextArea autosize={false} onChange={editingPost}/>
+        <TextArea autosize={false} onChange={editingPost} value={value}/>
       </div>
       
       <div className={classes.resizer} onMouseDown={onMouseDown}/>

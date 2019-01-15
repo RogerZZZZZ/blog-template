@@ -6,12 +6,12 @@ import {
   Tag,
 } from 'antd'
 import * as React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
 import { useMappedState } from 'redux-react-hook'
 
 interface IProps extends IBasicProps {
-  tags?: ITag[]
+  tags?: string[]
   exposeFn: (v: string[]) => void
 }
 
@@ -20,7 +20,7 @@ const initDataSource: ITag[] = []
 const TagSearch = ({ classes, tags, exposeFn }: IProps) => {
   const [dataSource, updateData] = useState(initDataSource)
   const { token } = useMappedState(tokenState)
-  const [selectedItems, itemChange] = useState(tags ? tags.map(tag => tag._id) : [])
+  const [selectedItems, itemChange] = useState(tags || [])
 
   const renderOption = () => {
     return (
@@ -32,16 +32,21 @@ const TagSearch = ({ classes, tags, exposeFn }: IProps) => {
     )
   }
 
+  useEffect(() => {
+    if (tags && tags.length > 0) {
+      fetchSelections()
+      itemChange(tags)
+    }
+  }, [tags])
+
   const onSelect = (val: string[]) => {
     itemChange(val)
     exposeFn(val)
   }
 
   const fetchSelections = async () => {
-    if (token) {
-      const tagResult = await service.send<ITag[]>(service.tag.fetchAll, null, token)
-      updateData(tagResult)
-    }
+    const tagResult = await service.send<ITag[]>(service.tag.fetchAll, null, token || '')
+    updateData(tagResult)
   }
 
   return (

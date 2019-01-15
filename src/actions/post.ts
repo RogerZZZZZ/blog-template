@@ -2,7 +2,7 @@ import { PostCons } from '@constants'
 import { createAction } from 'typesafe-actions'
 
 export const postAction = createAction<string, any>(PostCons.POST_CREATE, resolve => {
-  return (payload: {post: string, title: string, abstract: string, tags: string[]}) => resolve(payload)
+  return (payload: {post: string, title: string, abstract: string, tags: string[], editId: string}) => resolve(payload)
 })
 
 export const postSuccessAction = createAction<string, any>(PostCons.POST_SUCCESS)

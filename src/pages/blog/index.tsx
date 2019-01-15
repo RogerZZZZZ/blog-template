@@ -1,29 +1,53 @@
 import { Button, Input, Layout, Switch } from 'antd';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as React from 'react';
 import injectSheet from 'react-jss';
 
 import MarkDownEditor from '@components/markdown'
 import TagPicker from '@components/tagpicker'
 import { PostCons } from '@constants'
-import { IRouterProps } from '@interface'
+import { IPostCard, IRouterProps } from '@interface'
 import { tokenState } from '@reducers/state'
+import service from '@services';
 import { useDispatch, useMappedState } from 'redux-react-hook'
 
 const { Header, Content} = Layout
 const { TextArea } = Input
 
-const Blog = ({ classes }: IRouterProps) => {
+const Blog = ({ classes, location }: IRouterProps) => {
 
   const [post, updatePost] = useState('')
   const [abstract, updateAbstract] = useState('')
   const [tags, updateTags] = useState<string[]>([])
   const [title, updateTitle] = useState('')
   const [pinned, updatePinned] = useState(false)
+  const [editId, setEditId] = useState('')
 
   const { token } = useMappedState(tokenState)
 
   const dispatch = useDispatch()
+
+  const fetchBlog = async () => {
+    const query: string = location.search
+    if (query) {
+      const id = query.split('=')[1]
+      setEditId(id)
+      const data: IPostCard = await service.send<IPostCard>(service.post.fetchById, {
+        id,
+      }, token || '')
+      if (data) {
+        updatePost(data.post || '')
+        updateAbstract(data.abstract)
+        updateTags(data.tags || [])
+        updateTitle(data.title)
+        updatePinned(data.pinned)
+      }
+    }
+  }
+
+  useEffect(() => {
+    fetchBlog()
+  }, [])
 
   const submitAction = () => {
     const payload = {
@@ -33,6 +57,7 @@ const Blog = ({ classes }: IRouterProps) => {
       title,
       token,
       pinned,
+      id: editId,
     }
     dispatch({type: PostCons.POST_CREATE, payload})
   }
@@ -48,7 +73,7 @@ const Blog = ({ classes }: IRouterProps) => {
 
         <Layout className={classes.content}>
           <div className={classes.editArea}>
-            <TagPicker editable exposeFn={updateTags}/>
+            <TagPicker editable exposeFn={updateTags} tags={tags}/>
           </div>
         </Layout>
 
@@ -60,11 +85,11 @@ const Blog = ({ classes }: IRouterProps) => {
         </Layout>
 
         <Layout className={classes.content}>
-          <TextArea autosize={false} onChange={(e) => updateAbstract(e.target.value)}/>
+          <TextArea autosize={false} value={abstract} onChange={(e) => updateAbstract(e.target.value)}/>
         </Layout>
 
         <Layout className={classes.content}>
-          <MarkDownEditor exposeFn={updatePost}/>
+          <MarkDownEditor exposeFn={updatePost} value={post}/>
         </Layout>
 
         <Layout className={classes.content}>

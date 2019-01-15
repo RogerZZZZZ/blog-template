@@ -14,10 +14,10 @@ const { Content } = Layout
 interface IProps extends IBasicProps{
   editable: boolean
   exposeFn: (v: string[]) => void
-  tags?: ITag[]
+  tags?: string[]
 }
 
-const ColorPicker = ({ classes, tags, exposeFn }: IProps) => {
+const TagPicker = ({ classes, tags, exposeFn }: IProps) => {
 
   return (
     <Content className={classes.container}>
@@ -33,4 +33,4 @@ export default injectStyle({
     flexDirection: 'row',
     alignItems: 'center',
   },
-})(ColorPicker)
+})(TagPicker)

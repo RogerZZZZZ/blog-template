@@ -8,7 +8,7 @@ import * as React from 'react'
 import injectSheet from 'react-jss'
 import { useDispatch, useMappedState } from 'redux-react-hook'
 
-const ArticleList = ({ classes }: IRouterProps) => {
+const ArticleList = ({ classes, history }: IRouterProps) => {
 
   const [blogs, setBlogs] = useState([] as IPostCard[])
   const [curDlt, setCurDlt] = useState('')
@@ -44,7 +44,7 @@ const ArticleList = ({ classes }: IRouterProps) => {
   }, [message])
 
   const editFn = (id: string) => {
-    console.log(id)
+    history.push('/blog?id=' + id)
   }
 
   const deleteFn = (id: string) => {
@@ -60,7 +60,7 @@ const ArticleList = ({ classes }: IRouterProps) => {
     Message.info('Cancel this action.')
   }
 
-  const remvoeIcon = (id: string) => (
+  const removeIcon = (id: string) => (
     <Popconfirm title="Are you sure delete this post?"
       onConfirm={() => deleteFn(id)} onCancel={cancelAction}
       okText="Confirm" cancelText="Cancel">
@@ -102,7 +102,7 @@ const ArticleList = ({ classes }: IRouterProps) => {
             <List.Item
               actions={[
                 editIcon(item._id),
-                remvoeIcon(item._id),
+                removeIcon(item._id),
                 loadingIcon(item._id),
               ]}
               key={item._id}>
