@@ -2,7 +2,7 @@ import { PostCons } from '@constants';
 import { IPostCard, IRouterProps } from '@interface'
 import { postState, tokenState } from '@reducers/state'
 import service from '@services';
-import { Icon, List, message as Message, Popconfirm, Skeleton, Spin } from 'antd'
+import { Button, Icon, List, message as Message, Popconfirm, Skeleton, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 import * as React from 'react'
 import injectSheet from 'react-jss'
@@ -58,6 +58,10 @@ const ArticleList = ({ classes, history }: IRouterProps) => {
 
   const cancelAction = () => {
     Message.info('Cancel this action.')
+  }
+
+  const createPost = () => {
+    history.push('/blog')
   }
 
   const removeIcon = (id: string) => (
@@ -117,12 +121,21 @@ const ArticleList = ({ classes, history }: IRouterProps) => {
 
   return (
     <div>
-      <span>Post List</span>
+      <div className={classes.topBanner}>
+        <h2>Post List</h2>
+        <div>
+          <Button type="primary" icon="plus" onClick={createPost}>New Post</Button>
+        </div>
+      </div>
       {renderBlogList(blogs)}
     </div>
   )
 }
 
 export default injectSheet({
-
+  topBanner: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  }
 })(ArticleList)

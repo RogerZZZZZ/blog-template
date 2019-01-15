@@ -1,4 +1,4 @@
-import { Button, Input, Layout, Switch } from 'antd';
+import { Button, Input, Layout, message, Switch } from 'antd';
 import { useEffect, useState } from 'react'
 import * as React from 'react';
 import injectSheet from 'react-jss';
@@ -48,6 +48,7 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
 
   useEffect(() => {
     if (postSuccess) {
+      message.success('Create or Update post successfully!')
       history.push('/admin')
       dispatch({type: PostCons.CLEAR_ACTION})
     }
@@ -70,11 +71,19 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
     dispatch({type: PostCons.POST_CREATE, payload})
   }
 
+  const backAction = () => {
+    history.push('/admin')
+  }
+
   return (
     <Layout className={classes.blogBody}>
       <Header>Header</Header>
 
       <Content className={classes.container}>
+        <Layout className={classes.topBanner}>
+          <Button type="primary" icon="arrow-left" onClick={backAction}>Back</Button>
+        </Layout>
+
         <Layout className={classes.content}>
           <Input value={title} onChange={(e) => updateTitle(e.target.value)}/>
         </Layout>
@@ -125,6 +134,10 @@ export default injectSheet({
   },
   content: {
     margin: '24px',
+  },
+  topBanner: {
+    margin: '12px 24px 0 24px',
+    width: '100px',
   },
   editArea: {
     backgroundColor: '#fff',
