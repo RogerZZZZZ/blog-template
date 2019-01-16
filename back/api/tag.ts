@@ -1,5 +1,6 @@
 import * as Router from 'koa-router'
 import { tagModel } from '../model'
+import { tagIdOutofArticle } from './blog'
 
 const router = new Router()
 
@@ -28,6 +29,9 @@ export const addArticleId = (tagIds: string[], article: string) => {
   })
 }
 
+/**
+ * create new tag
+ */
 router.post('/create', async (ctx) => {
   console.log('create tag')
   const data = ctx.request.body
@@ -40,6 +44,9 @@ router.post('/create', async (ctx) => {
   return ctx
 })
 
+/**
+ * fetch all tags
+ */
 router.get('/fetchAll', async (ctx) => {
   console.log('fetch all tags')
   ctx.body = await tagModel.find({})
@@ -47,11 +54,25 @@ router.get('/fetchAll', async (ctx) => {
   return ctx
 })
 
+/**
+ * update tag article list
+ */
 router.get('/uptPostsList', async (ctx) => {
   const { postId, tags } = ctx.query
   const tagList = tags.split(',')
   console.log('update posts list', tagList)
   addArticleId(tagList, postId)
+  ctx.status = 200
+  return ctx
+})
+
+/**
+ * delete tag by id
+ */
+router.delete('/delete/:id', async (ctx) => {
+  const { id } = ctx.params
+  await tagModel.findByIdAndRemove(id)
+  tagIdOutofArticle(id)
   ctx.status = 200
   return ctx
 })
