@@ -1,5 +1,6 @@
 import * as Router from 'koa-router'
 import { postModel } from '../model'
+import { postIdOutTag } from './tag'
 
 const router = new Router()
 
@@ -10,7 +11,11 @@ router.post('/create', async (ctx) => {
   const _id = data._id
   delete data._id
   if (_id !== '') {
+    const old = await postModel.findById(_id)
     post = await postModel.findByIdAndUpdate(_id, data)
+    if (old) {
+      postIdOutTag(old.tags.filter(v => !data.tags.includes(v)), _id)
+    }
   } else {
     post = await postModel.create(data)
   }
@@ -50,8 +55,13 @@ router.get('/fetchById', async (ctx) => {
 })
 
 router.get('/deleteById', async (ctx) => {
+  const id: string = ctx.query.id
+  const post = await postModel.findById(id)
+  if (post && post.tags) {
+    postIdOutTag(post.tags, id)
+  }
   ctx.body = await postModel.remove({
-    _id: ctx.query.id
+    _id: id
   })
   ctx.status = 200
   return ctx

@@ -21,6 +21,7 @@ const TagSearch = ({ classes, tags, exposeFn }: IProps) => {
   const [dataSource, updateData] = useState(initDataSource)
   const { token } = useMappedState(tokenState)
   const [selectedItems, itemChange] = useState(tags || [])
+  const [flag, setFlag] = useState(true)
 
   const renderOption = () => {
     return (
@@ -33,15 +34,18 @@ const TagSearch = ({ classes, tags, exposeFn }: IProps) => {
   }
 
   useEffect(() => {
-    if (tags && tags.length > 0) {
+    if (tags && tags.length > 0 && flag) {
+      console.log('change')
       fetchSelections()
       itemChange(tags)
     }
   }, [tags])
 
   const onSelect = (val: string[]) => {
+    console.log('onselect', val)
     itemChange(val)
     exposeFn(val)
+    setFlag(false)
   }
 
   const fetchSelections = async () => {

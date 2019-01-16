@@ -3,7 +3,6 @@ import { IPost } from './IPost'
 
 export interface IPostModel extends IPost, Document {
   updatedAt: number;
-  postId: string;
 }
 
 export const PostSchema: Schema = new Schema({

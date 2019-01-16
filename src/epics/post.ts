@@ -26,13 +26,14 @@ const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable
                 pinned: action.payload.pinned,
                 _id: action.payload.id,
         }, action.payload.token),
-        token: action.payload.token
+        token: action.payload.token,
+        tags: action.payload.tags,
       })
     }),
     concatMap(async ({value}: any) => {
       return of(await service.send<any>(service.tag.uptPostsList, {
           postId: value.data._id,
-          tags: value.data.tags,
+          tags: value.tags,
         }, value.token))
     }),
     map((res: any) =>

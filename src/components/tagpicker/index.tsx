@@ -1,7 +1,6 @@
 import { IBasicProps, ITag } from '@interface'
 import * as React from 'react'
 import injectStyle from 'react-jss'
-import { useEventCallback } from 'rxjs-hooks'
 import TagAdd from './TagAdd'
 import TagSearch from './TagSearch'
 

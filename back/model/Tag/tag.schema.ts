@@ -14,9 +14,6 @@ export const TagSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  tagId: {
-    type: String,
-  },
   articles: {
     type: [String],
     default: [],
