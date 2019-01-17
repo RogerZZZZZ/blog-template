@@ -36,6 +36,7 @@ const post = {
   fetchByCategory: optFactory('GET', 'post/fetchByCategory'),
   fetchById: optFactory('GET', 'post/fetchById'),
   deleteById: optFactory('GET', 'post/deleteById'),
+  fetchByIds: optFactory('GET', 'post/fetchByIds'),
 }
 
 function send<T>(opt: IOpt, data: any, token: string) {

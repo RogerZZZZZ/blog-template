@@ -69,6 +69,17 @@ router.get('/fetchById', async (ctx) => {
   return ctx
 })
 
+router.get('/fetchByIds', async (ctx) => {
+  const ids = ctx.query.articles.split(',')
+  ctx.body = await postModel.find({
+    _id: {
+      $in: ids.map((el: string) => Types.ObjectId(el))
+    }
+  })
+  ctx.status = 200
+  return ctx
+})
+
 router.get('/deleteById', async (ctx) => {
   const id: string = ctx.query.id
   const post = await postModel.findById(id)

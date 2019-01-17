@@ -23,3 +23,7 @@ export interface ITag {
   hex: string
   _id: string
 }
+
+export interface ITagFull extends ITag {
+  articles: string[]
+}
