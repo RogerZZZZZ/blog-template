@@ -5,7 +5,7 @@ import { Divider, List, Tag } from 'antd';
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
-import { useDispatch, useMappedState } from 'redux-react-hook'
+import { useMappedState } from 'redux-react-hook'
 
 const TagList = ({ classes }: IRouterProps) => {
   const [tags, setTags] = useState([] as ITagFull[])
@@ -33,7 +33,8 @@ const TagList = ({ classes }: IRouterProps) => {
     tags.map((item: ITagFull) => {
       const articles = item.articles.filter(v => v !== 'undefined' && v !== '')
       return (
-        <Tag color={item.hex} key={item._id} onClick={() => fetchArticles(articles)}>
+        <Tag color={item.hex} key={item._id} 
+            onClick={() => fetchArticles(articles)}>
           {item.name + `(${articles.length})`}
         </Tag>
       )
