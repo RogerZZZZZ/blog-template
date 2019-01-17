@@ -73,7 +73,8 @@ router.get('/fetchByIds', async (ctx) => {
   const ids = ctx.query.articles.split(',')
   ctx.body = await postModel.find({
     _id: {
-      $in: ids.map((el: string) => Types.ObjectId(el))
+      $in: ids.filter((v: string) => v !== '')
+            .map((el: string) => Types.ObjectId(el))
     }
   })
   ctx.status = 200

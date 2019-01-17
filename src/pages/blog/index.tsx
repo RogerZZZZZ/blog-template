@@ -36,7 +36,6 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
       const data: IPostCard = await service.send<IPostCard>(service.post.fetchById, {
         id,
       }, token || '')
-      console.log('adsa', data)
       if (data) {
         updatePost(data.post || '')
         updateAbstract(data.abstract)

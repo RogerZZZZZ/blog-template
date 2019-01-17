@@ -1,7 +1,7 @@
 import { IPostCard, IRouterProps, ITagFull } from '@interface'
 import { tokenState } from '@reducers//state';
 import services from '@services';
-import { List, Tag } from 'antd';
+import { Divider, List, Tag } from 'antd';
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
@@ -32,7 +32,6 @@ const TagList = ({ classes }: IRouterProps) => {
   const renderTags = () => (
     tags.map((item: ITagFull) => {
       const articles = item.articles.filter(v => v !== 'undefined' && v !== '')
-      console.log(articles)
       return (
         <Tag color={item.hex} key={item._id} onClick={() => fetchArticles(articles)}>
           {item.name + `(${articles.length})`}
@@ -47,6 +46,22 @@ const TagList = ({ classes }: IRouterProps) => {
         <h2>Tag List</h2>
       </div>
       {renderTags()}
+
+      <Divider orientation="left">Article List</Divider>
+
+      <List
+        itemLayout="vertical"
+        pagination={{
+          pageSize: 10,
+        }}
+        dataSource={articles}
+        renderItem={(item:IPostCard) => (
+          <List.Item key={item._id}>
+            <List.Item.Meta title={item.title}/>
+            {item.abstract}
+          </List.Item>
+        )}
+      />
     </div>
   )
 }
