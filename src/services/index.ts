@@ -26,6 +26,7 @@ const auth = {
 const tag = {
   create: optFactory('POST', 'tag/create'),
   fetchAll: optFactory('GET', 'tag/fetchAll'),
+  updateTag: optFactory('POST', 'tag/update'),
   uptPostsList: optFactory('GET', 'tag/uptPostsList'),
 }
 

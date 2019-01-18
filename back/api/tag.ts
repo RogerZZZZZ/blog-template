@@ -66,6 +66,15 @@ router.get('/uptPostsList', async (ctx) => {
   return ctx
 })
 
+router.post('/update', async (ctx) => {
+  const data = ctx.request.body
+  const id = data._id
+  delete data._id
+  ctx.body = await tagModel.findOneAndUpdate(id, data)
+  ctx.status = 200
+  return ctx
+})
+
 /**
  * delete tag by id
  */
