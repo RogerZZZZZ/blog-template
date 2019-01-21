@@ -27,3 +27,9 @@ export interface ITag {
 export interface ITagFull extends ITag {
   articles: string[]
 }
+
+export interface ICategory {
+  name: string
+  _id: string
+  articles: string[]
+}

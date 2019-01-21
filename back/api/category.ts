@@ -30,3 +30,5 @@ router.get('/fetchAll', async (ctx) => {
   ctx.status = 200
   return ctx
 })
+
+export default router

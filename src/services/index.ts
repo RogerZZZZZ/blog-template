@@ -40,6 +40,14 @@ const post = {
   fetchByIds: optFactory('GET', 'post/fetchByIds'),
 }
 
+const category = {
+  create: optFactory('POST', 'category/create'),
+  fetchAll: optFactory('GET', 'category/fetchAll'),
+  fetchById: optFactory('GET', 'category/fetchById'),
+  deleteById: optFactory('DELETE', 'category/deleteById'),
+  uptCategory: optFactory('POST', 'category/update'),
+}
+
 function send<T>(opt: IOpt, data: any, token: string) {
   return axios(headerFactory(opt.url, opt.method, data, token))
     .then((r: AxiosResponse<T>) => r.data)
@@ -47,6 +55,7 @@ function send<T>(opt: IOpt, data: any, token: string) {
 
 export default {
   auth,
+  category,
   post,
   tag,
   send,
