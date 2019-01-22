@@ -1,6 +1,7 @@
 import * as Router from 'koa-router'
 import { Types } from 'mongoose'
 import { categoryModel } from '../model'
+import { removeArticlesCategory } from './blog'
 
 const router = new Router()
 
@@ -27,6 +28,17 @@ router.post('/update', async (ctx) => {
 router.get('/fetchAll', async (ctx) => {
   console.log('fetchAll category')
   ctx.body = await categoryModel.find({})
+  ctx.status = 200
+  return ctx
+})
+
+router.get('/deleteById', async (ctx) => {
+  console.log('delete category by id')
+  const { id, articles } = ctx.query
+  removeArticlesCategory(articles)
+  ctx.body = await categoryModel.remove({
+    _id: id,
+  })
   ctx.status = 200
   return ctx
 })

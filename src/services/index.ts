@@ -44,7 +44,7 @@ const category = {
   create: optFactory('POST', 'category/create'),
   fetchAll: optFactory('GET', 'category/fetchAll'),
   fetchById: optFactory('GET', 'category/fetchById'),
-  deleteById: optFactory('DELETE', 'category/deleteById'),
+  deleteById: optFactory('GET', 'category/deleteById'),
   uptCategory: optFactory('POST', 'category/update'),
 }
 

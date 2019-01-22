@@ -19,6 +19,16 @@ export const tagIdOutofArticle = async (tagId: string) => {
   }
 }
 
+export const removeArticlesCategory = async (ids: string[]) => {
+  if (ids && ids.length > 0) {
+    ids.map(async (id: string) => {
+      await postModel.findOneAndUpdate(id, {
+        category: '',
+      })
+    })
+  }
+}
+
 router.post('/create', async (ctx) => {
   console.log('createOrUpdate post')
   const data = ctx.request.body

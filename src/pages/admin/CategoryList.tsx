@@ -1,7 +1,18 @@
-import { ICategory, IRouterProps } from '@interface'
+import { ICategory, IPostCard, IRouterProps } from '@interface'
 import { tokenState } from '@reducers/state'
 import service from '@services'
-import { Button, Divider, Icon, Input, List, message as Message, Modal, Popconfirm, Skeleton } from 'antd'
+import {
+  Button,
+  Divider,
+  Icon,
+  Input,
+  List,
+  message as Message,
+  Modal,
+  Popconfirm,
+  Skeleton,
+  Tag,
+} from 'antd'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
@@ -9,8 +20,10 @@ import { useDispatch, useMappedState } from 'redux-react-hook'
 
 const CategoryList = ({ classes, history }: IRouterProps) => {
   const [category, setCategory] = useState([] as ICategory[])
+  const [articles, setArticles] = useState([] as IPostCard[])
   const [name, setName] = useState('')
   const [curChoose, setCurChoose] = useState('')
+  const [curName, setCurName] = useState('')
   const [newVisible, setNewVisible] = useState(false)
   const [fetching, setFetching] = useState(true)
   const dispatch = useDispatch()
@@ -23,17 +36,26 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
     setFetching(false)
   }
 
+  const fetchArticles = async (category: ICategory) => {
+    const ids: string[] = category.articles
+    setCurChoose(category._id)
+
+    const posts: IPostCard[] = await service.send<IPostCard[]>(service.post.fetchByIds, {
+      articles: ids.filter(v => v !== 'undefined' && v !== ''),
+    }, token || '')
+    setArticles(posts)
+  }
+
   useEffect(() => {
     fetchCategory()
   }, [])
 
-  const deleteFn = (id: string) => {
-    setCurChoose(id)
-    const payload = {
-      id,
-      token,
-    }
-    // dispatch({type: PostCons.DELETE_POST, payload})
+  const deleteFn = async () => {
+    const category: ICategory = await service.send<ICategory>(service.category.deleteById, {
+      id: curChoose,
+      articles: articles.map(el => el._id),
+    }, token || '')
+    console.log(category)
   }
 
   const cancelAction = () => {
@@ -44,28 +66,56 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
     history.push('/blog?id=' + id)
   }
 
-  const removeIcon = (id: string) => (
-    <Popconfirm title="Are you sure delete this post?"
-      onConfirm={() => deleteFn(id)} onCancel={cancelAction}
+  const editAction = async () => {
+    const category: ICategory = await service.send<ICategory>(service.category.uptCategory, {
+      _id: curChoose,
+      name: curName,
+    }, token || '')
+    if (category) {
+      window.location.reload()
+    }
+  }
+
+  const removeIcon = () => (
+    <Popconfirm title="Are you sure delete this category?"
+      onConfirm={() => deleteFn()} onCancel={cancelAction}
       okText="Confirm" cancelText="Cancel">
-      <span>
-        <Icon type="delete" style={{ marginRight: 8 }} />
-        Remove
-      </span>
+        <Button className={classes.editConfirmBtn} type="danger">Delete</Button>
     </Popconfirm>
   )
 
-  const editIcon = (id: string) => (
-    <span onClick={() => editFn(id)}>
-      <Icon type="edit" style={{ marginRight: 8 }} />
-      Edit
-    </span>
+  const renderTags = () => (
+    category.map((item: ICategory) => {
+      item.articles = item.articles.filter(v => v !== 'undefined' && v !== '')
+      return (
+        <Tag key={item._id} onClick={() => fetchArticles(item)}>
+          {item.name + `(${item.articles.length})`}
+        </Tag>
+      )
+    })
   )
 
-  const createCategory = () => {
-    console.log('create category')
-
+  const createCategory = async () => {
+    const data = await service.send(service.category.create, {
+      name
+    }, token || '')
+    if (data) {
+      closeModal()
+      fetchCategory()
+    }
   }
+
+  const renderEditArea = () => (
+    !!curChoose
+      ? (
+        <div className={classes.editArea}>
+          <Input className={classes.categoryNameInput} placeholder="Input category name" value={curName} onChange={(e) => setCurName(e.target.value)}/>
+
+          <Button className={classes.editConfirmBtn} onClick={editAction}>Edit</Button>
+          {removeIcon()}
+        </div>
+      ) : <div />
+  )
 
   const closeModal = () => setNewVisible(false)
 
@@ -74,18 +124,15 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
       fetching
         ? <Skeleton />
         : <List
-            itemLayout="verticle"
-            size="large"
+            itemLayout="vertical"
             pagination={{
-              onChange: (page) => {
-                console.log(page)
-              },
               pageSize: 10,
             }}
-            dataSource={category}
-            renderItem={(item: ICategory) => (
+            dataSource={articles}
+            renderItem={(item:IPostCard) => (
               <List.Item key={item._id}>
-                <List.Item.Meta title={item.name}/>
+                <List.Item.Meta title={item.title}/>
+                {item.abstract}
               </List.Item>
             )}
           />
@@ -121,6 +168,13 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
         </div>
       </div>
 
+      <div className={classes.displayBanner}>
+        <div className={classes.tagList}>
+          {renderTags()}
+        </div>
+        {renderEditArea()}
+      </div>
+
       <Divider orientation="left">Articles List</Divider>
 
       {renderCategoryList()}
@@ -134,4 +188,28 @@ export default injectSheet({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  displayBanner: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  tagList: {
+    width: '50%',
+    minWidth: '500px',
+  },
+  editArea: {
+    width: '50%',
+    minWidth: '500px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyItems: 'center',
+    alignItems: 'center',
+  },
+  categoryNameInput: {
+    width: '200px',
+    marginBottom: '10px'
+  },
+  editConfirmBtn: {
+    marginTop: '10px',
+    width: '100px',
+  }
 })(CategoryList)

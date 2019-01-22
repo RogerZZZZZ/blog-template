@@ -53,11 +53,11 @@ const TagList = ({ classes }: IRouterProps) => {
   
   const renderTags = () => (
     tags.map((item: ITagFull) => {
-      const articles = item.articles.filter(v => v !== 'undefined' && v !== '')
+      item.articles = item.articles.filter(v => v !== 'undefined' && v !== '')
       return (
         <Tag color={item.hex} key={item._id} 
             onClick={() => fetchArticles(item)}>
-          {item.name + `(${articles.length})`}
+          {item.name + `(${item.articles.length})`}
         </Tag>
       )
     })
