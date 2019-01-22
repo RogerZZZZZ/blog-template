@@ -5,6 +5,15 @@ import { removeArticlesCategory } from './blog'
 
 const router = new Router()
 
+export const addArticleId = async (categoryId: string, articleId: string) => {
+  const category = await categoryModel.findById(categoryId)
+  const articles: string[] = (category && category.articles) || []
+  const set = new Set(articles.concat(articleId))
+  return await categoryModel.findOneAndUpdate(categoryId, {
+    articles: Array.from(set),
+  })
+}
+
 router.post('/create', async (ctx) => {
   console.log('create category')
   const data = ctx.request.body
@@ -39,6 +48,17 @@ router.get('/deleteById', async (ctx) => {
   ctx.body = await categoryModel.remove({
     _id: id,
   })
+  ctx.status = 200
+  return ctx
+})
+
+/**
+ * update tag article list
+ */
+router.get('/uptPostsList', async (ctx) => {
+  const { articleId, categoryId } = ctx.query
+  console.log('update posts list', categoryId)
+  ctx.body = addArticleId(categoryId, articleId)
   ctx.status = 200
   return ctx
 })

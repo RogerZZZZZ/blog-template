@@ -46,6 +46,7 @@ const category = {
   fetchById: optFactory('GET', 'category/fetchById'),
   deleteById: optFactory('GET', 'category/deleteById'),
   uptCategory: optFactory('POST', 'category/update'),
+  uptPostsList: optFactory('GET', 'category/uptPostsList'),
 }
 
 function send<T>(opt: IOpt, data: any, token: string) {

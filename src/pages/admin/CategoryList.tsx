@@ -4,19 +4,17 @@ import service from '@services'
 import {
   Button,
   Divider,
-  Icon,
   Input,
   List,
   message as Message,
   Modal,
   Popconfirm,
-  Skeleton,
   Tag,
 } from 'antd'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
-import { useDispatch, useMappedState } from 'redux-react-hook'
+import { useMappedState } from 'redux-react-hook'
 
 const CategoryList = ({ classes, history }: IRouterProps) => {
   const [category, setCategory] = useState([] as ICategory[])
@@ -25,20 +23,19 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
   const [curChoose, setCurChoose] = useState('')
   const [curName, setCurName] = useState('')
   const [newVisible, setNewVisible] = useState(false)
-  const [fetching, setFetching] = useState(true)
-  const dispatch = useDispatch()
 
   const { token } = useMappedState(tokenState)
 
   const fetchCategory = async () => {
     const categories: ICategory[] = await service.send<ICategory[]>(service.category.fetchAll, null, token || '')
     setCategory(categories)
-    setFetching(false)
   }
 
   const fetchArticles = async (category: ICategory) => {
     const ids: string[] = category.articles
+
     setCurChoose(category._id)
+    setCurName(category.name)
 
     const posts: IPostCard[] = await service.send<IPostCard[]>(service.post.fetchByIds, {
       articles: ids.filter(v => v !== 'undefined' && v !== ''),
@@ -55,7 +52,6 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
       id: curChoose,
       articles: articles.map(el => el._id),
     }, token || '')
-    console.log(category)
   }
 
   const cancelAction = () => {
@@ -121,21 +117,19 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
 
   const renderCategoryList = () => {
     return (
-      fetching
-        ? <Skeleton />
-        : <List
-            itemLayout="vertical"
-            pagination={{
-              pageSize: 10,
-            }}
-            dataSource={articles}
-            renderItem={(item:IPostCard) => (
-              <List.Item key={item._id}>
-                <List.Item.Meta title={item.title}/>
-                {item.abstract}
-              </List.Item>
-            )}
-          />
+      <List
+          itemLayout="vertical"
+          pagination={{
+            pageSize: 10,
+          }}
+          dataSource={articles}
+          renderItem={(item:IPostCard) => (
+            <List.Item key={item._id}>
+              <List.Item.Meta title={item.title}/>
+              {item.abstract}
+            </List.Item>
+          )}
+        />
     )
   }
 

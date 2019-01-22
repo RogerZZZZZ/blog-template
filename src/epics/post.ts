@@ -21,6 +21,7 @@ const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable
         data: await service.send<any>(service.post.create, {
                 title: action.payload.title,
                 post: action.payload.post,
+                categoryId: action.payload.categoryId,
                 abstract: action.payload.abstract,
                 tags: action.payload.tags,
                 pinned: action.payload.pinned,
@@ -31,10 +32,22 @@ const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable
       })
     }),
     concatMap(async ({value}: any) => {
-      return of(await service.send<any>(service.tag.uptPostsList, {
-          postId: value.data._id,
-          tags: value.tags,
-        }, value.token))
+      return of({
+        data: await service.send<any>(service.tag.uptPostsList, {
+              postId: value.data._id,
+              tags: value.tags,
+          }, value.token),
+        token: value.token,
+        categoryId: value.data.categoryId,
+        articleId: value.data._id,
+      })
+    }),
+    concatMap(async ({value}: any) => {
+      return of(await service.send<any>(service.category.uptPostsList, {
+            articleId: value.articleId,
+            categoryId: value.categoryId,
+        }, value.token)
+      )
     }),
     map((res: any) =>
       res

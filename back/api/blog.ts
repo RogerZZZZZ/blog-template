@@ -23,7 +23,7 @@ export const removeArticlesCategory = async (ids: string[]) => {
   if (ids && ids.length > 0) {
     ids.map(async (id: string) => {
       await postModel.findOneAndUpdate(id, {
-        category: '',
+        categoryId: '',
       })
     })
   }
@@ -81,6 +81,7 @@ router.get('/fetchById', async (ctx) => {
 
 router.get('/fetchByIds', async (ctx) => {
   const ids = ctx.query.articles.split(',')
+  console.log('articles: ', ids)
   ctx.body = await postModel.find({
     _id: {
       $in: ids.filter((v: string) => v !== '')

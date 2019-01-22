@@ -13,6 +13,7 @@ export interface IPostCard extends IBasicProps {
   title: string
   post?: string
   tags?: string[]
+  categoryId: string
   pinned: boolean
   _id: string
   updatedAt: number

@@ -1,4 +1,4 @@
-import { Button, Input, Layout, message, Switch } from 'antd';
+import { AutoComplete, Button, Input, Layout, message, Switch } from 'antd';
 import { useEffect, useState } from 'react'
 import * as React from 'react';
 import injectSheet from 'react-jss';
@@ -6,7 +6,7 @@ import injectSheet from 'react-jss';
 import MarkDownEditor from '@components/markdown'
 import TagPicker from '@components/tagpicker'
 import { PostCons } from '@constants'
-import { IPostCard, IRouterProps } from '@interface'
+import { ICategory, IPostCard, IRouterProps } from '@interface'
 import { postState, tokenState } from '@reducers/state'
 import service from '@services';
 import { useDispatch, useMappedState } from 'redux-react-hook'
@@ -14,14 +14,22 @@ import { useDispatch, useMappedState } from 'redux-react-hook'
 const { Header, Content} = Layout
 const { TextArea } = Input
 
+interface IDataSourceItem {
+  value: string
+  text: string
+}
+
 const Blog = ({ classes, history, location }: IRouterProps) => {
 
   const [post, updatePost] = useState('')
+  const [categoryId, updateCategory] = useState('')
   const [abstract, updateAbstract] = useState('')
   const [tags, updateTags] = useState<string[]>([])
   const [title, updateTitle] = useState('')
   const [pinned, updatePinned] = useState(false)
   const [editId, setEditId] = useState('')
+  const [categories, setCategories] = useState([] as ICategory[])
+  const [cateSearch, setCateSearch] = useState([] as IDataSourceItem[])
 
   const { token } = useMappedState(tokenState)
   const { postSuccess } = useMappedState(postState)
@@ -37,12 +45,30 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
         id,
       }, token || '')
       if (data) {
+        console.log(data)
         updatePost(data.post || '')
         updateAbstract(data.abstract)
         updateTags(data.tags || [])
         updateTitle(data.title)
         updatePinned(data.pinned)
+        updateCategory(data.categoryId)
       }
+    }
+  }
+
+  const searchTransformer = (raw: ICategory[]): IDataSourceItem[] => {
+    return raw.map(el => ({
+      value: el._id,
+      text: el.name,
+    }))
+  }
+
+  const fetchCategories = async () => {
+    const category: ICategory[] = await service.send<ICategory[]>(service.category.fetchAll, null, token || '')
+    console.log(category);
+    if (category) {
+      setCategories(category)
+      setCateSearch(searchTransformer(category))
     }
   }
 
@@ -56,12 +82,14 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
 
   useEffect(() => {
     fetchBlog()
+    fetchCategories()
   }, [])
 
   const submitAction = () => {
     const payload = {
       post,
       abstract,
+      categoryId,
       tags,
       title,
       token,
@@ -75,6 +103,11 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
     history.push('/admin')
   }
 
+  const onSearchCategory = (val: string) => {
+    const data: ICategory[] = categories.filter((el: ICategory) => el.name.indexOf(val) >= 0)
+    setCateSearch(searchTransformer(data))
+  }
+
   return (
     <Layout className={classes.blogBody}>
       <Header>Header</Header>
@@ -86,6 +119,15 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
 
         <Layout className={classes.content}>
           <Input value={title} onChange={(e) => updateTitle(e.target.value)}/>
+        </Layout>
+
+        <Layout className={classes.content}>
+          <AutoComplete 
+            dataSource={cateSearch}
+            onSelect={(val: string) => updateCategory(val)}
+            onSearch={onSearchCategory}
+            value={categoryId}
+            placeholder="category"/>
         </Layout>
 
         <Layout className={classes.content}>
