@@ -1,23 +1,31 @@
-import { AutoComplete, Button, Input, Layout, message, Switch } from 'antd';
+import { Button, Layout, message } from 'antd';
+import * as hljs from 'highlight.js'
+import * as MarkDown from 'markdown-it'
 import { useEffect, useState } from 'react'
 import * as React from 'react';
 import injectSheet from 'react-jss';
 
-import MarkDownEditor from '@components/markdown'
-import TagPicker from '@components/tagpicker'
 import { PostCons } from '@constants'
 import { ICategory, IPostCard, IRouterProps } from '@interface'
 import { postState, tokenState } from '@reducers/state'
 import service from '@services';
 import { useDispatch, useMappedState } from 'redux-react-hook'
 
-const { Header, Content} = Layout
-const { TextArea } = Input
+import 'highlight.js/styles/github.css'
 
-interface IDataSourceItem {
-  value: string
-  text: string
-}
+const md = new MarkDown({
+  html: true,
+  highlight: (str, lang) => {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(lang, str).value;
+      } catch (__) {console.log(__)}
+    }
+    return ''; // use external default escaping
+  }
+})
+
+const { Header, Content} = Layout
 
 const Blog = ({ classes, history, location }: IRouterProps) => {
 
@@ -27,9 +35,7 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
   const [tags, updateTags] = useState<string[]>([])
   const [title, updateTitle] = useState('')
   const [pinned, updatePinned] = useState(false)
-  const [editId, setEditId] = useState('')
-  const [categories, setCategories] = useState([] as ICategory[])
-  const [cateSearch, setCateSearch] = useState([] as IDataSourceItem[])
+  const [renderMarked, updateRenderMarked] = useState('')
 
   const { token } = useMappedState(tokenState)
   const { postSuccess } = useMappedState(postState)
@@ -40,7 +46,6 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
     const query: string = location.search
     if (query) {
       const id = query.split('=')[1]
-      setEditId(id)
       const data: IPostCard = await service.send<IPostCard>(service.post.fetchById, {
         id,
       }, token || '')
@@ -52,23 +57,9 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
         updateTitle(data.title)
         updatePinned(data.pinned)
         updateCategory(data.categoryId)
+
+        updateRenderMarked(md.render(data.post || ''))
       }
-    }
-  }
-
-  const searchTransformer = (raw: ICategory[]): IDataSourceItem[] => {
-    return raw.map(el => ({
-      value: el._id,
-      text: el.name,
-    }))
-  }
-
-  const fetchCategories = async () => {
-    const category: ICategory[] = await service.send<ICategory[]>(service.category.fetchAll, null, token || '')
-    console.log(category);
-    if (category) {
-      setCategories(category)
-      setCateSearch(searchTransformer(category))
     }
   }
 
@@ -82,78 +73,22 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
 
   useEffect(() => {
     fetchBlog()
-    fetchCategories()
   }, [])
-
-  const submitAction = () => {
-    const payload = {
-      post,
-      abstract,
-      categoryId,
-      tags,
-      title,
-      token,
-      pinned,
-      id: editId,
-    }
-    dispatch({type: PostCons.POST_CREATE, payload})
-  }
-
-  const backAction = () => {
-    history.push('/admin')
-  }
-
-  const onSearchCategory = (val: string) => {
-    const data: ICategory[] = categories.filter((el: ICategory) => el.name.indexOf(val) >= 0)
-    setCateSearch(searchTransformer(data))
-  }
 
   return (
     <Layout className={classes.blogBody}>
       <Header>Header</Header>
 
-      <Content className={classes.container}>
-        <Layout className={classes.topBanner}>
-          <Button type="primary" icon="arrow-left" onClick={backAction}>Back</Button>
-        </Layout>
-
-        <Layout className={classes.content}>
-          <Input value={title} onChange={(e) => updateTitle(e.target.value)}/>
-        </Layout>
-
-        <Layout className={classes.content}>
-          <AutoComplete 
-            dataSource={cateSearch}
-            onSelect={(val: string) => updateCategory(val)}
-            onSearch={onSearchCategory}
-            value={categoryId}
-            placeholder="category"/>
-        </Layout>
-
-        <Layout className={classes.content}>
-          <div className={classes.editArea}>
-            <TagPicker editable exposeFn={updateTags} tags={tags}/>
+      <Content>
+        <div className={classes.container}>
+          <div className={classes.entryBox}>
+            <h1 className={classes.entryHeader}>{title}</h1>
           </div>
-        </Layout>
 
-        <Layout className={classes.content}>
-          <div className={classes.editArea}>
-            <Switch checkedChildren="Pinned" unCheckedChildren="Unpinned"
-              checked={pinned} onChange={updatePinned}/>
+          <div className={classes.postBox}>
+            <div dangerouslySetInnerHTML={{__html: renderMarked}}/>
           </div>
-        </Layout>
-
-        <Layout className={classes.content}>
-          <TextArea autosize={false} value={abstract} onChange={(e) => updateAbstract(e.target.value)}/>
-        </Layout>
-
-        <Layout className={classes.content}>
-          <MarkDownEditor exposeFn={updatePost} value={post}/>
-        </Layout>
-
-        <Layout className={classes.content}>
-          <Button onClick={submitAction} type="primary">Submit</Button>
-        </Layout>
+        </div>
       </Content>
     </Layout>
   )
@@ -162,26 +97,29 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
 export default injectSheet({
   blogBody: {
     width: '100%',
-    height: 'auto',
+    minHeight: '100vh',
+    height: '100%',
     margin: 0,
     padding: 0,
     backgroundColor: '#e8e8e8',
   },
   container: {
-    display: 'flex',
-    height: '100%',
-    margin: '24px 50px',
-    flexDirection: 'column',
-    backgroundColor: '#fff',
+    width: '1000px',
+    margin: '24px auto',
   },
-  content: {
-    margin: '24px',
+  entryBox: {
+    textAlign: 'center',
+    margin: '24px auto'    
   },
-  topBanner: {
-    margin: '12px 24px 0 24px',
-    width: '100px',
+  entryHeader: {
+    color: '#555',
+    fontSize: '3.75rem',
+    fontWeight: 400,
   },
-  editArea: {
+  postBox: {
+    padding: '50px 60px',
+    maxWidth: '675px',
+    margin: '24px auto',
     backgroundColor: '#fff',
   }
 })(Blog)

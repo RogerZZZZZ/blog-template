@@ -44,7 +44,7 @@ const ArticleList = ({ classes, history }: IRouterProps) => {
   }, [message])
 
   const editFn = (id: string) => {
-    history.push('/blog?id=' + id)
+    history.push('/new?id=' + id)
   }
 
   const deleteFn = (id: string) => {
@@ -61,7 +61,7 @@ const ArticleList = ({ classes, history }: IRouterProps) => {
   }
 
   const createPost = () => {
-    history.push('/blog')
+    history.push('/new')
   }
 
   const removeIcon = (id: string) => (
