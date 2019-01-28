@@ -1,5 +1,5 @@
 import * as Router from 'koa-router'
-import { tagModel } from '../model'
+import { tagModel } from '../../model'
 import { tagIdOutofArticle } from './blog'
 
 const router = new Router()
@@ -40,16 +40,6 @@ router.post('/create', async (ctx) => {
   ctx.body = {
     tag
   }
-  ctx.status = 200
-  return ctx
-})
-
-/**
- * fetch all tags
- */
-router.get('/fetchAll', async (ctx) => {
-  console.log('fetch all tags')
-  ctx.body = await tagModel.find({})
   ctx.status = 200
   return ctx
 })

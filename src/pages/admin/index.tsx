@@ -1,7 +1,9 @@
 import { IRouterProps } from '@interface'
+import { tokenState } from '@reducers/state'
+import service from '@services'
 import { Icon, Layout, Menu } from 'antd'
 import * as React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
 import { Link, Route, Switch } from 'react-router-dom'
 import { useMappedState } from 'redux-react-hook'
@@ -15,6 +17,16 @@ const { Header, Content, Sider } = Layout
 const AdminPage = ({ classes }: IRouterProps) => {
   const pathName = window.location.pathname.split('/')
   const [menuKey, setMenuKey] = useState(pathName[pathName.length - 1])
+
+  const { token } = useMappedState(tokenState)
+
+  useEffect(() => {
+    healthCheck()
+  }, [])
+
+  const healthCheck = async () => {
+    await service.send(service.health.admin, null, token || ''); 
+  }
 
   return (
     <Layout className={classes.container}>

@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken';
 import * as Router from 'koa-router';
 import * as passwordHash from 'password-hash';
 
-import { userModel } from '../model';
+import { userModel } from '../../model';
 
 const router = new Router()
 

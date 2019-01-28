@@ -31,13 +31,14 @@ import migrate from './migration';
     })
   })
 
-  const publicPaths = [/^\/api\/auth/]
-  const authorizedPath = [/^\/api\/post/, /^\/api\/tag/]
+  const publicPaths = [/^\/api\/external/]
+  const authorizedPath = [/^\/api\/internal/]
 
   app.use((ctx, next) => {
     const token = ctx.get('Authorization')
     if (!publicPaths.find(v => !!v.exec(ctx.path))
       && authorizedPath.find(v => !!v.exec(ctx.path))) {
+        console.log('verify')
       jwt.verify(token, 'secretKey', (err, decode) => {
         if (err) {
           console.log(err)

@@ -20,33 +20,40 @@ interface IOpt {
 }
 
 const auth = {
-  login: (obj: any) => axios.post('auth/login', obj).then(r => r),
+  login: (obj: any) => axios.post('external/auth/login', obj).then(r => r),
 }
 
 const tag = {
-  create: optFactory('POST', 'tag/create'),
-  fetchAll: optFactory('GET', 'tag/fetchAll'),
-  updateTag: optFactory('POST', 'tag/update'),
-  uptPostsList: optFactory('GET', 'tag/uptPostsList'),
+  fetchAll: optFactory('GET', 'external/tag/fetchAll'),
+
+  create: optFactory('POST', 'internal/tag/create'),
+  updateTag: optFactory('POST', 'internal/internal/tag/update'),
+  uptPostsList: optFactory('GET', 'internal/tag/uptPostsList'),
 }
 
 const post = {
-  create: optFactory('POST', 'post/create'),
-  fetchPinned: optFactory('GET', 'post/fetchPinned'),
-  fetchAll: optFactory('GET', 'post/fetchAll'),
-  fetchByCategory: optFactory('GET', 'post/fetchByCategory'),
-  fetchById: optFactory('GET', 'post/fetchById'),
-  deleteById: optFactory('GET', 'post/deleteById'),
-  fetchByIds: optFactory('GET', 'post/fetchByIds'),
+  fetchPinned: optFactory('GET', 'external/post/fetchPinned'),
+  fetchAll: optFactory('GET', 'external/post/fetchAll'),
+  fetchByCategory: optFactory('GET', 'external/post/fetchByCategory'),
+  fetchById: optFactory('GET', 'external/post/fetchById'),
+
+  create: optFactory('POST', 'internal/post/create'),
+  deleteById: optFactory('GET', 'internal/post/deleteById'),
+  fetchByIds: optFactory('GET', 'external/post/fetchByIds'),
 }
 
 const category = {
-  create: optFactory('POST', 'category/create'),
-  fetchAll: optFactory('GET', 'category/fetchAll'),
-  fetchById: optFactory('GET', 'category/fetchById'),
-  deleteById: optFactory('GET', 'category/deleteById'),
-  uptCategory: optFactory('POST', 'category/update'),
-  uptPostsList: optFactory('GET', 'category/uptPostsList'),
+  fetchAll: optFactory('GET', 'external/category/fetchAll'),
+  fetchById: optFactory('GET', 'external/category/fetchById'),
+
+  create: optFactory('POST', 'internal/category/create'),
+  deleteById: optFactory('GET', 'internal/category/deleteById'),
+  uptCategory: optFactory('POST', 'internal/category/update'),
+  uptPostsList: optFactory('GET', 'internal/category/uptPostsList'),
+}
+
+const health = {
+  admin: optFactory('GET', 'internal/health/admin'),
 }
 
 function send<T>(opt: IOpt, data: any, token: string) {
@@ -60,4 +67,5 @@ export default {
   post,
   tag,
   send,
+  health,
 }

@@ -1,4 +1,4 @@
-import { Button, Layout, message } from 'antd';
+import { BackTop, Button, Layout, message } from 'antd';
 import * as hljs from 'highlight.js'
 import * as MarkDown from 'markdown-it'
 import { useEffect, useState } from 'react'
@@ -90,6 +90,8 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
           </div>
         </div>
       </Content>
+
+      <BackTop />
     </Layout>
   )
 }
