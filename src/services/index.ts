@@ -25,6 +25,7 @@ const auth = {
 
 const tag = {
   fetchAll: optFactory('GET', 'external/tag/fetchAll'),
+  fetchByIds: optFactory('GET', 'external/tag/fetchByIds'),
 
   create: optFactory('POST', 'internal/tag/create'),
   updateTag: optFactory('POST', 'internal/internal/tag/update'),

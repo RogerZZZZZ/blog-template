@@ -1,4 +1,4 @@
-import { IPostCard, IRouterProps, ITag, ITagFull } from '@interface'
+import { IPostCard, IRouterProps, ITagFull } from '@interface'
 import { tokenState } from '@reducers//state';
 import services from '@services';
 import { Button, Divider, Input, List, Tag } from 'antd';

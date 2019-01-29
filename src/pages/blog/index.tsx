@@ -1,15 +1,14 @@
-import { BackTop, Button, Layout, message } from 'antd';
+import { BackTop, Button, Layout, Tag } from 'antd';
 import * as hljs from 'highlight.js'
 import * as MarkDown from 'markdown-it'
 import { useEffect, useState } from 'react'
 import * as React from 'react';
 import injectSheet from 'react-jss';
 
-import { PostCons } from '@constants'
-import { ICategory, IPostCard, IRouterProps } from '@interface'
+import { ICategory, IPostCard, IRouterProps, ITag } from '@interface'
 import { postState, tokenState } from '@reducers/state'
 import service from '@services';
-import { useDispatch, useMappedState } from 'redux-react-hook'
+import { useMappedState } from 'redux-react-hook'
 
 import 'highlight.js/styles/github.css'
 
@@ -29,18 +28,16 @@ const { Header, Content} = Layout
 
 const Blog = ({ classes, history, location }: IRouterProps) => {
 
-  const [post, updatePost] = useState('')
   const [categoryId, updateCategory] = useState('')
+  const [category, setCategory] = useState({} as ICategory)
   const [abstract, updateAbstract] = useState('')
-  const [tags, updateTags] = useState<string[]>([])
+  const [tagIds, updateTagIds] = useState<string[]>([])
+  const [tags, setTags] = useState<ITag[]>([])
   const [title, updateTitle] = useState('')
   const [pinned, updatePinned] = useState(false)
   const [renderMarked, updateRenderMarked] = useState('')
 
   const { token } = useMappedState(tokenState)
-  const { postSuccess } = useMappedState(postState)
-
-  const dispatch = useDispatch()
 
   const fetchBlog = async () => {
     const query: string = location.search
@@ -51,9 +48,8 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
       }, token || '')
       if (data) {
         console.log(data)
-        updatePost(data.post || '')
         updateAbstract(data.abstract)
-        updateTags(data.tags || [])
+        updateTagIds(data.tags || [])
         updateTitle(data.title)
         updatePinned(data.pinned)
         updateCategory(data.categoryId)
@@ -63,17 +59,48 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
     }
   }
 
-  useEffect(() => {
-    if (postSuccess) {
-      message.success('Create or Update post successfully!')
-      history.push('/admin')
-      dispatch({type: PostCons.CLEAR_ACTION})
+  const fetchTags = async (ids: string[]) => {
+    if (ids.length > 0) {
+      service.send<ITag[]>(service.tag.fetchByIds, {
+        ids,
+      }, token || '').then((data: ITag[]) => {
+        setTags(data)
+      })
     }
-  }, [postSuccess])
+  }
+
+  const fetchCategory = async (id: string) => {
+    service.send<ICategory>(service.category.fetchById, {
+      id,
+    }, token || '').then((data: ICategory) => {
+      setCategory(data)
+    })
+  }
 
   useEffect(() => {
     fetchBlog()
   }, [])
+
+  useEffect(() => {
+    fetchTags(tagIds)
+  }, [tagIds])
+
+  useEffect(() => {
+    fetchCategory(categoryId)
+  }, [categoryId])
+
+  const renderTags = () => (
+     tags.length > 0 ?
+      tags.map((item: ITag) => (
+        <Tag color={item.hex} key={item._id}>
+          {item.name}
+        </Tag>
+      ))
+      : <div />
+  )
+
+  // const renderCategory = () => {
+  // }
 
   return (
     <Layout className={classes.blogBody}>
@@ -86,6 +113,12 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
           </div>
 
           <div className={classes.postBox}>
+            <div className={classes.abstractBox}>
+              <div>
+                {renderTags()}
+              </div>
+            </div>
+            {abstract}
             <div dangerouslySetInnerHTML={{__html: renderMarked}}/>
           </div>
         </div>
@@ -123,5 +156,8 @@ export default injectSheet({
     maxWidth: '675px',
     margin: '24px auto',
     backgroundColor: '#fff',
+  },
+  abstractBox: {
+    marginBottom: '5px',
   }
 })(Blog)
