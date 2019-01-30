@@ -19,7 +19,7 @@ const Home = ({ classes }: IRouterProps) => {
   const [fetching, updateFetching] = useState(true)
 
   const fetchBlog = async () => {
-    const blogs: IPostCard[] = await services.send<IPostCard[]>(services.post.fetchPinned, null)
+    const blogs: IPostCard[] = await services.post.fetchPinned<IPostCard[]>(null)
     updatePinnedBlog(blogs)
     updateFetching(false)
   }

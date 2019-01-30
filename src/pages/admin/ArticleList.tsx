@@ -18,7 +18,7 @@ const ArticleList = ({ classes, history }: IRouterProps) => {
   const { deleteSuccess, doing, message } = useMappedState(postState)
 
   const fetchBlog = async () => {
-    const blogs: IPostCard[] = await service.send<IPostCard[]>(service.post.fetchAll, null)
+    const blogs: IPostCard[] = await service.post.fetchAll<IPostCard[]>(null)
     setBlogs(blogs)
     setFetching(false)
   }

@@ -46,7 +46,7 @@ const TagSearch = ({ classes, tags, exposeFn }: IProps) => {
   }
 
   const fetchSelections = async () => {
-    const tagResult = await service.send<ITag[]>(service.tag.fetchAll, null)
+    const tagResult = await service.tag.fetchAll<ITag[]>(null)
     updateData(tagResult)
   }
 

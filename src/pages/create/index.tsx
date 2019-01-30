@@ -40,11 +40,8 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
     if (query) {
       const id = query.split('=')[1]
       setEditId(id)
-      const data: IPostCard = await service.send<IPostCard>(service.post.fetchById, {
-        id,
-      })
+      const data: IPostCard = await service.post.fetchById<IPostCard>({id})
       if (data) {
-        console.log(data)
         updatePost(data.post || '')
         updateAbstract(data.abstract)
         updateTags(data.tags || [])
@@ -63,8 +60,7 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
   }
 
   const fetchCategories = async () => {
-    const category: ICategory[] = await service.send<ICategory[]>(service.category.fetchAll, null)
-    console.log(category);
+    const category: ICategory[] = await service.category.fetchAll<ICategory[]>(null)
     if (category) {
       setCategories(category)
       setCateSearch(searchTransformer(category))

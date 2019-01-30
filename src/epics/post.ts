@@ -18,7 +18,7 @@ const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable
     ofType<Actions, PostAction>(PostCons.POST_CREATE),
     concatMap(async (action: any) => {
       return of({
-        data: await service.send<any>(service.post.create, {
+        data: await service.post.create<any>({
                 title: action.payload.title,
                 post: action.payload.post,
                 categoryId: action.payload.categoryId,
@@ -32,7 +32,7 @@ const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable
     }),
     concatMap(async ({value}: any) => {
       return of({
-        data: await service.send<any>(service.tag.uptPostsList, {
+        data: await service.tag.uptPostsList<any>({
               postId: value.data._id,
               tags: value.tags,
           }),
@@ -41,7 +41,7 @@ const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable
       })
     }),
     concatMap(async ({value}: any) => {
-      return of(await service.send<any>(service.category.uptPostsList, {
+      return of(await service.category.uptPostsList<any>({
             articleId: value.articleId,
             categoryId: value.categoryId,
         })
@@ -60,7 +60,7 @@ const deleteEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservab
     ofType<Actions, DeleteAction>(PostCons.DELETE_POST),
     concatMap(async (action: any) => {
       return of({
-        data: await service.send<any>(service.post.deleteById, {
+        data: await service.post.deleteById<any>({
           id: action.payload.id,
         }),
       })

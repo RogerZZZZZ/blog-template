@@ -39,9 +39,7 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
     const query: string = location.search
     if (query) {
       const id = query.split('=')[1]
-      const data: IPostCard = await service.send<IPostCard>(service.post.fetchById, {
-        id,
-      })
+      const data: IPostCard = await service.post.fetchById<IPostCard>({id})
       if (data) {
         console.log(data)
         updateAbstract(data.abstract)
@@ -58,20 +56,18 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
 
   const fetchTags = async (ids: string[]) => {
     if (ids.length > 0) {
-      service.send<ITag[]>(service.tag.fetchByIds, {
-        ids,
-      }).then((data: ITag[]) => {
-        setTags(data)
-      })
+      service.tag.fetchByIds<ITag[]>({ids})
+        .then((data: ITag[]) => {
+          setTags(data)
+        })
     }
   }
 
   const fetchCategory = async (id: string) => {
-    service.send<ICategory>(service.category.fetchById, {
-      id,
-    }).then((data: ICategory) => {
-      setCategory(data)
-    })
+    service.category.fetchById<ICategory>({id})
+      .then((data: ICategory) => {
+        setCategory(data)
+      })
   }
 
   useEffect(() => {
@@ -88,9 +84,6 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
       ))
       : <div />
   )
-
-  // const renderCategory = () => {
-  // }
 
   return (
     <Layout className={classes.blogBody}>

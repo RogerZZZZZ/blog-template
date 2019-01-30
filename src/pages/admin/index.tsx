@@ -5,7 +5,6 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
 import { Link, Route, Switch } from 'react-router-dom'
-import { useMappedState } from 'redux-react-hook'
 
 import ArticleList from './ArticleList'
 import CategoryList from './CategoryList'
@@ -22,7 +21,7 @@ const AdminPage = ({ classes }: IRouterProps) => {
   }, [])
 
   const healthCheck = async () => {
-    await service.send(service.health.admin, null); 
+    await service.health.admin(null); 
   }
 
   return (

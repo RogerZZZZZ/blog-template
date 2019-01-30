@@ -61,8 +61,3 @@ export const extractTokenFromStorage = () => {
     return ''
   }
 }
-
-export const optFactory = (method: string, url: string) => ({
-  method,
-  url,
-})

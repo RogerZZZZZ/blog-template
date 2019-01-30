@@ -18,7 +18,7 @@ const TagAdd = ({ classes }: IBasicProps) => {
   const [name, setName] = useState('')
 
   const submitTag = async () => {
-    const data = await service.send(service.tag.create, {
+    const data = await service.tag.create({
       name,
       hex,
     })

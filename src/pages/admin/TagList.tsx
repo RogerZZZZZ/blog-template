@@ -16,7 +16,7 @@ const TagList = ({ classes }: IRouterProps) => {
 
 
   const fetchTags = async () => {
-    const tags: ITagFull[] = await services.send<ITagFull[]>(services.tag.fetchAll, null)
+    const tags: ITagFull[] = await services.tag.fetchAll<ITagFull[]>(null)
     setTags(tags)
   }
 
@@ -27,14 +27,14 @@ const TagList = ({ classes }: IRouterProps) => {
     setCurName(tag.name)
     setCurHex(tag.hex)
 
-    const posts: IPostCard[] = await services.send<IPostCard[]>(services.post.fetchByIds, {
+    const posts: IPostCard[] = await services.post.fetchByIds<IPostCard[]>({
       articles: ids.filter(v => v !== 'undefined' && v !== ''),
     })
     setArticles(posts)
   }
 
   const eidtAction = async () => {
-    const tag: ITagFull = await services.send<ITagFull>(services.tag.updateTag, {
+    const tag: ITagFull = await services.tag.updateTag<ITagFull>({
       _id: curId,
       name: curName,
       hex: curHex,

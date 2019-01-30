@@ -25,7 +25,7 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
 
 
   const fetchCategory = async () => {
-    const categories: ICategory[] = await service.send<ICategory[]>(service.category.fetchAll, null)
+    const categories: ICategory[] = await service.category.fetchAll<ICategory[]>(null)
     setCategory(categories)
   }
 
@@ -35,7 +35,7 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
     setCurChoose(category._id)
     setCurName(category.name)
 
-    const posts: IPostCard[] = await service.send<IPostCard[]>(service.post.fetchByIds, {
+    const posts: IPostCard[] = await service.post.fetchByIds<IPostCard[]>({
       articles: ids.filter(v => v !== 'undefined' && v !== ''),
     })
     setArticles(posts)
@@ -46,7 +46,7 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
   }, [])
 
   const deleteFn = async () => {
-    await service.send<ICategory>(service.category.deleteById, {
+    await service.category.deleteById<ICategory>({
       id: curChoose,
       articles: articles.map(el => el._id),
     })
@@ -61,7 +61,7 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
   }
 
   const editAction = async () => {
-    const category: ICategory = await service.send<ICategory>(service.category.uptCategory, {
+    const category: ICategory = await service.category.uptCategory<ICategory>({
       _id: curChoose,
       name: curName,
     })
@@ -90,7 +90,7 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
   )
 
   const createCategory = async () => {
-    const data = await service.send(service.category.create, {
+    const data = await service.category.create({
       name
     })
     if (data) {
