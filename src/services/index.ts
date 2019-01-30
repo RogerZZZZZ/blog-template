@@ -11,18 +11,16 @@ axios.interceptors.response.use(response => {
   if (error.response.status === 401) {
     window.localStorage.setItem('persist:auth', '')
     window.location.href = '/login'
+  } else if (error.response.status === 500) {
+    alert('something wrong')
   }
+  return Promise.reject(error)
 })
 
 axios.interceptors.request.use(config => {
   config.headers.Authorization = extractTokenFromStorage()
   return config
 })
-
-interface IOpt {
-  method: string
-  url: string
-}
 
 const auth = {
   login: (obj: any) => axios.post('external/auth/login', obj).then(r => r),

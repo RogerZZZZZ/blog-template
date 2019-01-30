@@ -6,9 +6,7 @@ import * as React from 'react';
 import injectSheet from 'react-jss';
 
 import { ICategory, IPostCard, IRouterProps, ITag } from '@interface'
-import { postState } from '@reducers/state'
 import service from '@services';
-import { useMappedState } from 'redux-react-hook'
 
 import 'highlight.js/styles/github.css'
 
@@ -64,10 +62,12 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
   }
 
   const fetchCategory = async (id: string) => {
-    service.category.fetchById<ICategory>({id})
+    if (id) {
+      service.category.fetchById<ICategory>({id})
       .then((data: ICategory) => {
         setCategory(data)
       })
+    }
   }
 
   useEffect(() => {

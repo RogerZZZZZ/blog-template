@@ -11,7 +11,7 @@ router.get('/fetchAll', async (ctx) => {
 })
 
 router.get('/fetchById', async (ctx) => {
-  const id = ctx.query.id
+  const id = ctx.query.id || ''
   ctx.body = await categoryModel.findById(id)
   ctx.status = 200
   return ctx
