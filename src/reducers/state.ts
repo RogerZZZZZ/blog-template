@@ -7,10 +7,6 @@ export const logState = (state: RootState) => ({
   login: state.auth.login,
 })
 
-export const tokenState = (state: RootState) => ({
-  token: state.auth.token,
-})
-
 export const postState = (state: RootState) => ({
   doing: state.post.doing,
   deleteSuccess: state.post.deleteSuccess,

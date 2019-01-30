@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { headerFactory, optFactory } from './utils'
+import { extractTokenFromStorage, headerFactory, optFactory } from './utils'
 
 axios.defaults.baseURL = 'http://localhost:8080/api'
 
@@ -12,7 +12,12 @@ axios.interceptors.response.use(response => {
     window.localStorage.setItem('persist:auth', '')
     window.location.href = '/login'
   }
-});
+})
+
+axios.interceptors.request.use(config => {
+  config.headers.Authorization = extractTokenFromStorage()
+  return config
+})
 
 interface IOpt {
   method: string
@@ -57,8 +62,8 @@ const health = {
   admin: optFactory('GET', 'internal/health/admin'),
 }
 
-function send<T>(opt: IOpt, data: any, token: string) {
-  return axios(headerFactory(opt.url, opt.method, data, token))
+function send<T>(opt: IOpt, data: any) {
+  return axios(headerFactory(opt.url, opt.method, data))
     .then((r: AxiosResponse<T>) => r.data)
 }
 

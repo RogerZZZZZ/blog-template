@@ -7,7 +7,7 @@ import MarkDownEditor from '@components/markdown'
 import TagPicker from '@components/tagpicker'
 import { PostCons } from '@constants'
 import { ICategory, IPostCard, IRouterProps } from '@interface'
-import { postState, tokenState } from '@reducers/state'
+import { postState } from '@reducers/state'
 import service from '@services';
 import { useDispatch, useMappedState } from 'redux-react-hook'
 
@@ -31,7 +31,6 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
   const [categories, setCategories] = useState([] as ICategory[])
   const [cateSearch, setCateSearch] = useState([] as IDataSourceItem[])
 
-  const { token } = useMappedState(tokenState)
   const { postSuccess } = useMappedState(postState)
 
   const dispatch = useDispatch()
@@ -43,7 +42,7 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
       setEditId(id)
       const data: IPostCard = await service.send<IPostCard>(service.post.fetchById, {
         id,
-      }, token || '')
+      })
       if (data) {
         console.log(data)
         updatePost(data.post || '')
@@ -64,7 +63,7 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
   }
 
   const fetchCategories = async () => {
-    const category: ICategory[] = await service.send<ICategory[]>(service.category.fetchAll, null, token || '')
+    const category: ICategory[] = await service.send<ICategory[]>(service.category.fetchAll, null)
     console.log(category);
     if (category) {
       setCategories(category)
@@ -92,7 +91,6 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
       categoryId,
       tags,
       title,
-      token,
       pinned,
       id: editId,
     }

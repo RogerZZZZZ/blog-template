@@ -1,5 +1,4 @@
 import { ICategory, IPostCard, IRouterProps } from '@interface'
-import { tokenState } from '@reducers/state'
 import service from '@services'
 import {
   Button,
@@ -24,10 +23,9 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
   const [curName, setCurName] = useState('')
   const [newVisible, setNewVisible] = useState(false)
 
-  const { token } = useMappedState(tokenState)
 
   const fetchCategory = async () => {
-    const categories: ICategory[] = await service.send<ICategory[]>(service.category.fetchAll, null, token || '')
+    const categories: ICategory[] = await service.send<ICategory[]>(service.category.fetchAll, null)
     setCategory(categories)
   }
 
@@ -39,7 +37,7 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
 
     const posts: IPostCard[] = await service.send<IPostCard[]>(service.post.fetchByIds, {
       articles: ids.filter(v => v !== 'undefined' && v !== ''),
-    }, token || '')
+    })
     setArticles(posts)
   }
 
@@ -48,10 +46,10 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
   }, [])
 
   const deleteFn = async () => {
-    const category: ICategory = await service.send<ICategory>(service.category.deleteById, {
+    await service.send<ICategory>(service.category.deleteById, {
       id: curChoose,
       articles: articles.map(el => el._id),
-    }, token || '')
+    })
   }
 
   const cancelAction = () => {
@@ -66,7 +64,7 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
     const category: ICategory = await service.send<ICategory>(service.category.uptCategory, {
       _id: curChoose,
       name: curName,
-    }, token || '')
+    })
     if (category) {
       window.location.reload()
     }
@@ -94,7 +92,7 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
   const createCategory = async () => {
     const data = await service.send(service.category.create, {
       name
-    }, token || '')
+    })
     if (data) {
       closeModal()
       fetchCategory()

@@ -1,11 +1,9 @@
 import PostCard from '@components/postcard'
 import { IPostCard, IRouterProps } from '@interface'
-import { tokenState } from '@reducers/state'
 import services from '@services';
 import { useEffect, useState } from 'react'
 import * as React from 'react'
 import injectSheet from 'react-jss'
-import { useMappedState } from 'redux-react-hook'
 
 import { Layout, Skeleton } from 'antd'
 
@@ -16,13 +14,12 @@ const Home = ({ classes }: IRouterProps) => {
   const title = 'Work In Progress'
   const author = 'RogerZZZZ'
   
-  const { token } = useMappedState(tokenState)
 
   const [pinnedBlog, updatePinnedBlog] = useState([] as IPostCard[])
   const [fetching, updateFetching] = useState(true)
 
   const fetchBlog = async () => {
-    const blogs: IPostCard[] = await services.send<IPostCard[]>(services.post.fetchPinned, null, token || '')
+    const blogs: IPostCard[] = await services.send<IPostCard[]>(services.post.fetchPinned, null)
     updatePinnedBlog(blogs)
     updateFetching(false)
   }

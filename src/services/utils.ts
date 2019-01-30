@@ -24,13 +24,10 @@ const putParamsCreate = (obj: any) => {
   return `/${arr.join('/')}`
 }
 
-export const headerFactory = (url: string, method: string, data: any, token: string) => {
+export const headerFactory = (url: string, method: string, data: any) => {
   const header = {
     method,
       url,
-      headers: {
-        'Authorization': token,
-      },
       json: true,
   }
   if (method === 'POST') {
@@ -44,6 +41,25 @@ export const headerFactory = (url: string, method: string, data: any, token: str
   return Object.assign(header, {
     url: `${url}${getParamsCreate(data)}`
   })
+}
+
+export const extractTokenFromStorage = () => {
+  const storage = window.localStorage.getItem('persist:auth')
+  if (!storage) {
+    return ''
+  }
+  try {
+    const json = JSON.parse(storage)
+    const token = json.token
+    if (token) {
+      return token.substr(1).slice(0, -1)
+    } else {
+      return ''
+    }
+  } catch (err) {
+    console.error(err)
+    return ''
+  }
 }
 
 export const optFactory = (method: string, url: string) => ({

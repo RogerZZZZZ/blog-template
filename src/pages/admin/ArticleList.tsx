@@ -1,6 +1,6 @@
 import { PostCons } from '@constants';
 import { IPostCard, IRouterProps } from '@interface'
-import { postState, tokenState } from '@reducers/state'
+import { postState } from '@reducers/state'
 import service from '@services';
 import { Button, Icon, List, message as Message, Popconfirm, Skeleton, Spin } from 'antd'
 import { useEffect, useState } from 'react'
@@ -15,11 +15,10 @@ const ArticleList = ({ classes, history }: IRouterProps) => {
   const [fetching, setFetching] = useState(true)
   const dispatch = useDispatch()
 
-  const { token } = useMappedState(tokenState)
   const { deleteSuccess, doing, message } = useMappedState(postState)
 
   const fetchBlog = async () => {
-    const blogs: IPostCard[] = await service.send<IPostCard[]>(service.post.fetchAll, null, token || '')
+    const blogs: IPostCard[] = await service.send<IPostCard[]>(service.post.fetchAll, null)
     setBlogs(blogs)
     setFetching(false)
   }
@@ -51,7 +50,6 @@ const ArticleList = ({ classes, history }: IRouterProps) => {
     setCurDlt(id)
     const payload = {
       id,
-      token,
     }
     dispatch({type: PostCons.DELETE_POST, payload})
   }

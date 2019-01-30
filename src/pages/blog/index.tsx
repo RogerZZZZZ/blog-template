@@ -6,7 +6,7 @@ import * as React from 'react';
 import injectSheet from 'react-jss';
 
 import { ICategory, IPostCard, IRouterProps, ITag } from '@interface'
-import { postState, tokenState } from '@reducers/state'
+import { postState } from '@reducers/state'
 import service from '@services';
 import { useMappedState } from 'redux-react-hook'
 
@@ -35,15 +35,13 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
   const [pinned, updatePinned] = useState(false)
   const [renderMarked, updateRenderMarked] = useState('')
 
-  const { token } = useMappedState(tokenState)
-
   const fetchBlog = async () => {
     const query: string = location.search
     if (query) {
       const id = query.split('=')[1]
       const data: IPostCard = await service.send<IPostCard>(service.post.fetchById, {
         id,
-      }, token || '')
+      })
       if (data) {
         console.log(data)
         updateAbstract(data.abstract)
@@ -62,7 +60,7 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
     if (ids.length > 0) {
       service.send<ITag[]>(service.tag.fetchByIds, {
         ids,
-      }, token || '').then((data: ITag[]) => {
+      }).then((data: ITag[]) => {
         setTags(data)
       })
     }
@@ -71,7 +69,7 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
   const fetchCategory = async (id: string) => {
     service.send<ICategory>(service.category.fetchById, {
       id,
-    }, token || '').then((data: ICategory) => {
+    }).then((data: ICategory) => {
       setCategory(data)
     })
   }

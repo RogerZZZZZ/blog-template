@@ -1,5 +1,4 @@
 import { IRouterProps } from '@interface'
-import { tokenState } from '@reducers/state'
 import service from '@services'
 import { Icon, Layout, Menu } from 'antd'
 import * as React from 'react'
@@ -18,14 +17,12 @@ const AdminPage = ({ classes }: IRouterProps) => {
   const pathName = window.location.pathname.split('/')
   const [menuKey, setMenuKey] = useState(pathName[pathName.length - 1])
 
-  const { token } = useMappedState(tokenState)
-
   useEffect(() => {
     healthCheck()
   }, [])
 
   const healthCheck = async () => {
-    await service.send(service.health.admin, null, token || ''); 
+    await service.send(service.health.admin, null); 
   }
 
   return (

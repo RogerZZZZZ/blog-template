@@ -1,5 +1,4 @@
 import { IPostCard, IRouterProps, ITagFull } from '@interface'
-import { tokenState } from '@reducers//state';
 import services from '@services';
 import { Button, Divider, Input, List, Tag } from 'antd';
 import * as React from 'react'
@@ -15,10 +14,9 @@ const TagList = ({ classes }: IRouterProps) => {
   const [curHex, setCurHex] = useState('#000')
   const [curName, setCurName] = useState('')
 
-  const { token } = useMappedState(tokenState)
 
   const fetchTags = async () => {
-    const tags: ITagFull[] = await services.send<ITagFull[]>(services.tag.fetchAll, null, token || '')
+    const tags: ITagFull[] = await services.send<ITagFull[]>(services.tag.fetchAll, null)
     setTags(tags)
   }
 
@@ -31,7 +29,7 @@ const TagList = ({ classes }: IRouterProps) => {
 
     const posts: IPostCard[] = await services.send<IPostCard[]>(services.post.fetchByIds, {
       articles: ids.filter(v => v !== 'undefined' && v !== ''),
-    }, token || '')
+    })
     setArticles(posts)
   }
 
@@ -40,7 +38,7 @@ const TagList = ({ classes }: IRouterProps) => {
       _id: curId,
       name: curName,
       hex: curHex,
-    }, token || '')
+    })
     if (tag) {
       setCurId('')
       window.location.reload()

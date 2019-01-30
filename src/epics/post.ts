@@ -26,8 +26,7 @@ const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable
                 tags: action.payload.tags,
                 pinned: action.payload.pinned,
                 _id: action.payload.id,
-        }, action.payload.token),
-        token: action.payload.token,
+        }),
         tags: action.payload.tags,
       })
     }),
@@ -36,8 +35,7 @@ const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable
         data: await service.send<any>(service.tag.uptPostsList, {
               postId: value.data._id,
               tags: value.tags,
-          }, value.token),
-        token: value.token,
+          }),
         categoryId: value.data.categoryId,
         articleId: value.data._id,
       })
@@ -46,7 +44,7 @@ const postEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservable
       return of(await service.send<any>(service.category.uptPostsList, {
             articleId: value.articleId,
             categoryId: value.categoryId,
-        }, value.token)
+        })
       )
     }),
     map((res: any) =>
@@ -64,7 +62,7 @@ const deleteEpic: Epic<Actions, Actions, RootState> = (actions$: ActionsObservab
       return of({
         data: await service.send<any>(service.post.deleteById, {
           id: action.payload.id,
-        }, action.payload.token),
+        }),
       })
     }),
     map((res: any) =>
