@@ -28,10 +28,8 @@ const { Header, Content} = Layout
 
 const Blog = ({ classes, history, location }: IRouterProps) => {
 
-  const [categoryId, updateCategory] = useState('')
   const [category, setCategory] = useState({} as ICategory)
   const [abstract, updateAbstract] = useState('')
-  const [tagIds, updateTagIds] = useState<string[]>([])
   const [tags, setTags] = useState<ITag[]>([])
   const [title, updateTitle] = useState('')
   const [pinned, updatePinned] = useState(false)
@@ -49,10 +47,11 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
       if (data) {
         console.log(data)
         updateAbstract(data.abstract)
-        updateTagIds(data.tags || [])
         updateTitle(data.title)
         updatePinned(data.pinned)
-        updateCategory(data.categoryId)
+
+        fetchCategory(data.categoryId || '')
+        fetchTags(data.tags || [])
 
         updateRenderMarked(md.render(data.post || ''))
       }
@@ -81,13 +80,6 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
     fetchBlog()
   }, [])
 
-  useEffect(() => {
-    fetchTags(tagIds)
-  }, [tagIds])
-
-  useEffect(() => {
-    fetchCategory(categoryId)
-  }, [categoryId])
 
   const renderTags = () => (
      tags.length > 0 ?

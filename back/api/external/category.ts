@@ -10,4 +10,11 @@ router.get('/fetchAll', async (ctx) => {
   return ctx
 })
 
+router.get('/fetchById', async (ctx) => {
+  const id = ctx.query.id
+  ctx.body = await categoryModel.findById(id)
+  ctx.status = 200
+  return ctx
+})
+
 export default router
