@@ -1,20 +1,13 @@
-import './index.css';
+import './index.css'
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { applyMiddleware, compose, createStore } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
-import { persistReducer, persistStore } from 'redux-persist';
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import { PersistGate } from 'redux-persist/integration/react'
-import storage from 'redux-persist/lib/storage'
 import { StoreContext } from 'redux-react-hook'
-import { ActionType } from 'typesafe-actions'
 
-import * as logActions from '@actions/login'
-import * as postActions from '@actions/post'
 import App from './App'
 import { loginEpics, postEpics } from './epics'
-import reducers, { RootState } from './reducers'
+import reduxPersist from './redux-persist'
 
 declare global {
   interface IWindow {
@@ -22,40 +15,10 @@ declare global {
   }
 }
 
-type LogActions = ActionType<typeof logActions>
-const logEpicMiddleware = createEpicMiddleware<LogActions, LogActions, RootState>()
-
-type PostActions = ActionType<typeof postActions>
-const postEpicMiddleware = createEpicMiddleware<PostActions, PostActions, RootState>()
-
-const persistConfig = {
-  key: 'root',
-  storage,
-  blacklist: ['auth', 'post'],
-}
-
-const configStore = (initState?: RootState) => {
-  const middlewares = [
-    logEpicMiddleware,
-    postEpicMiddleware,
-  ]
-
-  const enhancer = compose(
-    applyMiddleware(...middlewares)
-  )
-
-  const persistedReducer = persistReducer(persistConfig, reducers)
-
-  const createdStore = createStore(
-    persistedReducer,
-    initState,
-    enhancer,
-  )
-
-  return { store: createdStore,  persistor: persistStore(createdStore)}
-}
-
-const { store, persistor } = configStore()
+const store = reduxPersist.getStore()
+const persistor = reduxPersist.getPersistor()
+const logEpicMiddleware = reduxPersist.getLogEpic()
+const postEpicMiddleware = reduxPersist.getPostEpic()
 
 logEpicMiddleware.run(loginEpics)
 postEpicMiddleware.run(postEpics)
