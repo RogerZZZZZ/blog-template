@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import * as React from 'react';
 import injectSheet from 'react-jss';
 
+import Header from '@components/header/index'
 import { ICategory, IPostCard, IRouterProps, ITag } from '@interface'
 import service from '@services';
 
@@ -22,7 +23,7 @@ const md = new MarkDown({
   }
 })
 
-const { Header, Content} = Layout
+const { Content } = Layout
 
 const Blog = ({ classes, history, location }: IRouterProps) => {
 
@@ -87,7 +88,7 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
 
   return (
     <Layout className={classes.blogBody}>
-      <Header>Header</Header>
+      <Header />
 
       <Content>
         <div className={classes.container}>

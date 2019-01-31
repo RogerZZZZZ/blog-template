@@ -19,6 +19,9 @@ export interface IPostCard extends IBasicProps {
   updatedAt: number
 }
 
+export interface IHeader extends IBasicProps {
+}
+
 export interface ITag {
   name: string
   hex: string

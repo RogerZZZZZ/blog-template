@@ -3,6 +3,7 @@ export const LogCons = {
   LOGSUCCESS: 'LOG_SUCCESS',
   LOGOUT: 'LOG_OUT',
   LOGFAIL: 'LOG_FAIL',
+  AUTH_FAIL: 'AUTH_FAIL',
 }
 
 export const PostCons = {

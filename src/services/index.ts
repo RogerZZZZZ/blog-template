@@ -12,7 +12,7 @@ axios.interceptors.response.use(response => {
     window.localStorage.setItem('persist:auth', '')
     window.location.href = '/login'
   } else if (error.response.status === 500) {
-    alert('something wrong')
+    console.log(error)
   }
   return Promise.reject(error)
 })
