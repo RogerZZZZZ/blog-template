@@ -4,6 +4,7 @@ export const LogCons = {
   LOGOUT: 'LOG_OUT',
   LOGFAIL: 'LOG_FAIL',
   AUTH_FAIL: 'AUTH_FAIL',
+  CLEAR_AUTH: 'CLEAR_AUTH',
 }
 
 export const PostCons = {

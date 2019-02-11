@@ -16,3 +16,5 @@ export const logSuccessAction = createAction<string, any>(LogCons.LOGSUCCESS, re
 })
 
 export const authFail = createAction<string, any>(LogCons.AUTH_FAIL)
+
+export const clearAuth = createAction<string, any>(LogCons.CLEAR_AUTH)

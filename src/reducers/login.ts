@@ -20,6 +20,7 @@ export const defaultState: ILoginState = {
   login: false,
   token: '',
   logging: false,
+  message: '',
 }
 
 export default reducersUtils.createReducers(defaultState, {
@@ -53,6 +54,11 @@ export default reducersUtils.createReducers(defaultState, {
       login: false,
       logging: false,
       token: undefined
+    }
+  },
+  [LogCons.CLEAR_AUTH]: (state: ILoginState, payload: any) => {
+    return {
+      ...defaultState,
     }
   },
 })

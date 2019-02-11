@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import reduxPersist from '../redux-persist'
+import { LogCons } from './../constants/index'
 import { extractTokenFromStorage, headerFactory } from './utils'
 
 axios.defaults.baseURL = 'http://localhost:8080/api'
@@ -10,7 +11,9 @@ axios.interceptors.response.use(response => {
 }, error => {
   console.log(error)
   if (error.response.status === 401) {
-    reduxPersist.getPersistor().purge()
+    reduxPersist.getStore().dispatch({
+      type: LogCons.CLEAR_AUTH,
+    })
     window.location.href = '/login'
   } else if (error.response.status === 500) {
     console.log(error)
