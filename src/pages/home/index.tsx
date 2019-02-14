@@ -1,3 +1,4 @@
+import Header from '@components/header/index'
 import PostCard from '@components/postcard'
 import { IPostCard, IRouterProps } from '@interface'
 import services from '@services';
@@ -7,7 +8,7 @@ import injectSheet from 'react-jss'
 
 import { Layout, Skeleton } from 'antd'
 
-const { Header, Content} = Layout
+const { Content } = Layout
 
 const Home = ({ classes }: IRouterProps) => {
   
@@ -39,7 +40,7 @@ const Home = ({ classes }: IRouterProps) => {
   }
   return (
     <Layout className={classes.homeBody}>
-      <Header>Header</Header>
+      <Header />
       <Content>
         <div className={classes.container}>
           <div className={classes.entryBox}>
