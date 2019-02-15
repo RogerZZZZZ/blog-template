@@ -13,6 +13,7 @@ router.post('/login', async (ctx) => {
   if (user && passwordHash.verify(data.password, user.password)) {
     console.log('success')
     ctx.body = {
+      user: data.username,
       token: jwt.sign({
         role: 'admin',
       }, 'secretKey', {
