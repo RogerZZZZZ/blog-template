@@ -5,6 +5,7 @@ export const logState = (state: RootState) => ({
   token: state.auth.token,
   message: state.auth.message,
   login: state.auth.login,
+  username: state.auth.username,
 })
 
 export const postState = (state: RootState) => ({

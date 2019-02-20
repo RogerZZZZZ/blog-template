@@ -12,6 +12,7 @@ export interface ILoginState {
   login: boolean
   readonly logging?: boolean
   readonly message?: string
+  readonly username?: string
 }
 
 const reducersUtils: ReducersUtils<LoginAction, ILoginState> = new ReducersUtils()
@@ -21,6 +22,7 @@ export const defaultState: ILoginState = {
   token: '',
   logging: false,
   message: '',
+  username: '',
 }
 
 export default reducersUtils.createReducers(defaultState, {
@@ -37,6 +39,7 @@ export default reducersUtils.createReducers(defaultState, {
       logging: false,
       token: payload.token,
       message: '',
+      username: payload.username,
     }
   },
   [LogCons.LOGFAIL]: (state: ILoginState, payload: any) => {
@@ -46,6 +49,7 @@ export default reducersUtils.createReducers(defaultState, {
       logging: false,
       token: undefined,
       message: payload.message,
+      username: '',
     }
   },
   [LogCons.LOGOUT]: (state: ILoginState, payload: any) => {
@@ -53,7 +57,8 @@ export default reducersUtils.createReducers(defaultState, {
       ...state,
       login: false,
       logging: false,
-      token: undefined
+      token: undefined,
+      username: '',
     }
   },
   [LogCons.CLEAR_AUTH]: (state: ILoginState, payload: any) => {

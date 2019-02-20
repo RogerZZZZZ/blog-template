@@ -12,7 +12,7 @@ export const logFailAction = createAction<string, any>(LogCons.LOGFAIL, resolve 
 })
 
 export const logSuccessAction = createAction<string, any>(LogCons.LOGSUCCESS, resolve => {
-  return (payload: {token: string}) => resolve(payload)
+  return (payload: {token: string, user: string}) => resolve(payload)
 })
 
 export const authFail = createAction<string, any>(LogCons.AUTH_FAIL)

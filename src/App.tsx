@@ -8,6 +8,7 @@ import Blog from './pages/blog'
 import Create from './pages/create'
 import Home from './pages/home'
 import Login from './pages/login'
+import Profile from './pages/profile'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/blog" component={Blog} />
         <Route exact path="/new" component={Create} />
+        <Route exact path="/profile" component={Profile}/>
         <Route path="/admin" component={Admin}/>
       </Switch>
     </BrowserRouter>

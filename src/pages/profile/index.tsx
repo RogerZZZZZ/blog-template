@@ -1,15 +1,20 @@
 import { IRouterProps } from '@interface'
+import { logState } from '@reducers/state'
 import service from '@services'
 import { Layout } from 'antd'
 import * as React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
+import { useMappedState } from 'redux-react-hook'
 
 const { Header, Content } = Layout
 
 const ProfilePage = ({ classes }: IRouterProps) => {
+  const { username } = useMappedState(logState)
 
-
+  useEffect(() => {
+    console.log(username)
+  }, [])
 
   return (
     <Layout className={classes.homeBody}>
