@@ -11,6 +11,7 @@ router.get('/fetch', async (ctx) => {
   const username = process.env.ROOT_USER
   console.log('Find user profile, ++', username)
   const user = await userModel.findOne({ username })
+  console.log('user: ', user)
   if (user) {
     ctx.status = 200
     ctx.body = user

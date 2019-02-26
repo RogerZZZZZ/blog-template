@@ -14,7 +14,7 @@ import {
   Layout,
 } from 'antd'
 
-const { Header, Content} = Layout
+const { Header, Content } = Layout
 
 const LoginBox = ({ classes, history }: IRouterProps) => {
   const [username, setUsername] = useState('')

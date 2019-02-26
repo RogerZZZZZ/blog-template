@@ -6,7 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { StoreContext } from 'redux-react-hook'
 
 import App from './App'
-import { loginEpics, postEpics } from './epics'
+import { loginEpics, postEpics, userEpics } from './epics'
 import reduxPersist from './redux-persist'
 
 declare global {
@@ -19,9 +19,11 @@ const store = reduxPersist.getStore()
 const persistor = reduxPersist.getPersistor()
 const logEpicMiddleware = reduxPersist.getLogEpic()
 const postEpicMiddleware = reduxPersist.getPostEpic()
+const userEpicMiddleware = reduxPersist.getUserEpic()
 
 logEpicMiddleware.run(loginEpics)
 postEpicMiddleware.run(postEpics)
+userEpicMiddleware.run(userEpics)
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>

@@ -14,3 +14,12 @@ export const postState = (state: RootState) => ({
   message: state.post.message,
   postSuccess: state.post.postSuccess,
 })
+
+export const profileState = (state: RootState) => ({
+  email: state.user.email,
+  username: state.user.username,
+  github: state.user.github,
+  linkedIn: state.user.linkedIn,
+  introduction: state.user.introduction,
+  success: state.user.success,
+})

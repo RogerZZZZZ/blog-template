@@ -1,20 +1,31 @@
+import { UserCons } from '@constants'
 import { IRouterProps } from '@interface'
-import { logState } from '@reducers/state'
-import service from '@services'
+import { logState, profileState } from '@reducers/state'
+import { defaultState, IUserState } from '@reducers/user'
 import { Layout } from 'antd'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
-import { useMappedState } from 'redux-react-hook'
+import { useDispatch, useMappedState } from 'redux-react-hook'
 
 const { Header, Content } = Layout
 
 const ProfilePage = ({ classes }: IRouterProps) => {
+  const [profile, setProfile] = useState(defaultState)
+  
   const { username } = useMappedState(logState)
+  const profileStore = useMappedState(profileState)
+  
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log(username)
+    dispatch({ type: UserCons.FETCH_USER })
   }, [])
+
+  useEffect(() => {
+    console.log(profileStore)
+    setProfile(profileStore)
+  }, [profileState])
 
   return (
     <Layout className={classes.homeBody}>
