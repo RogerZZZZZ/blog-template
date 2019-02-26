@@ -18,9 +18,10 @@ const fetchEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable
     mergeMap((action: any) =>
       from(service.user.fetch({}))
       .pipe(
-        map((res: any) => res.status === 200
-          ? actions.fetchProfileAction(res.data)
-          : actions.fetchFailedAction('Fetch Failed')),
+        map((res: any) => res !== {}
+          ? actions.fetchSuccessAction(res)
+          : actions.fetchFailedAction('Fetch Failed')
+        ),
         catchError((error: Error) => of(actions.fetchFailedAction('Fetch failed')))
     ),
   )

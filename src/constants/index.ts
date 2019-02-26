@@ -18,6 +18,7 @@ export const PostCons = {
 
 export const UserCons = {
   FETCH_USER: 'FETCH_USER',
+  FETCH_SUCCESS: 'FETCH_SUCCESS',
   EDIT_USER: 'EDIT_USER',
   FETCH_FAILED: 'FETCH_FAILED',
 }

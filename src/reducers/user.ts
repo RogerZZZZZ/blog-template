@@ -28,7 +28,12 @@ export const defaultState: IUserState = {
 }
 
 export default reducersUtils.createReducers(defaultState, {
-  [UserCons.FETCH_USER]: (state: IUserState, payload: any) => {
+  [UserCons.FETCH_USER]: (state: IUserState) => {
+    return {
+      ...state,
+    }
+  },
+  [UserCons.FETCH_SUCCESS]: (state: IUserState, payload: any) => {
     return {
       ...state,
       ...payload,

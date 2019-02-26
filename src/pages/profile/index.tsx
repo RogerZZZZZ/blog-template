@@ -13,8 +13,7 @@ const { Header, Content } = Layout
 const ProfilePage = ({ classes }: IRouterProps) => {
   const [profile, setProfile] = useState(defaultState)
   
-  const { username } = useMappedState(logState)
-  const profileStore = useMappedState(profileState)
+  const { success, username, github, introduction, linkedIn, email } = useMappedState(profileState)
   
   const dispatch = useDispatch()
 
@@ -23,9 +22,15 @@ const ProfilePage = ({ classes }: IRouterProps) => {
   }, [])
 
   useEffect(() => {
-    console.log(profileStore)
-    setProfile(profileStore)
-  }, [profileState])
+    setProfile({
+      username,
+      github,
+      introduction,
+      linkedIn,
+      email,
+      success,
+    })
+  }, [success])
 
   return (
     <Layout className={classes.homeBody}>
