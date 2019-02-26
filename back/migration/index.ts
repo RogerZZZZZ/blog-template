@@ -1,4 +1,7 @@
+import * as dotenv from 'dotenv'
 import { userModel, versionModel } from '../model'
+
+dotenv.config()
 
 enum VERSION {
   FIRST_DEPLOY,
@@ -8,8 +11,8 @@ enum VERSION {
 const action = {
   [VERSION.FIRST_DEPLOY]: async () => {
     await userModel.create({
-      username: 'admin',
-      password: 'rogerzzzz'
+      username: process.env.ROOT_USER,
+      password: process.env.ROOT_USER_PWD,
     })
     await versionModel.create({
       version: 'version',
