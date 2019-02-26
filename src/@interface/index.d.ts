@@ -4,8 +4,11 @@ export interface IBasicProps {
   classes?: any
 }
 
-export interface IRouterProps extends RouteComponentProps<{}>, IBasicProps {
+export interface IComponentProps extends IBasicProps {
+  children: any
+}
 
+export interface IRouterProps extends RouteComponentProps<{}>, IBasicProps {
 }
 
 export interface IPostCard extends IBasicProps {

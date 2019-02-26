@@ -13,7 +13,6 @@ import {
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
-import { useMappedState } from 'redux-react-hook'
 
 const CategoryList = ({ classes, history }: IRouterProps) => {
   const [category, setCategory] = useState([] as ICategory[])

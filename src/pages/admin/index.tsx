@@ -8,6 +8,7 @@ import { Link, Route, Switch } from 'react-router-dom'
 
 import ArticleList from './ArticleList'
 import CategoryList from './CategoryList'
+import Profile from './Profile'
 import TagList from './TagList'
 
 const { Header, Content, Sider } = Layout
@@ -50,6 +51,11 @@ const AdminPage = ({ classes }: IRouterProps) => {
               <span>Tag List</span>
               <Link to="/admin/tags"/>
             </Menu.Item>
+            <Menu.Item key="profile">
+              <Icon type="user"/>
+              <span>User Profile</span>
+              <Link to="/admin/profile"/>
+            </Menu.Item>
           </Menu>
         </Sider>
 
@@ -59,6 +65,7 @@ const AdminPage = ({ classes }: IRouterProps) => {
               <Route exact path="/admin" component={ArticleList} />
               <Route exact path="/admin/category" component={CategoryList} />
               <Route exact path="/admin/tags" component={TagList} />
+              <Route exact path="/admin/profile" component={Profile} />
             </Switch>
           </Content>
         </Layout>
