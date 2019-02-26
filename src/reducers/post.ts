@@ -2,7 +2,6 @@ import { ActionType } from 'typesafe-actions'
 
 import * as actions from '@actions/post'
 import { PostCons } from '@constants'
-import { IPostCard } from '@interface'
 
 import { ReducersUtils } from './utils'
 

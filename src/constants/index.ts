@@ -15,3 +15,9 @@ export const PostCons = {
   CLEAR_ACTION: 'CLEAR_ACTION',
   DELETE_SUCCESS: 'DELETE_SUCCESS',
 }
+
+export const UserCons = {
+  FETCH_USER: 'FETCH_USER',
+  EDIT_USER: 'EDIT_USER',
+  FETCH_FAILED: 'FETCH_FAILED',
+}

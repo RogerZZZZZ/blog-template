@@ -1,12 +1,15 @@
+import * as dotenv from 'dotenv'
 import * as Router from 'koa-router'
 import { Types } from 'mongoose'
 import { userModel } from '../../model'
 
+dotenv.config()
+
 const router = new Router()
 
 router.get('/fetch', async (ctx) => {
-  const { username } = ctx.query 
-  console.log('Find user profile, ', username)
+  const username = process.env.ROOT_USER
+  console.log('Find user profile, ++', username)
   const user = await userModel.findOne({ username })
   if (user) {
     ctx.status = 200

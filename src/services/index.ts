@@ -67,6 +67,12 @@ const category = {
   uptPostsList: rs('GET', 'internal/category/uptPostsList'),
 }
 
+const user = {
+  fetch: rs('GET', 'external/user/fetch'),
+
+  edit: rs('POST', 'internal/user/edit'),
+}
+
 const health = {
   admin: rs('GET', 'internal/health/admin'),
 }
@@ -76,5 +82,6 @@ export default {
   category,
   post,
   tag,
+  user,
   health,
 }
