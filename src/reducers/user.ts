@@ -9,6 +9,7 @@ type UserAction = ActionType<typeof actions>
 
 export interface IUserState {
   readonly username?: string
+  readonly name?: string
   readonly github?: string
   readonly linkedIn?: string
   readonly email?: string
@@ -20,6 +21,7 @@ const reducersUtils: ReducersUtils<UserAction, IUserState> = new ReducersUtils()
 
 export const defaultState: IUserState = {
   username: '',
+  name: '',
   github: '',
   linkedIn: '',
   email: '',

@@ -18,6 +18,7 @@ export const postState = (state: RootState) => ({
 export const profileState = (state: RootState) => ({
   email: state.user.email,
   username: state.user.username,
+  name: state.user.name,
   github: state.user.github,
   linkedIn: state.user.linkedIn,
   introduction: state.user.introduction,
