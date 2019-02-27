@@ -1,7 +1,9 @@
+import InputTitleWrapper from '@components/profile/InputTitleWrapper'
 import TitleWrapper from '@components/profile/TitleWrapper'
 import { IRouterProps } from '@interface'
 import {
   Button,
+  Input,
   Tag,
 } from 'antd'
 import * as React from 'react'
@@ -14,7 +16,9 @@ const Profile = ({ classes }: IRouterProps) => {
   return (
     <div>
       <TitleWrapper title="Basic Info">
-        <span>Basic Info Part</span>
+        <InputTitleWrapper title="Username">
+          <Input />
+        </InputTitleWrapper>
       </TitleWrapper>
 
       <TitleWrapper title="Education Info">
