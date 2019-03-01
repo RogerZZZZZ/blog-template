@@ -17,10 +17,6 @@ const Flex = ({ children, direction, classes }: IFlexProps) => {
   )
 }
 
-Flex.defaultProps = {
-  direction: 'row',
-}
-
 export default injectSheet({
   container: {
     display: 'flex',

@@ -1,3 +1,4 @@
+import Flex from '@components/common/Flex'
 import InputTitleWrapper from '@components/profile/InputTitleWrapper'
 import TitleWrapper from '@components/profile/TitleWrapper'
 import { IRouterProps } from '@interface'
@@ -16,9 +17,29 @@ const Profile = ({ classes }: IRouterProps) => {
   return (
     <div>
       <TitleWrapper title="Basic Info">
-        <InputTitleWrapper title="Username">
-          <Input />
-        </InputTitleWrapper>
+        <Flex>
+          <Flex direction="row">
+            <InputTitleWrapper title="Username">
+              <Input />
+            </InputTitleWrapper>
+
+            <InputTitleWrapper title="Github Address">
+              <Input />
+            </InputTitleWrapper>
+          </Flex>
+
+          <Flex direction="row">
+            <InputTitleWrapper title="twitter">
+              <Input />
+            </InputTitleWrapper>
+
+            <InputTitleWrapper title="instruction">
+              <Input />
+            </InputTitleWrapper>
+          </Flex>
+        </Flex>
+        
+        
       </TitleWrapper>
 
       <TitleWrapper title="Education Info">

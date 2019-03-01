@@ -10,7 +10,7 @@ const InputTitleWrapper = ({ children, title, classes }: ITitleProps) => {
 
   return (
     <div className={classes.container}>
-      <h3>{title}</h3>
+      <span className={classes.title}>{title}</span>
       <div className={classes.content}>
         {children}
       </div>
@@ -26,5 +26,10 @@ export default injectSheet({
   },
   content: {
     margin: '0 0 0 20px',
-  }
+  },
+  title: {
+    width: '100px',
+    display: 'flex',
+    alignItems: 'center',
+  },
 })(InputTitleWrapper)
