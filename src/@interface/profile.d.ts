@@ -22,6 +22,7 @@ export interface IExperience {
 
 export interface IBasicInfo {
   username?: string,
+  name?: string,
   github?: string,
   email?: string,
   introduction?: string,

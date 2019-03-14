@@ -15,10 +15,7 @@ export const UserSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  name: {
-    type: String,
-    default: 'admin',
-  },
+  name: String,
   github: String,
   email: String,
   linkedIn: String,

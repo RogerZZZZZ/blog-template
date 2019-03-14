@@ -20,10 +20,11 @@ const BasicInfoInput = ({ onChange, data }: IBasicInfoProps) => {
 
   useEffect(() => {
     setValue(data)
+    console.log('data', data)
   }, [data])
 
-  const updateUsername = (username: any) => {
-    value.username = username
+  const updateUsername = (name: any) => {
+    value.name = name
     udpateValue(value)
   }
 
@@ -51,21 +52,21 @@ const BasicInfoInput = ({ onChange, data }: IBasicInfoProps) => {
     <Flex direction="column">
       <Flex>
         <InputTitleWrapper title="Username">
-          <Input value={data.username} onChange={(e) => updateUsername(e.target.value)} />
+          <Input value={value.name} onChange={(e) => updateUsername(e.target.value)} />
         </InputTitleWrapper>
 
         <InputTitleWrapper title="Github">
-          <Input value={data.github} onChange={(e) => updateGithub(e.target.value)} />
+          <Input value={value.github} onChange={(e) => updateGithub(e.target.value)} />
         </InputTitleWrapper>
       </Flex>
 
       <Flex>
         <InputTitleWrapper title="Email">
-          <Input value={data.email} onChange={(e) => udpateEmail(e.target.value)} />
+          <Input value={value.email} onChange={(e) => udpateEmail(e.target.value)} />
         </InputTitleWrapper>
 
         <InputTitleWrapper title="Introduction">
-          <Input value={data.introduction} onChange={(e) => updateIntruction(e.target.value)} />
+          <Input value={value.introduction} onChange={(e) => updateIntruction(e.target.value)} />
         </InputTitleWrapper>
       </Flex>
     </Flex>

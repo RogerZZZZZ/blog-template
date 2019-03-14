@@ -1,5 +1,7 @@
+import UserWallPaper from '@components/profile/UserWallPaper'
 import { UserCons } from '@constants'
 import { IRouterProps } from '@interface/index'
+import { IBasicInfo } from '@interface/profile'
 import { profileState } from '@reducers/state'
 import { defaultState, IUserState } from '@reducers/user'
 import { Layout } from 'antd'
@@ -11,9 +13,9 @@ import { useDispatch, useMappedState } from 'redux-react-hook'
 const { Header, Content } = Layout
 
 const ProfilePage = ({ classes }: IRouterProps) => {
-  const [profile, setProfile] = useState(defaultState)
+  const [basicInfo, setBasicInfo] = useState({} as IBasicInfo)
   
-  const { success, username, github, introduction, linkedIn, email } = useMappedState(profileState)
+  const { success, name, username, github, introduction, email } = useMappedState(profileState)
   
   const dispatch = useDispatch()
 
@@ -22,13 +24,12 @@ const ProfilePage = ({ classes }: IRouterProps) => {
   }, [])
 
   useEffect(() => {
-    setProfile({
+    setBasicInfo({
+      name,
       username,
+      email,
       github,
       introduction,
-      linkedIn,
-      email,
-      success,
     })
   }, [success])
 
@@ -37,7 +38,7 @@ const ProfilePage = ({ classes }: IRouterProps) => {
       <Header>Header</Header>
 
       <Content>
-        <span>Content</span>
+        <UserWallPaper data={basicInfo}/>
       </Content>
     </Layout>
   )

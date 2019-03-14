@@ -28,7 +28,7 @@ const Profile = ({ classes }: IRouterProps) => {
 
   const dispatch = useDispatch()
 
-  const { success, username, github, introduction, email, 
+  const { success, name, username, github, introduction, email, 
     education, project, experience } = useMappedState(profileState)
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const Profile = ({ classes }: IRouterProps) => {
 
   useEffect(() => {
     setBasicInfo({
+      name,
       username,
       github,
       introduction,

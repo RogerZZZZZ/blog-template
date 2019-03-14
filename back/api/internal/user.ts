@@ -4,8 +4,8 @@ import { userModel } from '../../model'
 const router = new Router()
 
 router.post('/edit', async (ctx) => {
-  console.log('update user profile')
   const data = ctx.request.body
+  console.log('update user profile', data)
   const { username } = data
   try {
     const update = await userModel.findOneAndUpdate({

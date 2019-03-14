@@ -34,6 +34,7 @@ const editEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable<
     mergeMap((action: any) =>
       from(service.user.edit({
         username: action.payload.username,
+        name: action.payload.name,
         github: action.payload.github,
         email: action.payload.email,
         introduction: action.payload.introduction,
