@@ -10,6 +10,7 @@ import { RootState } from '@reducers/index'
 import service from '@services'
 
 type FetchUserAction = ActionType<typeof actions.fetchProfileAction>
+type EditUserAction = ActionType<typeof actions.editProfileAction>
 type Actions = ActionType<typeof actions>
 
 const fetchEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable<Actions>) =>
@@ -27,6 +28,30 @@ const fetchEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable
   )
 )
 
+const editEpic: Epic<Actions, Actions, RootState> = (action$: ActionsObservable<Actions>) =>
+  action$.pipe(
+    ofType<Actions, EditUserAction>(UserCons.EDIT_USER),
+    mergeMap((action: any) =>
+      from(service.user.edit({
+        username: action.payload.username,
+        github: action.payload.github,
+        email: action.payload.email,
+        introduction: action.payload.introduction,
+        education: action.payload.education,
+        project: action.payload.project,
+        experience: action.payload.experience,
+      }))
+      .pipe(
+        map((res: any) => res.toString() !== '{}'
+          ? actions.editSuccessAction(res)
+          : actions.editFailAction()
+        ),
+        catchError((error: Error) => of(actions.editFailAction()))
+      ),
+    )
+  )
+
 export default [
+  editEpic,
   fetchEpic,
 ]

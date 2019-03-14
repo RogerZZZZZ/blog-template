@@ -43,7 +43,8 @@ const addonHOC = (template: any) =>
     const renderList = () => (
       (items || [{}]).map((item, idx) => (
         <div key={idx} className={classes.item}>
-          {template(Object.assign(item, {
+          {template(Object.assign({
+            data: item,
             onChange: updateItem,
             idx,
           }))}

@@ -1,6 +1,6 @@
 import { UserCons } from '@constants'
 import { IRouterProps } from '@interface/index'
-import { logState, profileState } from '@reducers/state'
+import { profileState } from '@reducers/state'
 import { defaultState, IUserState } from '@reducers/user'
 import { Layout } from 'antd'
 import * as React from 'react'

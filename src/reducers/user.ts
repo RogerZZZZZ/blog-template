@@ -5,6 +5,8 @@ import { UserCons } from '@constants'
 
 import { ReducersUtils } from './utils'
 
+import { IEducation, IExperience, IProject } from '@interface/profile'
+
 type UserAction = ActionType<typeof actions>
 
 export interface IUserState {
@@ -14,6 +16,9 @@ export interface IUserState {
   readonly linkedIn?: string
   readonly email?: string
   readonly introduction?: string
+  readonly education?: IEducation[]
+  readonly project?: IProject[]
+  readonly experience?: IExperience[]
   success: boolean,
 }
 
@@ -26,6 +31,9 @@ export const defaultState: IUserState = {
   linkedIn: '',
   email: '',
   introduction: '',
+  education: [],
+  project: [],
+  experience: [],
   success: false,
 }
 
@@ -42,16 +50,28 @@ export default reducersUtils.createReducers(defaultState, {
       success: true,
     }
   },
+  [UserCons.FETCH_FAILED]: (state: IUserState, payload: any) => {
+    return {
+      ...state,
+      success: false,
+    }
+  },
   [UserCons.EDIT_USER]: (state: IUserState, payload: any) => {
     return {
       ...state,
       ...payload,
     }
   },
-  [UserCons.FETCH_FAILED]: (state: IUserState, payload: any) => {
+  [UserCons.EDIT_SUCCESS]: (state: IUserState, payload: any) => {
     return {
       ...state,
-      success: false,
+      ...payload,
     }
-  }
+  },
+  [UserCons.EDIT_FAIL]: (state: IUserState, payload: any) => {
+    return {
+      ...state,
+      ...payload,
+    }
+  },
 })

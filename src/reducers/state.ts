@@ -23,4 +23,7 @@ export const profileState = (state: RootState) => ({
   linkedIn: state.user.linkedIn,
   introduction: state.user.introduction,
   success: state.user.success,
+  education: state.user.education,
+  project: state.user.project,
+  experience: state.user.experience,
 })

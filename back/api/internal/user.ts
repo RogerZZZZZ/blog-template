@@ -3,15 +3,20 @@ import { userModel } from '../../model'
 
 const router = new Router()
 
-router.post('/update', async (ctx) => {
+router.post('/edit', async (ctx) => {
   console.log('update user profile')
   const data = ctx.request.body
   const { username } = data
-  const update = await userModel.findOneAndUpdate({
-    username,
-  }, data)
-  ctx.body = update
-  ctx.status = 200
+  try {
+    const update = await userModel.findOneAndUpdate({
+      username,
+    }, data)
+    ctx.body = update
+    ctx.status = 200
+  } catch (error) {
+    ctx.body = {}
+    ctx.status = 200
+  }
   return ctx
 })
 

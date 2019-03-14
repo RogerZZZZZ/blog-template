@@ -1,8 +1,9 @@
 import Flex from '@components/common/Flex'
 import { IComponentProps } from '@interface/index'
 import { IProject } from '@interface/profile'
+import moment, { Moment } from 'moment'
 import * as React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
 
 import {
@@ -13,24 +14,24 @@ import InputTitleWrapper from './InputTitleWrapper'
 
 const dateFormat = 'DD/MM/YYYY'
 
-const defaultValue: IProject = {
-  time: '',
-  name: '',
-  link: '',
-  skill: '',
-  intro: '',
-}
-
 interface IProjectInfoProp extends IComponentProps {
-  onChange?: any,
-  idx?: number,
+  onChange?: any
+  idx?: number
+  data: IProject
 }
 
-const EducationInput = ({ idx, onChange }: IProjectInfoProp) => {
-  const [value, setValue] = useState(Object.assign({}, defaultValue) as IProject)
+const EducationInput = ({ idx, onChange, data }: IProjectInfoProp) => {
+  const [value, setValue] = useState(data)
+  const [defaultDate, setDefaultDate] = useState(moment() as Moment)
+
+  useEffect(() => {
+    setValue(data)
+    setDefaultDate(value.time ? moment(value.time, dateFormat) : moment())
+  }, [data])
 
   const updateTime = (data: any) => {
     value.time = data.format(dateFormat)
+    setDefaultDate(moment(value.time, dateFormat))
     updateValue(value)
   }
 
@@ -63,32 +64,33 @@ const EducationInput = ({ idx, onChange }: IProjectInfoProp) => {
     <Flex direction="column">
       <Flex>
         <InputTitleWrapper title="Start Time">
-          <DatePicker format={dateFormat} 
+          <DatePicker format={dateFormat}
+                      value={defaultDate}
                       onChange={(date) => updateTime(date)}/>
         </InputTitleWrapper>
       </Flex>
 
       <Flex>
         <InputTitleWrapper title="Name">
-          <Input onChange={(e) => udpateName(e.target.value)} />
+          <Input value={value.name} onChange={(e) => udpateName(e.target.value)} />
         </InputTitleWrapper>
       </Flex>
 
       <Flex>
         <InputTitleWrapper title="Introduction">
-          <Input onChange={(e) => updateIntroduction(e.target.value)}/>
+          <Input value={value.intro} onChange={(e) => updateIntroduction(e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
 
       <Flex>
         <InputTitleWrapper title="Skill">
-          <Input onChange={(e) => updateSkill(e.target.value)}/>
+          <Input value={value.skill} onChange={(e) => updateSkill(e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
 
       <Flex>
         <InputTitleWrapper title="Link">
-          <Input onChange={(e) => updateLink(e.target.value)}/>
+          <Input value={value.link} onChange={(e) => updateLink(e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
     </Flex>

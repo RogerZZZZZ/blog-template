@@ -22,6 +22,9 @@ export const UserSchema: Schema = new Schema({
   github: String,
   email: String,
   linkedIn: String,
+  education: [],
+  experience: [],
+  project: []
 })
 
 UserSchema.methods.fullName = function() : string {

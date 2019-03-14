@@ -7,8 +7,12 @@ export const fetchSuccessAction = createAction<string, any>(UserCons.FETCH_SUCCE
   return (payload: any) => resolve(payload)
 })
 
+export const fetchFailedAction = createAction<string, any>(UserCons.FETCH_FAILED)
+
 export const editProfileAction = createAction<string, any>(UserCons.EDIT_USER, resolve => {
   return (payload: any) => resolve(payload)
 })
 
-export const fetchFailedAction = createAction<string, any>(UserCons.FETCH_FAILED)
+export const editSuccessAction = createAction<string, any>(UserCons.EDIT_SUCCESS)
+
+export const editFailAction = createAction<string, any>(UserCons.EDIT_FAIL)
