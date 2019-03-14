@@ -1,15 +1,12 @@
 import addonHOC from '@components/common/Addon'
-import Flex from '@components/common/Flex'
+import BasicInfoInput from '@components/profile/BasicInfoInput'
 import EducationInput from '@components/profile/EducationInput'
 import ExperienceInfo from '@components/profile/ExperienceInfo'
-import InputTitleWrapper from '@components/profile/InputTitleWrapper'
 import ProjectInfoInput from '@components/profile/ProjectInfoInput'
 import TitleWrapper from '@components/profile/TitleWrapper'
-import { IRouterProps } from '@interface'
+import { IRouterProps } from '@interface/index'
 import {
   Button,
-  Input,
-  Tag,
 } from 'antd'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
@@ -24,31 +21,19 @@ const Profile = ({ classes }: IRouterProps) => {
   const [education, setEducation] = useState([] as any[])
   const [experience, setExperience] = useState([] as any[])
   const [projects, setProjects] = useState([] as any[])
+  const [basicInfo, setBasicInfo] = useState({})
+
+  const saveProfile = () => {
+    console.log(education)
+    console.log(experience)
+    console.log(projects)
+    console.log(basicInfo)
+  }
 
   return (
-    <div>
+    <>
       <TitleWrapper title="Basic Info">
-        <Flex>
-          <Flex direction="row">
-            <InputTitleWrapper title="Username">
-              <Input />
-            </InputTitleWrapper>
-
-            <InputTitleWrapper title="Github Address">
-              <Input />
-            </InputTitleWrapper>
-          </Flex>
-
-          <Flex direction="row">
-            <InputTitleWrapper title="twitter">
-              <Input />
-            </InputTitleWrapper>
-
-            <InputTitleWrapper title="instruction">
-              <Input />
-            </InputTitleWrapper>
-          </Flex>
-        </Flex>
+        <BasicInfoInput data={{}} onChange={setBasicInfo}/>
       </TitleWrapper>
 
       <TitleWrapper title="Education Info">
@@ -62,7 +47,11 @@ const Profile = ({ classes }: IRouterProps) => {
       <TitleWrapper title="Experience Info">
         <Experience data={[]} defaultValue={{}} onChange={setExperience} />
       </TitleWrapper>
-    </div>
+
+      <Button type="primary" icon="save" onClick={saveProfile}>
+        Save
+      </Button>
+    </>
   )
 }
 

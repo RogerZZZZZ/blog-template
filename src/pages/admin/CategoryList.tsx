@@ -1,4 +1,4 @@
-import { ICategory, IPostCard, IRouterProps } from '@interface'
+import { ICategory, IPostCard, IRouterProps } from '@interface/index'
 import service from '@services'
 import {
   Button,

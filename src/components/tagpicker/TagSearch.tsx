@@ -1,4 +1,4 @@
-import { IBasicProps, ITag } from '@interface'
+import { IBasicProps, ITag } from '@interface/index'
 import service from '@services'
 import {
   Select,

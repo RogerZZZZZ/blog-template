@@ -1,4 +1,4 @@
-import { IRouterProps } from '@interface'
+import { IRouterProps } from '@interface/index'
 import service from '@services'
 import { Icon, Layout, Menu } from 'antd'
 import * as React from 'react'

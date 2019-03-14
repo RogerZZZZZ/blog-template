@@ -6,7 +6,7 @@ import * as React from 'react';
 import injectSheet from 'react-jss';
 
 import Header from '@components/header/index'
-import { ICategory, IPostCard, IRouterProps, ITag } from '@interface'
+import { ICategory, IPostCard, IRouterProps, ITag } from '@interface/index'
 import service from '@services';
 
 import 'highlight.js/styles/github.css'

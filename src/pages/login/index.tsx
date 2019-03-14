@@ -1,5 +1,5 @@
 import { LogCons } from '@constants'
-import { IRouterProps } from '@interface'
+import { IRouterProps } from '@interface/index'
 import { logState } from '@reducers/state'
 import * as React from 'react'
 import { useEffect, useState } from 'react'

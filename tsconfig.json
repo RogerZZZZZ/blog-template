@@ -23,7 +23,7 @@
       "@actions/*": ["src/actions/*"],
       "@components/*": ["src/components/*"],
       "@constants": ["src/constants"],
-      "@interface": ["src/@interface"],
+      "@interface/*": ["src/@interface/*"],
       "@reducers/*": ["src/reducers/*"],
       "@services": ["src/services"]
     }

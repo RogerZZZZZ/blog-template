@@ -1,4 +1,4 @@
-import { IBasicProps } from '@interface';
+import { IBasicProps } from '@interface/index';
 import service from '@services'
 import * as React from 'react'
 import { useState } from 'react'

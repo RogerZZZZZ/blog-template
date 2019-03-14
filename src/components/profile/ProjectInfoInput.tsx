@@ -1,5 +1,6 @@
 import Flex from '@components/common/Flex'
-import { IComponentProps } from '@interface'
+import { IComponentProps } from '@interface/index'
+import { IProject } from '@interface/profile'
 import * as React from 'react'
 import { useState } from 'react'
 import injectSheet from 'react-jss'
@@ -12,15 +13,7 @@ import InputTitleWrapper from './InputTitleWrapper'
 
 const dateFormat = 'DD/MM/YYYY'
 
-interface IProjectInfo {
-  time: string,
-  name: string,
-  link: string,
-  skill: string,
-  intro: string,
-}
-
-const defaultValue: IProjectInfo = {
+const defaultValue: IProject = {
   time: '',
   name: '',
   link: '',
@@ -34,11 +27,11 @@ interface IProjectInfoProp extends IComponentProps {
 }
 
 const EducationInput = ({ idx, onChange }: IProjectInfoProp) => {
-  const [value, setValue] = useState(Object.assign({}, defaultValue) as IProjectInfo)
+  const [value, setValue] = useState(Object.assign({}, defaultValue) as IProject)
 
   const updateTime = (data: any) => {
     value.time = data.format(dateFormat)
-    updateValue(data)
+    updateValue(value)
   }
 
   const udpateName = (name: string) => {
@@ -61,7 +54,7 @@ const EducationInput = ({ idx, onChange }: IProjectInfoProp) => {
     updateValue(value)
   }
 
-  const updateValue = (value: IProjectInfo) => {
+  const updateValue = (value: IProject) => {
     setValue(value)
     onChange(idx, value)
   }
@@ -91,7 +84,9 @@ const EducationInput = ({ idx, onChange }: IProjectInfoProp) => {
         <InputTitleWrapper title="Skill">
           <Input onChange={(e) => updateSkill(e.target.value)}/>
         </InputTitleWrapper>
+      </Flex>
 
+      <Flex>
         <InputTitleWrapper title="Link">
           <Input onChange={(e) => updateLink(e.target.value)}/>
         </InputTitleWrapper>

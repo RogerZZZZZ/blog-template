@@ -6,7 +6,7 @@ import injectSheet from 'react-jss';
 import MarkDownEditor from '@components/markdown'
 import TagPicker from '@components/tagpicker'
 import { PostCons } from '@constants'
-import { ICategory, IPostCard, IRouterProps } from '@interface'
+import { ICategory, IPostCard, IRouterProps } from '@interface/index'
 import { postState } from '@reducers/state'
 import service from '@services';
 import { useDispatch, useMappedState } from 'redux-react-hook'

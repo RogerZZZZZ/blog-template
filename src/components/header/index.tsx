@@ -1,4 +1,4 @@
-import { IHeader } from '@interface'
+import { IHeader } from '@interface/index'
 import { logState } from '@reducers/state'
 import * as React from 'react'
 import injectSheet from 'react-jss'

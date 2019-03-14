@@ -1,4 +1,4 @@
-import { IPostCard } from '@interface'
+import { IPostCard } from '@interface/index'
 import * as React from 'react'
 import injectSheet from 'react-jss'
 

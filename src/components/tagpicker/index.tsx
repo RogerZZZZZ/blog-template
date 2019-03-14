@@ -1,4 +1,4 @@
-import { IBasicProps, ITag } from '@interface'
+import { IBasicProps, ITag } from '@interface/index'
 import * as React from 'react'
 import injectStyle from 'react-jss'
 import TagAdd from './TagAdd'

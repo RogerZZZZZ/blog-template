@@ -1,5 +1,6 @@
 import Flex from '@components/common/Flex'
-import { IComponentProps } from '@interface'
+import { IComponentProps } from '@interface/index'
+import { IEducation } from '@interface/profile'
 import * as React from 'react'
 import { useState } from 'react'
 import injectSheet from 'react-jss'
@@ -12,13 +13,6 @@ import InputTitleWrapper from './InputTitleWrapper'
 
 const { RangePicker } = DatePicker
 const dateFormat = 'DD/MM/YYYY'
-
-interface IEducation {
-  startTime: string,
-  endTime: string,
-  school: string,
-  major: string,
-}
 
 const defaultValue: IEducation = {
   startTime: '',

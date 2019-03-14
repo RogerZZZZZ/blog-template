@@ -1,4 +1,4 @@
-import { IComponentProps } from '@interface'
+import { IComponentProps } from '@interface/index'
 import * as React from 'react'
 import { useState } from 'react'
 import injectSheet from 'react-jss'

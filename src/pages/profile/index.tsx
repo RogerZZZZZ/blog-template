@@ -1,5 +1,5 @@
 import { UserCons } from '@constants'
-import { IRouterProps } from '@interface'
+import { IRouterProps } from '@interface/index'
 import { logState, profileState } from '@reducers/state'
 import { defaultState, IUserState } from '@reducers/user'
 import { Layout } from 'antd'

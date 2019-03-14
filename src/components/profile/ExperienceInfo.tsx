@@ -1,5 +1,6 @@
 import Flex from '@components/common/Flex'
-import { IComponentProps } from '@interface'
+import { IComponentProps } from '@interface/index'
+import { IExperience } from '@interface/profile'
 import * as React from 'react'
 import { useState } from 'react'
 import injectSheet from 'react-jss'
@@ -13,14 +14,7 @@ import InputTitleWrapper from './InputTitleWrapper'
 const { RangePicker } = DatePicker
 const dateFormat = 'DD/MM/YYYY'
 
-interface IExperienceInfo {
-  startTime: string,
-  endTime: string,
-  company: string,
-  title: string,
-}
-
-const defaultValue: IExperienceInfo = {
+const defaultValue: IExperience = {
   startTime: '',
   endTime: '',
   company: '',
@@ -33,7 +27,7 @@ interface IExperienceInfo extends IComponentProps {
 }
 
 const ExperienceInfoInput = ({ idx, onChange }: IExperienceInfo) => {
-  const [value, setValue] = useState(Object.assign({}, defaultValue) as IExperienceInfo)
+  const [value, setValue] = useState(Object.assign({}, defaultValue) as IExperience)
 
   const timeRangeChange = (data: any) => {
     value.startTime = data[0].format(dateFormat)
@@ -51,7 +45,7 @@ const ExperienceInfoInput = ({ idx, onChange }: IExperienceInfo) => {
     udpateValue(value)
   }
 
-  const udpateValue = (value: IExperienceInfo) => {
+  const udpateValue = (value: IExperience) => {
     setValue(value)
     onChange(idx, value)
   }

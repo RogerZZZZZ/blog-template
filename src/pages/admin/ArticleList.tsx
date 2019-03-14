@@ -1,5 +1,5 @@
 import { PostCons } from '@constants';
-import { IPostCard, IRouterProps } from '@interface'
+import { IPostCard, IRouterProps } from '@interface/index'
 import { postState } from '@reducers/state'
 import service from '@services';
 import { Button, Icon, List, message as Message, Popconfirm, Skeleton, Spin } from 'antd'

@@ -1,4 +1,4 @@
-import { IBasicProps } from '@interface'
+import { IBasicProps } from '@interface/index'
 import * as hljs from 'highlight.js'
 import * as MarkDown from 'markdown-it'
 import * as React from 'react'
