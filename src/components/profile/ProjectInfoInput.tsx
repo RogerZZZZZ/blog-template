@@ -12,7 +12,7 @@ import {
 } from 'antd'
 import InputTitleWrapper from './InputTitleWrapper'
 
-const dateFormat = 'DD/MM/YYYY'
+const dateFormat = 'YYY/MM/DD'
 
 interface IProjectInfoProp extends IComponentProps {
   onChange?: any

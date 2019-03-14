@@ -13,7 +13,7 @@ import {
 import InputTitleWrapper from './InputTitleWrapper'
 
 const { RangePicker } = DatePicker
-const dateFormat = 'DD/MM/YYYY'
+const dateFormat = 'YYYY/MM/DD'
 
 interface IEducationInputProp extends IComponentProps {
   data: IEducation

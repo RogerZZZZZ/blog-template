@@ -1,3 +1,5 @@
+import Header from '@components/header/index'
+import EducationTimeline from '@components/profile/EducationTimeline'
 import UserWallPaper from '@components/profile/UserWallPaper'
 import { UserCons } from '@constants'
 import { IRouterProps } from '@interface/index'
@@ -10,12 +12,13 @@ import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
 import { useDispatch, useMappedState } from 'redux-react-hook'
 
-const { Header, Content } = Layout
+const { Content } = Layout
 
 const ProfilePage = ({ classes }: IRouterProps) => {
   const [basicInfo, setBasicInfo] = useState({} as IBasicInfo)
   
-  const { success, name, username, github, introduction, email } = useMappedState(profileState)
+  const { success, name, username, github, introduction, email,
+      education, project, experience } = useMappedState(profileState)
   
   const dispatch = useDispatch()
 
@@ -35,10 +38,10 @@ const ProfilePage = ({ classes }: IRouterProps) => {
 
   return (
     <Layout className={classes.homeBody}>
-      <Header>Header</Header>
-
+      <Header />
       <Content>
         <UserWallPaper data={basicInfo}/>
+        <EducationTimeline data={education || []}/>
       </Content>
     </Layout>
   )
@@ -51,6 +54,6 @@ export default injectSheet({
     height: '100%',
     margin: 0,
     padding: 0,
-    backgroundColor: '#e8e8e8',
+    backgroundColor: '#fff',
   },
 })(ProfilePage)

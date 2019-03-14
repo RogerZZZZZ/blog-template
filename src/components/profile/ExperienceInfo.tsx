@@ -13,7 +13,7 @@ import {
 import InputTitleWrapper from './InputTitleWrapper'
 
 const { RangePicker } = DatePicker
-const dateFormat = 'DD/MM/YYYY'
+const dateFormat = 'YYY/MM/DD'
 
 interface IExperienceInfo extends IComponentProps {
   onChange?: any
