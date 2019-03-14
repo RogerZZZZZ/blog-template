@@ -13,27 +13,27 @@ import InputTitleWrapper from './InputTitleWrapper'
 const { RangePicker } = DatePicker
 const dateFormat = 'DD/MM/YYYY'
 
-interface IEducation {
+interface IExperienceInfo {
   startTime: string,
   endTime: string,
-  school: string,
-  major: string,
+  company: string,
+  title: string,
 }
 
-const defaultValue: IEducation = {
+const defaultValue: IExperienceInfo = {
   startTime: '',
   endTime: '',
-  school: '',
-  major: '',
+  company: '',
+  title: '',
 }
 
-interface IEducationInputProp extends IComponentProps {
+interface IExperienceInfo extends IComponentProps {
   onChange?: any,
   idx?: number,
 }
 
-const EducationInput = ({ idx, onChange }: IEducationInputProp) => {
-  const [value, setValue] = useState(Object.assign({}, defaultValue) as IEducation)
+const ExperienceInfoInput = ({ idx, onChange }: IExperienceInfo) => {
+  const [value, setValue] = useState(Object.assign({}, defaultValue) as IExperienceInfo)
 
   const timeRangeChange = (data: any) => {
     value.startTime = data[0].format(dateFormat)
@@ -41,17 +41,17 @@ const EducationInput = ({ idx, onChange }: IEducationInputProp) => {
     udpateValue(value)
   }
 
-  const updateSchool = (school: string) => {
-    value.school = school
+  const udpateCompany = (company: string) => {
+    value.company = company
     udpateValue(value)
   }
 
-  const updateMajor = (major: string) => {
-    value.major = major
+  const udpateTitle = (title: string) => {
+    value.title = title
     udpateValue(value)
   }
 
-  const udpateValue = (value: IEducation) => {
+  const udpateValue = (value: IExperienceInfo) => {
     setValue(value)
     onChange(idx, value)
   }
@@ -66,14 +66,14 @@ const EducationInput = ({ idx, onChange }: IEducationInputProp) => {
       </Flex>
 
       <Flex>
-        <InputTitleWrapper title="School">
-          <Input onChange={(e) => updateSchool(e.target.value)} />
+        <InputTitleWrapper title="Company">
+          <Input onChange={(e) => udpateCompany(e.target.value)} />
         </InputTitleWrapper>
       </Flex>
 
       <Flex>
-        <InputTitleWrapper title="Major">
-          <Input onChange={(e) => updateMajor(e.target.value)}/>
+        <InputTitleWrapper title="Title">
+          <Input onChange={(e) => udpateTitle(e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
     </Flex>
@@ -82,4 +82,4 @@ const EducationInput = ({ idx, onChange }: IEducationInputProp) => {
 
 export default injectSheet({
 
-})(EducationInput)
+})(ExperienceInfoInput)

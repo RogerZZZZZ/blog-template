@@ -1,7 +1,9 @@
 import addonHOC from '@components/common/Addon'
 import Flex from '@components/common/Flex'
 import EducationInput from '@components/profile/EducationInput'
+import ExperienceInfo from '@components/profile/ExperienceInfo'
 import InputTitleWrapper from '@components/profile/InputTitleWrapper'
+import ProjectInfoInput from '@components/profile/ProjectInfoInput'
 import TitleWrapper from '@components/profile/TitleWrapper'
 import { IRouterProps } from '@interface'
 import {
@@ -15,14 +17,13 @@ import injectSheet from 'react-jss'
 import { useMappedState } from 'redux-react-hook'
 
 const Education = addonHOC((props: any) => <EducationInput {...props}/>)
+const Experience = addonHOC((props: any) => <ExperienceInfo {...props}/>)
+const Projects = addonHOC((props: any) => <ProjectInfoInput {...props}/>)
 
 const Profile = ({ classes }: IRouterProps) => {
   const [education, setEducation] = useState([] as any[])
-
-  const onChange = (data: any[]) => {
-    setEducation(data)
-    console.log('onchange', data)
-  }
+  const [experience, setExperience] = useState([] as any[])
+  const [projects, setProjects] = useState([] as any[])
 
   return (
     <div>
@@ -51,16 +52,15 @@ const Profile = ({ classes }: IRouterProps) => {
       </TitleWrapper>
 
       <TitleWrapper title="Education Info">
-        <span>Education Info Part</span>
-        <Education data={[]} defaultValue={{}} onChange={onChange}/>
+        <Education data={[]} defaultValue={{}} onChange={setEducation}/>
       </TitleWrapper>
 
       <TitleWrapper title="Project Info">
-        <span>Project Info Part</span>
+        <Projects data={[]} defaultValue={{}} onChange={setProjects}/>
       </TitleWrapper>
 
       <TitleWrapper title="Experience Info">
-        <span>Experience Info Part</span>
+        <Experience data={[]} defaultValue={{}} onChange={setExperience} />
       </TitleWrapper>
     </div>
   )
