@@ -5,7 +5,7 @@ export interface IBasicProps {
 }
 
 export interface IComponentProps extends IBasicProps {
-  children: any
+  children?: any
 }
 
 export interface IRouterProps extends RouteComponentProps<{}>, IBasicProps {

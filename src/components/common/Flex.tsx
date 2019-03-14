@@ -6,9 +6,8 @@ interface IFlexProps extends IComponentProps {
   direction?: string
 }
 
-
 const Flex = ({ children, direction, classes }: IFlexProps) => {
-  const className: any = direction === 'row' ? classes.container: classes.containerColumn
+  const className: any = direction === 'column' ? classes.containerColumn: classes.container
 
   return (
     <div className={className}>

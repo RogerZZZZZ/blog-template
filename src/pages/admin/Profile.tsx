@@ -1,4 +1,6 @@
+import addonHOC from '@components/common/Addon'
 import Flex from '@components/common/Flex'
+import EducationInput from '@components/profile/EducationInput'
 import InputTitleWrapper from '@components/profile/InputTitleWrapper'
 import TitleWrapper from '@components/profile/TitleWrapper'
 import { IRouterProps } from '@interface'
@@ -12,7 +14,15 @@ import { useEffect, useState } from 'react'
 import injectSheet from 'react-jss'
 import { useMappedState } from 'redux-react-hook'
 
+const Education = addonHOC((props: any) => <EducationInput {...props}/>)
+
 const Profile = ({ classes }: IRouterProps) => {
+  const [education, setEducation] = useState([] as any[])
+
+  const onChange = (data: any[]) => {
+    setEducation(data)
+    console.log('onchange', data)
+  }
 
   return (
     <div>
@@ -38,12 +48,11 @@ const Profile = ({ classes }: IRouterProps) => {
             </InputTitleWrapper>
           </Flex>
         </Flex>
-        
-        
       </TitleWrapper>
 
       <TitleWrapper title="Education Info">
         <span>Education Info Part</span>
+        <Education data={[]} defaultValue={{}} onChange={onChange}/>
       </TitleWrapper>
 
       <TitleWrapper title="Project Info">
