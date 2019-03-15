@@ -1,11 +1,12 @@
 import Header from '@components/header/index'
 import EducationTimeline from '@components/profile/EducationTimeline'
+import ExperienceTimeline from '@components/profile/ExperienceTimeline'
+import ProjectList from '@components/profile/ProjectList'
 import UserWallPaper from '@components/profile/UserWallPaper'
 import { UserCons } from '@constants'
 import { IRouterProps } from '@interface/index'
 import { IBasicInfo } from '@interface/profile'
 import { profileState } from '@reducers/state'
-import { defaultState, IUserState } from '@reducers/user'
 import { Layout } from 'antd'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
@@ -40,8 +41,10 @@ const ProfilePage = ({ classes }: IRouterProps) => {
     <Layout className={classes.homeBody}>
       <Header />
       <Content>
-        <UserWallPaper data={basicInfo}/>
-        <EducationTimeline data={education || []}/>
+        <UserWallPaper data={basicInfo} />
+        <EducationTimeline data={education || []} />
+        <ProjectList data={project || []}/>
+        <ExperienceTimeline data={experience || []} />
       </Content>
     </Layout>
   )

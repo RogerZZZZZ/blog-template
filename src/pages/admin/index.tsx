@@ -1,3 +1,4 @@
+import Header from '@components/header/index'
 import { IRouterProps } from '@interface/index'
 import service from '@services'
 import { Icon, Layout, Menu } from 'antd'
@@ -11,7 +12,7 @@ import CategoryList from './CategoryList'
 import Profile from './Profile'
 import TagList from './TagList'
 
-const { Header, Content, Sider } = Layout
+const { Content, Sider } = Layout
 
 const AdminPage = ({ classes }: IRouterProps) => {
   const pathName = window.location.pathname.split('/')
@@ -27,8 +28,7 @@ const AdminPage = ({ classes }: IRouterProps) => {
 
   return (
     <Layout className={classes.container}>
-      <Header>Header</Header>
-
+      <Header />
       <Layout>
         <Sider className={classes.sider}>
           <Menu
@@ -88,7 +88,7 @@ export default injectSheet({
     borderRight: 0,
   },
   contentLayout: {
-    padding: '24px 24px',
+    padding: '0 24px',
   },
   content: {
     background: '#fff',
