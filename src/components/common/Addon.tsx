@@ -4,7 +4,8 @@ import { useState } from 'react'
 import injectSheet from 'react-jss'
 
 import {
-  Button
+  Button,
+  Divider,
 } from 'antd'
 
 interface IAddonProps extends IComponentProps {
@@ -42,18 +43,21 @@ const addonHOC = (template: any) =>
 
     const renderList = () => (
       (items || [{}]).map((item, idx) => (
-        <div key={idx} className={classes.item}>
-          {template(Object.assign({
-            data: item,
-            onChange: updateItem,
-            idx,
-          }))}
-          {items.length > 1 ?
-          <Button shape="circle" 
-                  icon="delete"
-                  onClick={() => removetItem(idx)}/>
-          : null}
-        </div>
+        <>
+          <div key={idx} className={classes.item}>
+            {template(Object.assign({
+              data: item,
+              onChange: updateItem,
+              idx,
+            }))}
+            {items.length > 1 ?
+            <Button shape="circle" 
+                    icon="delete"
+                    onClick={() => removetItem(idx)}/>
+            : null}
+          </div>
+          <Divider />
+        </>
       ))
     )
 

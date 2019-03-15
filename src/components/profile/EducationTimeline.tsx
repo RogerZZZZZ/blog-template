@@ -18,6 +18,7 @@ const EducationTimeline = ({ classes, data }: IEducationTimelineProps) => {
           <h2>{item.school}</h2>
           <h3>{item.startTime} ~ {item.endTime}</h3>
           <h3>{item.major}</h3>
+          <h3>{item.degree}</h3>
       </Timeline.Item>
     ))
   )

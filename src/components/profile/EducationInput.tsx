@@ -50,6 +50,11 @@ const EducationInput = ({ idx, onChange, data }: IEducationInputProp) => {
     udpateValue(value)
   }
 
+  const updateDegree = (degree: string) => {
+    value.degree = degree
+    udpateValue(value)
+  }
+
   const udpateValue = (value: IEducation) => {
     setValue(value)
     onChange(idx, value)
@@ -74,6 +79,12 @@ const EducationInput = ({ idx, onChange, data }: IEducationInputProp) => {
       <Flex>
         <InputTitleWrapper title="Major">
           <Input value={value.major} onChange={(e) => updateMajor(e.target.value)}/>
+        </InputTitleWrapper>
+      </Flex>
+
+      <Flex>
+        <InputTitleWrapper title="Degree">
+          <Input value={value.degree} onChange={(e) => updateDegree(e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
     </Flex>

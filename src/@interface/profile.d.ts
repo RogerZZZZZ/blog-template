@@ -11,6 +11,7 @@ export interface IEducation {
   endTime?: string,
   school?: string,
   major?: string,
+  degree?: string,
 }
 
 export interface IExperience {

@@ -10,6 +10,8 @@ import {
 } from 'antd'
 import InputTitleWrapper from './InputTitleWrapper'
 
+const { TextArea } = Input
+
 interface IBasicInfoProps extends IComponentProps {
   onChange?: any
   data: IBasicInfo
@@ -20,7 +22,6 @@ const BasicInfoInput = ({ onChange, data }: IBasicInfoProps) => {
 
   useEffect(() => {
     setValue(data)
-    console.log('data', data)
   }, [data])
 
   const updateUsername = (name: any) => {
@@ -58,15 +59,18 @@ const BasicInfoInput = ({ onChange, data }: IBasicInfoProps) => {
         <InputTitleWrapper title="Github">
           <Input value={value.github} onChange={(e) => updateGithub(e.target.value)} />
         </InputTitleWrapper>
-      </Flex>
 
-      <Flex>
         <InputTitleWrapper title="Email">
           <Input value={value.email} onChange={(e) => udpateEmail(e.target.value)} />
         </InputTitleWrapper>
+      </Flex>
 
+      <Flex>
         <InputTitleWrapper title="Introduction">
-          <Input value={value.introduction} onChange={(e) => updateIntruction(e.target.value)} />
+          <TextArea value={value.introduction} 
+                    rows={4}
+                    style={{ width: 400}}
+                    onChange={(e) => updateIntruction(e.target.value)} />
         </InputTitleWrapper>
       </Flex>
     </Flex>

@@ -26,6 +26,7 @@ export default injectSheet({
   },
   content: {
     margin: '0 0 0 20px',
+    minWidth: '200px',
   },
   title: {
     width: '100px',

@@ -12,7 +12,8 @@ import {
 } from 'antd'
 import InputTitleWrapper from './InputTitleWrapper'
 
-const dateFormat = 'YYY/MM/DD'
+const { TextArea } = Input
+const dateFormat = 'YYYY/MM/DD'
 
 interface IProjectInfoProp extends IComponentProps {
   onChange?: any
@@ -75,13 +76,7 @@ const EducationInput = ({ idx, onChange, data }: IProjectInfoProp) => {
           <Input value={value.name} onChange={(e) => udpateName(e.target.value)} />
         </InputTitleWrapper>
       </Flex>
-
-      <Flex>
-        <InputTitleWrapper title="Introduction">
-          <Input value={value.intro} onChange={(e) => updateIntroduction(e.target.value)}/>
-        </InputTitleWrapper>
-      </Flex>
-
+      
       <Flex>
         <InputTitleWrapper title="Skill">
           <Input value={value.skill} onChange={(e) => updateSkill(e.target.value)}/>
@@ -91,6 +86,15 @@ const EducationInput = ({ idx, onChange, data }: IProjectInfoProp) => {
       <Flex>
         <InputTitleWrapper title="Link">
           <Input value={value.link} onChange={(e) => updateLink(e.target.value)}/>
+        </InputTitleWrapper>
+      </Flex>
+
+      <Flex>
+        <InputTitleWrapper title="Introduction">
+          <TextArea value={value.intro} 
+                    rows={4}
+                    style={{ width: 400 }}
+                    onChange={(e) => updateIntroduction(e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
     </Flex>
