@@ -32,14 +32,12 @@ const TagSearch = ({ classes, tags, exposeFn }: IProps) => {
 
   useEffect(() => {
     if (tags && tags.length > 0 && flag) {
-      console.log('change')
       fetchSelections()
       itemChange(tags)
     }
   }, [tags])
 
   const onSelect = (val: string[]) => {
-    console.log('onselect', val)
     itemChange(val)
     exposeFn(val)
     setFlag(false)

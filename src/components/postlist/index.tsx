@@ -61,7 +61,7 @@ const PostList = ({ classes, data }: IPostListProps) => {
 
   const generateDate = (date: number) => {
     try {
-      const dateStr = date ? `${(new Date(date)).toLocaleDateString()}: ` : ''
+      const dateStr = date ? `${(new Date(date)).toLocaleDateString()}   ` : ''
       return dateStr
     } catch (err) {
       return ''
@@ -76,16 +76,11 @@ const PostList = ({ classes, data }: IPostListProps) => {
 }
 
 export default injectSheet({
-  container: {
-    width: '1000px',
-    margin: '20px auto',
-    backgroundColor: '#fff',
-  },
   group: {
     margin: '0 20px',
     padding: '20px 0',
   },
   postTitle: {
-    fontSize: '18px',
+    fontSize: '16px',
   }
 })(PostList)

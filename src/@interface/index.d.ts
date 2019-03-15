@@ -36,6 +36,13 @@ export interface ITagFull extends ITag {
   articles: string[]
 }
 
+export interface ICommonTag {
+  name: string
+  articles: any[]
+  hex?: string
+  _id: string
+}
+
 export interface ICategory {
   name: string
   _id: string

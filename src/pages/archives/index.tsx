@@ -1,8 +1,9 @@
 import Header from '@components/header/index'
 import PostList from '@components/postlist'
+import TagList from '@components/taglist'
 import { ICategory, IPostCard, IRouterProps, ITagFull } from '@interface/index'
 import services from '@services';
-import { Layout, Skeleton } from 'antd'
+import { Layout } from 'antd'
 import { useEffect, useState } from 'react'
 import * as React from 'react'
 import injectSheet from 'react-jss'
@@ -41,8 +42,10 @@ const Archives = ({ classes }: IRouterProps) => {
   return (
     <Layout className={classes.homeBody}>
       <Header />
-      <Content>
-        <PostList data={allInfo.blogs}/>
+      <Content className={classes.container}>
+        <TagList data={allInfo.tags} icon="tags" target="tag"/>
+        <TagList data={allInfo.category} icon="folder" target="category"/>
+        <PostList data={allInfo.blogs} />
       </Content>
     </Layout>
   )
@@ -56,5 +59,10 @@ export default injectSheet({
     margin: 0,
     padding: 0,
     backgroundColor: '#e8e8e8',
+  },
+  container: {
+    width: '1000px',
+    margin: '20px auto',
+    backgroundColor: '#fff',
   },
 })(Archives)

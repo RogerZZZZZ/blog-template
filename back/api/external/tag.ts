@@ -28,9 +28,12 @@ router.get('/fetchByIds', async (ctx) => {
 })
 
 router.get('/fetchById', async (ctx) => {
-  console.log('fetch tag by id')
   const id = ctx.query.id
-  ctx.body = await tagModel.findById(id)
+  if (id) {
+    ctx.body = await tagModel.findById(id)
+  } else {
+    ctx.body = null
+  }
   ctx.status = 200
   return ctx
 })
