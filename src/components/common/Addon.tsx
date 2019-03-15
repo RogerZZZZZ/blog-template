@@ -2,6 +2,7 @@ import { IComponentProps } from '@interface/index'
 import * as React from 'react'
 import { useState } from 'react'
 import injectSheet from 'react-jss'
+import short from 'short-uuid'
 
 import {
   Button,
@@ -43,8 +44,8 @@ const addonHOC = (template: any) =>
 
     const renderList = () => (
       (items || [{}]).map((item, idx) => (
-        <>
-          <div key={idx} className={classes.item}>
+        <div key={short.generate()}>
+          <div className={classes.item}>
             {template(Object.assign({
               data: item,
               onChange: updateItem,
@@ -57,7 +58,7 @@ const addonHOC = (template: any) =>
             : null}
           </div>
           <Divider />
-        </>
+        </div>
       ))
     )
 

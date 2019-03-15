@@ -2,8 +2,9 @@ import { IComponentProps } from '@interface/index'
 import { IProject } from '@interface/profile'
 import * as React from 'react'
 import injectSheet from 'react-jss'
+import short from 'short-uuid'
 
-import { Button, Card, Icon } from 'antd'
+import { Button, Card } from 'antd'
 
 interface IProjectListProps extends IComponentProps {
   data: IProject[]
@@ -28,7 +29,7 @@ const ProjectList = ({ classes, data }: IProjectListProps) => {
 
   const renderListItem = ((items: IProject[]) => (
     items.map((item: IProject) => (
-      <div className={classes.listItem}>
+      <div className={classes.listItem} key={short.generate()}>
         <Card title={item.name}
               actions={[renderLink(item.link || '')]}>
           <h3>{item.time}</h3>

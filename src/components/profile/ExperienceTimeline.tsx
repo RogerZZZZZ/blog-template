@@ -2,6 +2,7 @@ import { IComponentProps } from '@interface/index'
 import { IExperience } from '@interface/profile'
 import * as React from 'react'
 import injectSheet from 'react-jss'
+import short from 'short-uuid'
 
 import { Icon, Timeline } from 'antd'
 
@@ -13,7 +14,8 @@ const ExperienceTimeline = ({ classes, data }: IExperienceTimelingProps) => {
 
   const renderTimelineItem = (items: IExperience[]) => (
     items.map((item: IExperience) => (
-      <Timeline.Item 
+      <Timeline.Item
+        key={short.generate()}
         dot={<Icon type="clock-circle-o" />}>
           <h2>{item.company}</h2>
           <h3>{item.startTime} ~ {item.endTime}</h3>

@@ -2,6 +2,7 @@ import { IComponentProps } from '@interface/index'
 import { IEducation } from '@interface/profile'
 import * as React from 'react'
 import injectSheet from 'react-jss'
+import short from 'short-uuid'
 
 import { Icon, Timeline } from 'antd'
 
@@ -13,7 +14,8 @@ const EducationTimeline = ({ classes, data }: IEducationTimelineProps) => {
 
   const renderTimelineItem = (items: IEducation[]) => (
     items.map((item: IEducation) => (
-      <Timeline.Item 
+      <Timeline.Item
+        key={short.generate()}
         dot={<Icon type="clock-circle-o" />}>
           <h2>{item.school}</h2>
           <h3>{item.startTime} ~ {item.endTime}</h3>
