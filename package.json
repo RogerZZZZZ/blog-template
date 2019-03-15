@@ -40,7 +40,7 @@
     "dev": "concurrently \"npm:dev:*\"",
     "dev:front": "react-app-rewired start --scripts-version react-scripts-ts",
     "dev:back": "NODE_ENV=development DEBUG=koa-* PORT=8080 nodemon --watch 'back/**/*' -e ts,tsx --exec 'ts-node' -O '{\"module\": \"commonjs\"}' ./back/index.ts",
-    "build": "react-app-rewired build",
+    "build": "GENERATE_SOURCEMAP=false react-app-rewired build --scripts-version react-scripts-ts",
     "test": "react-app-rewired test"
   },
   "eslintConfig": {

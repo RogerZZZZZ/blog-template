@@ -1,0 +1,17 @@
+sudo: required
+
+language: node_js
+node_js:
+  - 10.13.0
+
+on:
+  -branch: master
+
+before_install:
+  - node -v
+  - npm -v
+  - yarn -v
+
+script:
+  - yarn run build
+  - yarn test
