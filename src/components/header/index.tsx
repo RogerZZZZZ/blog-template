@@ -23,6 +23,10 @@ const ProfilePage = ({ classes }: IHeader) => {
     window.location.href = '/admin'
   }
 
+  const backToArchive = () => {
+    window.location.href = '/archive'
+  }
+
   const renderAdminBtn = () => (
     login ?
     <div className={classes.buttonIcon}>
@@ -41,8 +45,13 @@ const ProfilePage = ({ classes }: IHeader) => {
         </Button>
       </div>
       <div className={classes.buttonIcon}>
-        <Button type="dashed" icon="profile" onClick={backToProfile}>
+        <Button type="dashed" icon="idcard" onClick={backToProfile}>
           Profile
+        </Button>
+      </div>
+      <div className={classes.buttonIcon}>
+        <Button type="dashed" icon="profile" onClick={backToArchive}>
+          Archives
         </Button>
       </div>
       { renderAdminBtn() }

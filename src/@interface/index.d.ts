@@ -20,6 +20,7 @@ export interface IPostCard extends IBasicProps {
   pinned: boolean
   _id: string
   updatedAt: number
+  createdAt: number
 }
 
 export interface IHeader extends IBasicProps {

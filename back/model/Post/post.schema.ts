@@ -25,10 +25,14 @@ export const PostSchema: Schema = new Schema({
     default: false,
   },
   updatedAt: Number,
+  createdAt: Number,
 })
 
 PostSchema.pre<IPostModel>('save', function (next: any) {
   this.updatedAt = (new Date()).getTime()
+  if (!this.createdAt) {
+    this.createdAt = (new Date()).getTime()
+  }
   next()
 })
 

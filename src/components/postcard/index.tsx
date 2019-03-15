@@ -20,8 +20,7 @@ const PostCard = (props: IPostCard) => {
   }
 
   const continueToRead = () => {
-    console.log('continue to read pid: ', props._id)
-    window.location.href = '/blog?id=' + props._id
+    window.location.href = `/blog?id=${props._id}`
   }
 
   return (
