@@ -5,7 +5,6 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { TwitterPicker } from 'react-color'
 import injectSheet from 'react-jss'
-import { useMappedState } from 'redux-react-hook'
 
 const TagList = ({ classes }: IRouterProps) => {
   const [tags, setTags] = useState([] as ITagFull[])
@@ -22,7 +21,6 @@ const TagList = ({ classes }: IRouterProps) => {
 
   const fetchArticles = async (tag: ITagFull) => {
     const ids: string[] = tag.articles
-
     setCurId(tag._id)
     setCurName(tag.name)
     setCurHex(tag.hex)
@@ -33,7 +31,7 @@ const TagList = ({ classes }: IRouterProps) => {
     setArticles(posts)
   }
 
-  const eidtAction = async () => {
+  const editAction = async () => {
     const tag: ITagFull = await services.tag.updateTag<ITagFull>({
       _id: curId,
       name: curName,
@@ -70,7 +68,7 @@ const TagList = ({ classes }: IRouterProps) => {
         <TwitterPicker triangle="hide" color={curHex}
           onChangeComplete={(color) => setCurHex(color.hex)}/>
       </div>
-      <Button className={classes.tagEditConfirm} onClick={eidtAction} type="primary">
+      <Button className={classes.tagEditConfirm} onClick={editAction} type="primary">
         Confirm
       </Button>
     </div>

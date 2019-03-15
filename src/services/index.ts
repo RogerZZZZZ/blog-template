@@ -42,7 +42,7 @@ const tag = {
   fetchByIds: rs('GET', 'external/tag/fetchByIds'),
 
   create: rs('POST', 'internal/tag/create'),
-  updateTag: rs('POST', 'internal/internal/tag/update'),
+  updateTag: rs('POST', 'internal/tag/update'),
   uptPostsList: rs('GET', 'internal/tag/uptPostsList'),
 }
 

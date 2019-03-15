@@ -11,7 +11,9 @@ export const tagIdOutofArticle = async (tagId: string) => {
       const tags: string[] = (item.tags && item.tags.filter(v => v !== tagId)) || []
       const _id = item._id
       delete item._id
-      await postModel.findOneAndUpdate(_id, {
+      await postModel.findOneAndUpdate({
+        _id,
+      }, {
         tags,
       })
     })
@@ -21,7 +23,9 @@ export const tagIdOutofArticle = async (tagId: string) => {
 export const removeArticlesCategory = async (ids: string[]) => {
   if (ids && ids.length > 0) {
     ids.map(async (id: string) => {
-      await postModel.findOneAndUpdate(id, {
+      await postModel.findOneAndUpdate({
+        _id: id,
+      }, {
         categoryId: '',
       })
     })

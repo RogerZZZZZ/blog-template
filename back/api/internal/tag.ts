@@ -59,8 +59,11 @@ router.get('/uptPostsList', async (ctx) => {
 router.post('/update', async (ctx) => {
   const data = ctx.request.body
   const id = data._id
+  console.log('update', id)
   delete data._id
-  ctx.body = await tagModel.findOneAndUpdate(id, data)
+  ctx.body = await tagModel.findOneAndUpdate({
+    _id: id
+  }, data)
   ctx.status = 200
   return ctx
 })
@@ -70,7 +73,7 @@ router.post('/update', async (ctx) => {
  */
 router.delete('/delete/:id', async (ctx) => {
   const { id } = ctx.params
-  await tagModel.findByIdAndRemove(id)
+  await tagModel.findByIdAndRemove()
   tagIdOutofArticle(id)
   ctx.status = 200
   return ctx

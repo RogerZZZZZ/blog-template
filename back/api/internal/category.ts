@@ -8,7 +8,9 @@ export const addArticleId = async (categoryId: string, articleId: string) => {
   const category = await categoryModel.findById(categoryId)
   const articles: string[] = (category && category.articles) || []
   const set = new Set(articles.concat(articleId))
-  return await categoryModel.findOneAndUpdate(categoryId, {
+  return await categoryModel.findOneAndUpdate({
+    _id: categoryId,
+  }, {
     articles: Array.from(set),
   })
 }
@@ -27,7 +29,9 @@ router.post('/update', async (ctx) => {
   const data = ctx.request.body
   const id = data._id
   delete data._id
-  const category = await categoryModel.findOneAndUpdate(id, data)
+  const category = await categoryModel.findOneAndUpdate({
+    _id: id,
+  }, data)
   ctx.body = category
   ctx.status = 200
   return ctx
