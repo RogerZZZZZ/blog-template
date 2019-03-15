@@ -78,7 +78,7 @@ const EducationInput = ({ idx, onChange, data }: IProjectInfoProp) => {
       </Flex>
       
       <Flex>
-        <InputTitleWrapper title="Skill">
+        <InputTitleWrapper title="Tech Stack">
           <Input value={value.skill} onChange={(e) => updateSkill(e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
