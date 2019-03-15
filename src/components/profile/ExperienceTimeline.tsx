@@ -9,7 +9,7 @@ interface IExperienceTimelingProps extends IComponentProps {
   data: IExperience[]
 }
 
-const EducationTimeline = ({ classes, data }: IExperienceTimelingProps) => {
+const ExperienceTimeline = ({ classes, data }: IExperienceTimelingProps) => {
 
   const renderTimelineItem = (items: IExperience[]) => (
     items.map((item: IExperience) => (
@@ -33,6 +33,6 @@ const EducationTimeline = ({ classes, data }: IExperienceTimelingProps) => {
 
 export default injectSheet({
   container: {
-    margin: '30px 50px',
+    padding: '30px 0',
   }
-})(EducationTimeline)
+})(ExperienceTimeline)

@@ -33,6 +33,6 @@ const EducationTimeline = ({ classes, data }: IEducationTimelineProps) => {
 
 export default injectSheet({
   container: {
-    margin: '30px 50px',
+    padding: '30px 0',
   }
 })(EducationTimeline)

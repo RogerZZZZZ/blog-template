@@ -14,13 +14,12 @@ const ProjectList = ({ classes, data }: IProjectListProps) => {
   const renderListItem = ((items: IProject[]) => (
     items.map((item: IProject) => (
       <div className={classes.listItem}>
-        <Card
-          title={item.name}>
+        <Card title={item.name}>
           <p>{item.time}</p>
           <p>{item.intro}</p>
           <p>{item.skill}</p>
           <p>{item.link}</p>
-      </Card>
+        </Card>
       </div>
     ))
   ))
@@ -37,7 +36,7 @@ const ProjectList = ({ classes, data }: IProjectListProps) => {
 export default injectSheet({
   container: {
     backgroundColor: '#e8e8e8',
-    padding: '30px 50px'
+    padding: '30px 0'
   },
   list: {
     position: 'relative',

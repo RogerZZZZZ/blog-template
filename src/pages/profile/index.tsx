@@ -1,6 +1,7 @@
 import Header from '@components/header/index'
 import EducationTimeline from '@components/profile/EducationTimeline'
 import ExperienceTimeline from '@components/profile/ExperienceTimeline'
+import ProfileItem from '@components/profile/ProfileItem'
 import ProjectList from '@components/profile/ProjectList'
 import UserWallPaper from '@components/profile/UserWallPaper'
 import { UserCons } from '@constants'
@@ -42,9 +43,18 @@ const ProfilePage = ({ classes }: IRouterProps) => {
       <Header />
       <Content>
         <UserWallPaper data={basicInfo} />
-        <EducationTimeline data={education || []} />
-        <ProjectList data={project || []}/>
-        <ExperienceTimeline data={experience || []} />
+
+        <ProfileItem title="Education">
+          <EducationTimeline data={education || []} />
+        </ProfileItem>
+
+        <ProfileItem title="Projects" bgColor="#e8e8e8">
+          <ProjectList data={project || []}/>
+        </ProfileItem>
+
+        <ProfileItem title="Experiences">
+          <ExperienceTimeline data={experience || []} />
+        </ProfileItem>
       </Content>
     </Layout>
   )
