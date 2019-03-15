@@ -8,6 +8,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
           <Route exact path="/login" component={lazy(() => import('./pages/login'))}/>
           <Route exact path="/blog" component={lazy(() => import('./pages/blog'))} />
           <Route exact path="/new" component={lazy(() => import('./pages/create'))} />
@@ -15,8 +16,9 @@ export default function App() {
           <Route exact path="/archive" component={lazy(() => import('./pages/archives'))}/>
           <Route exact path="/tag" component={lazy(() => import('./pages/tag'))}/>
           <Route exact path="/category" component={lazy(() => import('./pages/category'))}/>
-          <Route exact path="/admin" component={lazy(() => import('./pages/admin'))}/>
-          <Route path="/" component={lazy(() => import('./pages/home'))} />
+          <Route exact path="/" component={lazy(() => import('./pages/home'))} />
+          <Route path="/admin" component={lazy(() => import('./pages/admin'))}/>
+        </Switch>
       </Suspense>
     </BrowserRouter>
   )
