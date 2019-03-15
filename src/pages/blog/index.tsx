@@ -1,4 +1,4 @@
-import { BackTop, Button, Layout, Tag } from 'antd';
+import { BackTop, Layout, Tag } from 'antd';
 import * as hljs from 'highlight.js'
 import * as MarkDown from 'markdown-it'
 import { useEffect, useState } from 'react'
@@ -40,7 +40,6 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
       const id = query.split('=')[1]
       const data: IPostCard = await service.post.fetchById<IPostCard>({id})
       if (data) {
-        console.log(data)
         updateAbstract(data.abstract)
         updateTitle(data.title)
         updatePinned(data.pinned)
@@ -137,7 +136,7 @@ export default injectSheet({
   },
   postBox: {
     padding: '50px 60px',
-    maxWidth: '675px',
+    maxWidth: '800px',
     margin: '24px auto',
     backgroundColor: '#fff',
   },

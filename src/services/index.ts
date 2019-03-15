@@ -40,6 +40,7 @@ const rs = (method: string, url: string) => {
 const tag = {
   fetchAll: rs('GET', 'external/tag/fetchAll'),
   fetchByIds: rs('GET', 'external/tag/fetchByIds'),
+  fetchById: rs('GET', 'external/tag/fetchById'),
 
   create: rs('POST', 'internal/tag/create'),
   updateTag: rs('POST', 'internal/tag/update'),

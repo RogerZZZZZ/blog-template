@@ -15,7 +15,7 @@ const PostCard = (props: IPostCard) => {
     const date = (new Date(props.updatedAt)).toDateString()
     const pinTag = props.pinned ? ' - PINNED' : ''
     return (
-      <span>{date}{pinTag}</span>
+      <span><b>{date}{pinTag}</b></span>
     )
   }
 
