@@ -13,5 +13,6 @@ before_install:
   - yarn -v
 
 script:
-  - yarn run build
+  - yarn run build:frontend
+  - yarn run build:backend
   - yarn test

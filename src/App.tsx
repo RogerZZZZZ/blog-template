@@ -1,32 +1,23 @@
 import './App.css'
 
 import * as React from 'react'
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-
-import Admin from './pages/admin'
-import Archive from './pages/archives'
-import Blog from './pages/blog'
-import Category from './pages/category'
-import Create from './pages/create'
-import Home from './pages/home'
-import Login from './pages/login'
-import Profile from './pages/profile'
-import Tag from './pages/tag'
 
 export default function App() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <Switch>
-        <Route exact path="/login" component={Login}/>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/blog" component={Blog} />
-        <Route exact path="/new" component={Create} />
-        <Route exact path="/profile" component={Profile}/>
-        <Route exact path="/archive" component={Archive}/>
-        <Route exact path="/tag" component={Tag}/>
-        <Route exact path="/category" component={Category}/>
-        <Route path="/admin" component={Admin}/>
-      </Switch>
+    <BrowserRouter>
+      <Suspense fallback={<div>Loading...</div>}>
+          <Route exact path="/login" component={lazy(() => import('./pages/login'))}/>
+          <Route exact path="/blog" component={lazy(() => import('./pages/blog'))} />
+          <Route exact path="/new" component={lazy(() => import('./pages/create'))} />
+          <Route exact path="/profile" component={lazy(() => import('./pages/profile'))}/>
+          <Route exact path="/archive" component={lazy(() => import('./pages/archives'))}/>
+          <Route exact path="/tag" component={lazy(() => import('./pages/tag'))}/>
+          <Route exact path="/category" component={lazy(() => import('./pages/category'))}/>
+          <Route exact path="/admin" component={lazy(() => import('./pages/admin'))}/>
+          <Route path="/" component={lazy(() => import('./pages/home'))} />
+      </Suspense>
     </BrowserRouter>
   )
 }
