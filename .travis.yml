@@ -32,8 +32,6 @@ before_deploy:
 deploy:
   provider: script
   script: bash .travis-deploy.sh
-  on:
-    tags: true
 
 env:
   global:
