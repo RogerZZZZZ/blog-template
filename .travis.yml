@@ -10,6 +10,7 @@ on:
 before_install:
   - node -v
   - npm -v
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.3
   - yarn -v
 
 install:

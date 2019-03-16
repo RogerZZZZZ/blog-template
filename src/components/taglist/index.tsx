@@ -29,7 +29,7 @@ const TagList = ({ classes, data, icon, target }: ITagListProp) => {
   return (
     <div className={classes.container}>
       <Flex>
-        <Flex style={{ width: 100 }}>
+        <Flex width={100}>
           <Icon type={icon} style={{ fontSize: '20px' }}/>
         </Flex>
 

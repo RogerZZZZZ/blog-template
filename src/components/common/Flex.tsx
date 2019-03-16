@@ -1,17 +1,20 @@
 import { IComponentProps } from '@interface/index'
 import * as React from 'react'
-import injectSheet, { CSSProperties } from 'react-jss'
+import injectSheet from 'react-jss'
 
 interface IFlexProps extends IComponentProps {
   direction?: string
-  style?: CSSProperties
+  width?: number
 }
 
-const Flex = ({ children, direction, classes, style }: IFlexProps) => {
-  const className: any = direction === 'column' ? classes.containerColumn: classes.container
+const Flex = ({ children, direction, classes, width }: IFlexProps) => {
+  const style: any = {
+    flexDirection: direction === 'column' ? direction : 'row',
+    width: width || 'auto',
+  }
 
   return (
-    <div className={className} style={style}>
+    <div className={classes.container} style={style}>
       {children}
     </div>
   )
