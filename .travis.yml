@@ -12,6 +12,9 @@ before_install:
   - npm -v
   - yarn -v
 
+install:
+  - yarn install --forzen-lockfile
+
 script:
   - yarn run build:frontend
   - yarn run build:backend
