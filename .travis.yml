@@ -3,9 +3,10 @@ sudo: required
 language: node_js
 
 node_js:
-- 10.13.0
-true:
-  "-branch": master
+  - "10.13.0"
+
+services:
+  - docker
 
 before_install:
 - node -v
