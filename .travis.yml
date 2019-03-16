@@ -1,22 +1,40 @@
 sudo: required
 
 language: node_js
-node_js:
-  - 10.13.0
 
-on:
-  -branch: master
+node_js:
+- 10.13.0
+true:
+  "-branch": master
 
 before_install:
-  - node -v
-  - npm -v
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.3
-  - yarn -v
+- node -v
+- npm -v
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.12.3
+- yarn -v
 
 install:
-  - yarn install --forzen-lockfile
+- yarn install --forzen-lockfile
 
 script:
-  - yarn run build:frontend
-  - yarn run build:backend
-  - yarn test
+- yarn run build:frontend
+- yarn run build:backend
+- yarn test
+- docker build -t blog .
+
+after_script:
+- docker images
+
+before_deploy:
+- echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+
+deploy:
+  provider: script
+  script: bash .travis-deploy.sh
+  on:
+    tags: true
+
+env:
+  global:
+  - secure: FbeXN9O8xshvjHDbdAV+RxOpoUpQ77yoGb26tVHfOMY/PU2kGX5u/xLzmHAPppTCuy0B+T4+Zt8ZoY8DIUIbirAI9XnI49PgjyXj+ymNHpoRaTNpLsb2UjcjTsfrxvUi2gPDvoawxj0gvHB3rBT8PSlTvqsfEVIOgqmsNgZSdMhIQ0t+nDXdGisVtO58lwhi00acbr95v7EpEDDtpO2It+kGz8oX725Tyh6/uBXawSZu8rDtDyYS2FvXZQsB7zazYk/Yc95vEwKD+4qejB8t93J+L9wnM0e8oEU7EgodswIet+aJRLq7JBuGs3zFwBWYIRCua2ASvBcoscZ7pGfnzrNqLFPp11w/tIiljAzEptspfe7HCKWRuYlWwlCUvVF8/Vq/0xhA5XoWQbhygWTcJmw2Y++2I3zfSw+G+cy1CzuGZektcxv4JYcm9q1SoXDXUG5ul4f66K6ZDCW9Jn3q52JANHMZtHVQoSmoleGCedflPXdctqx7XSIIdSSl+0nHFpCIMydaYVKUb4X5tuxUfGXtgWM8mWAUIFW5dQbEdYO5LLqzdSt3Ilp75aybsbcZHu4od7aCDMHCU7jjFNwXjYvwvYuVhI4D+xo7ye5/yk0vgNAxQK1P971uyDbG6t+SydYNHGXNffskcmUSRtKwZRNLv/2wLTlemvPPq3+Yr68=
+  - secure: kQgf92RazB9d1VrKyNY2P5PXloM9pCi/oI2QM4oCo6efQIxjyW/hPqkjK1n0dUGUwvI4lYdSXxw8TpjuQLduXoDy/petlK8tsl3DL4xuSyMFLMhitazTOP/u/CM4OC15YRs4b5REijwV90j77/bXY7dfmLGz/fES8NwEGgfnFm4zNJLtADuJQnU5DBwnLrnmgjEg6PG3Kmob/qIkNA4fZoznVOyHB+zhKXitnJOVpf6yUb0BjgR/5XOSBmfSMPR8sI5wyONQx8TN6PVkxKDK2Eb/v5OqOx/9kf4Ef4CS1bTxUYrMeNCTvwFjMc3KQRgbhwcqVQVuCFnervx2icTxNpQe5Ta0ZXl062pFW7CfmCvkPqyHNm/5lugP0VlFaK4O4SbLbDUIj/JVAoQuJRRfLTY8LhMfP7gAdCXh4cqQbd1S5I54a2TdI/eBeNmCZaSn0c9OMvMmbgUZ5Gna+ViVrfsQXVh4PN/5vSLnzp6muiTt7YH0J3VzXHU085xExcJ10RyN+sORYxxGrfhFc2BLi67ZqpDGeHJlMVPgY5BNMNwYNjLsA2JrUVLQScDFhpBvhIBoPyL5+u0PI6TVOdRo3fw4dj5/qSdtREUr7Qw5ye0z4ibXYVRlk8C5VVRZUb21zGLenkvLA6VCqTOB7Gf00sAeS9v+tPC6NdLVIxSgLY8=
