@@ -1,8 +1,8 @@
-import * as jwt from 'jsonwebtoken';
-import * as Koa from 'koa';
-import * as bodyParser from 'koa-bodyparser';
-import * as Router from 'koa-router';
-import * as mongoose from 'mongoose';
+import * as jwt from 'jsonwebtoken'
+import * as Koa from 'koa'
+import * as bodyParser from 'koa-bodyparser'
+import * as Router from 'koa-router'
+import * as mongoose from 'mongoose'
 
 import * as cors from '@koa/cors';
 
@@ -38,7 +38,6 @@ import migrate from './migration';
     const token = ctx.get('Authorization')
     if (!publicPaths.find(v => !!v.exec(ctx.path))
       && authorizedPath.find(v => !!v.exec(ctx.path))) {
-        console.log('verify')
       jwt.verify(token, 'secretKey', (err, decode) => {
         if (err) {
           console.log(err)
