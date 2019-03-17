@@ -24,4 +24,15 @@ ROOT_USER_PWD=
 
 ## Some Screen Shots
 
-![query](https://raw.githubusercontent.com/RogerZZZZZ/lexicon-cli/master/gif/query.gif)
+![Profile](https://raw.githubusercontent.com/RogerZZZZZ/blog-template/master/img/profile.png)
+
+![Profile2](https://raw.githubusercontent.com/RogerZZZZZ/blog-template/master/img/profile2.png)
+
+![Profile Edit](https://raw.githubusercontent.com/RogerZZZZZ/blog-template/master/img/profile_edit.png)
+
+![Home](https://raw.githubusercontent.com/RogerZZZZZ/blog-template/master/img/home.png)
+
+![Blog Create](https://raw.githubusercontent.com/RogerZZZZZ/blog-template/master/img/blog.png)
+
+![Blog Create](https://raw.githubusercontent.com/RogerZZZZZ/blog-template/master/img/blog_create.png)
+
