@@ -32,7 +32,7 @@ ROOT_USER_PWD=
 
 ![Home](https://raw.githubusercontent.com/RogerZZZZZ/blog-template/master/img/home.png)
 
-![Blog Create](https://raw.githubusercontent.com/RogerZZZZZ/blog-template/master/img/blog.png)
+![Blog Proilfe](https://raw.githubusercontent.com/RogerZZZZZ/blog-template/master/img/blog_profile.png)
 
 ![Blog Create](https://raw.githubusercontent.com/RogerZZZZZ/blog-template/master/img/blog_create.png)
 
