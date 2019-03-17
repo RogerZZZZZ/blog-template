@@ -1,27 +1,27 @@
-## Available Scripts
+<div align="center">
+  <h1 style="border:0">Blog Template</h1>
+  📌 One blog template for you to deploy your own Blog Site 
+</div>
 
-In the project directory, you can run:
+## Preparations
 
-### `npm start`
+1. Create a new file `.env`, and input the value listed in `.env-example`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+ROOT_USER=
+ROOT_USER_PWD=
+```
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+2. run `yarn` to install dependencies
 
-### `npm test`
+3. make sure you have start you mongodb
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. run `yarn dev` to start up.
 
-### `npm run build`
+5. run `yarn build:frontend` to build front-end folder, and `yarn build:backend` for backend.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> If you want to deploy using travis, do forget to replace your information with mime.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Some Screen Shots
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
+![query](https://raw.githubusercontent.com/RogerZZZZZ/lexicon-cli/master/gif/query.gif)

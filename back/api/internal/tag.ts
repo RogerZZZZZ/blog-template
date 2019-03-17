@@ -8,7 +8,9 @@ export const postIdOutTag = (tagIds: string[], article: string) => {
   tagIds.map(async (tagId: string) => {
     const tag = await tagModel.findById(tagId)
     const articles: string[] = (tag && tag.articles) || []
-    await tagModel.findByIdAndUpdate(tagId, {
+    await tagModel.findByIdAndUpdate({
+      _id: tagId
+    }, {
       $set: {
         articles: articles.filter(v => v !== article)
       }
@@ -22,7 +24,9 @@ export const addArticleId = (tagIds: string[], article: string) => {
     if (tag) {
       const articles = tag.articles || []
       const set = new Set(articles.concat(article))
-      await tagModel.findByIdAndUpdate(tagId, {
+      await tagModel.findByIdAndUpdate({
+        _id: tagId
+      }, {
         articles: Array.from(set),
       })
     }

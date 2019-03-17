@@ -40,7 +40,7 @@ router.post('/create', async (ctx) => {
   delete data._id
   if (_id !== '') {
     const old = await postModel.findById(_id)
-    post = await postModel.findByIdAndUpdate(_id, data)
+    post = await postModel.findByIdAndUpdate({ _id }, data)
     if (old) {
       postIdOutTag(old.tags.filter(v => !data.tags.includes(v)), _id)
     }
