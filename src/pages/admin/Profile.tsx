@@ -12,7 +12,7 @@ import {
   Button,
 } from 'antd'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import injectSheet from 'react-jss'
 import { useDispatch, useMappedState } from 'redux-react-hook'
 
@@ -27,9 +27,13 @@ const Profile = ({ classes }: IRouterProps) => {
   const [basicInfo, setBasicInfo] = useState({} as IBasicInfo)
 
   const dispatch = useDispatch()
-
+  
   const { success, name, username, github, introduction, email, 
     education, project, experience } = useMappedState(profileState)
+    
+  const EducationChild = useMemo(() => <Education data={education || []} onChange={setEducation}/>, [education])
+  const ExperienceChild = useMemo(() => <Experience data={experience || []} onChange={setExperience} />, [experience])
+  const ProjectChild = useMemo(() => <Projects data={project || []} onChange={setProjects}/>, [project])
 
   useEffect(() => {
     dispatch({ type: UserCons.FETCH_USER })
@@ -57,6 +61,7 @@ const Profile = ({ classes }: IRouterProps) => {
     }
     await dispatch({ type: UserCons.EDIT_USER, payload })
     window.location.reload()
+    console.log(payload)
   }
 
   return (
@@ -66,15 +71,15 @@ const Profile = ({ classes }: IRouterProps) => {
       </TitleWrapper>
 
       <TitleWrapper title="Education Info">
-        <Education data={education || []} defaultValue={{}} onChange={setEducation}/>
+        {EducationChild}
       </TitleWrapper>
 
       <TitleWrapper title="Project Info">
-        <Projects data={project || []} defaultValue={{}} onChange={setProjects}/>
+        {ProjectChild}
       </TitleWrapper>
 
       <TitleWrapper title="Experience Info">
-        <Experience data={experience || []} defaultValue={{}} onChange={setExperience} />
+        {ExperienceChild}
       </TitleWrapper>
 
       <Button type="primary" icon="save" onClick={saveProfile}>

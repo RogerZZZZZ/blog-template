@@ -11,7 +11,6 @@ import {
 
 interface IAddonProps extends IComponentProps {
   data: any[],
-  defaultValue: any,
   onChange: any,
 }
 
@@ -22,8 +21,8 @@ const addonHOC = (template: any) =>
       display: 'flex',
       justifyContent: 'space-between',
     }
-  })(({ children, classes, data, defaultValue, onChange }: IAddonProps) => {
-    const [items, setItems] = useState(data.length < 1 ? [defaultValue] : data)
+  })(({ children, classes, data, onChange }: IAddonProps) => {
+    const [items, setItems] = useState(data.length < 1 ? [{}] : data)
 
     const removetItem = (idx: number) => {
       items.splice(idx, 1)
@@ -37,7 +36,7 @@ const addonHOC = (template: any) =>
     }
 
     const addTemplate = () => {
-      items.push(Object.assign({}, defaultValue))
+      items.push({})
       setItems(items)
       onChange(items)
     }
