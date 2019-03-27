@@ -1,7 +1,10 @@
-import { AutoComplete, Button, Input, Layout, message, Switch } from 'antd';
+import Flex from '@components/common/Flex'
+import Header from '@components/header/index'
+import InputTitleWrapper from '@components/profile/InputTitleWrapper'
+import { AutoComplete, Button, Input, Layout, message, Switch } from 'antd'
 import { useEffect, useState } from 'react'
-import * as React from 'react';
-import injectSheet from 'react-jss';
+import * as React from 'react'
+import injectSheet from 'react-jss'
 
 import MarkDownEditor from '@components/markdown'
 import TagPicker from '@components/tagpicker'
@@ -11,7 +14,7 @@ import { postState } from '@reducers/state'
 import service from '@services';
 import { useDispatch, useMappedState } from 'redux-react-hook'
 
-const { Header, Content} = Layout
+const { Content} = Layout
 const { TextArea } = Input
 
 interface IDataSourceItem {
@@ -104,7 +107,7 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
 
   return (
     <Layout className={classes.blogBody}>
-      <Header>Header</Header>
+      <Header />
 
       <Content className={classes.container}>
         <Layout className={classes.topBanner}>
@@ -112,39 +115,53 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
         </Layout>
 
         <Layout className={classes.content}>
-          <Input value={title} onChange={(e) => updateTitle(e.target.value)}/>
-        </Layout>
+          <Flex direction="column">
+            <Flex>
+              <InputTitleWrapper title="Title">
+                <Input value={title} onChange={(e) => updateTitle(e.target.value)}/>
+              </InputTitleWrapper>
+            </Flex>
 
-        <Layout className={classes.content}>
-          <AutoComplete 
-            dataSource={cateSearch}
-            onSelect={(val: string) => updateCategory(val)}
-            onSearch={onSearchCategory}
-            value={categoryId}
-            placeholder="category"/>
-        </Layout>
+            <Flex>
+              <InputTitleWrapper title="Pinned">
+                <Switch checkedChildren="Pinned" 
+                        unCheckedChildren="Unpinned"
+                        checked={pinned} 
+                        onChange={updatePinned}/>
+              </InputTitleWrapper>
+            </Flex>
 
-        <Layout className={classes.content}>
-          <div className={classes.editArea}>
-            <TagPicker editable exposeFn={updateTags} tags={tags}/>
-          </div>
-        </Layout>
+            <Flex>
+              <InputTitleWrapper title="Category">
+                <AutoComplete 
+                  dataSource={cateSearch}
+                  onSelect={(val: string) => updateCategory(val)}
+                  onSearch={onSearchCategory}
+                  value={categoryId}
+                  placeholder="category"/>
+              </InputTitleWrapper>
+            </Flex>
 
-        <Layout className={classes.content}>
-          <div className={classes.editArea}>
-            <Switch checkedChildren="Pinned" unCheckedChildren="Unpinned"
-              checked={pinned} onChange={updatePinned}/>
-          </div>
-        </Layout>
+            <Flex>
+              <InputTitleWrapper title="Tags">
+                <TagPicker editable exposeFn={updateTags} tags={tags}/>
+              </InputTitleWrapper>
+            </Flex>
 
-        <Layout className={classes.content}>
-          <TextArea autosize={false} value={abstract} onChange={(e) => updateAbstract(e.target.value)}/>
-        </Layout>
+            <Flex>
+              <InputTitleWrapper title="Abstract">
+                <TextArea autosize={{ minRows: 2, maxRows: 6 }} 
+                          value={abstract}
+                          style={{ width: 800 }}
+                          onChange={(e) => updateAbstract(e.target.value)}/>
+              </InputTitleWrapper>
+            </Flex>
 
-        <Layout className={classes.content}>
-          <MarkDownEditor exposeFn={updatePost} value={post}/>
-        </Layout>
+            <MarkDownEditor exposeFn={updatePost} value={post}/>
 
+          </Flex>
+        </Layout>
+        
         <Layout className={classes.content}>
           <Button onClick={submitAction} type="primary">Submit</Button>
         </Layout>
@@ -170,12 +187,10 @@ export default injectSheet({
   },
   content: {
     margin: '24px',
+    backgroundColor: '#fff'
   },
   topBanner: {
     margin: '12px 24px 0 24px',
     width: '100px',
   },
-  editArea: {
-    backgroundColor: '#fff',
-  }
 })(BlogCreate)
