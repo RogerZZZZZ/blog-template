@@ -14,14 +14,8 @@ interface IAddonProps extends IComponentProps {
   onChange: any,
 }
 
-const addonHOC = (template: any) =>
-  injectSheet({
-    item: {
-      margin: '10px 0',
-      display: 'flex',
-      justifyContent: 'space-between',
-    }
-  })(({ children, classes, data, onChange }: IAddonProps) => {
+const addonHOC = (template: any) => {
+  const Addon = ({ children, classes, data, onChange }: IAddonProps) => {
     const [items, setItems] = useState(data.length < 1 ? [{}] : data)
 
     const removetItem = (idx: number) => {
@@ -67,6 +61,15 @@ const addonHOC = (template: any) =>
         <Button onClick={addTemplate} icon="plus" type="primary" />
       </div>
     )
-})
+  }
+
+  return injectSheet({
+    item: {
+      margin: '10px 0',
+      display: 'flex',
+      justifyContent: 'space-between',
+    }
+  })(Addon)
+}
 
 export default addonHOC
