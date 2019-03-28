@@ -1,13 +1,13 @@
-import { ActionsObservable, Epic, ofType } from 'redux-observable';
-import { from, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-import { ActionType } from 'typesafe-actions';
+import { ActionsObservable, Epic, ofType } from 'redux-observable'
+import { from, of } from 'rxjs'
+import { catchError, map, mergeMap } from 'rxjs/operators'
+import { ActionType } from 'typesafe-actions'
 
-import * as actions from '@actions/login';
-import { LogCons } from '@constants';
-import { RootState } from '@reducers/index';
+import * as actions from '@actions/login'
+import { LogCons } from '@constants'
+import { RootState } from '@reducers/index'
 
-import service from '@services';
+import service from '@services'
 
 type LoginAction = ActionType<typeof actions.loginAction>
 type Actions = ActionType<typeof actions>

@@ -1,4 +1,5 @@
 {
+  "defaultSeverity": "error",
   "extends": [
     "tslint:recommended", 
     "tslint-react", 
@@ -14,6 +15,8 @@
   },
   "rules": {
     "no-console": false,
+    "no-var-requires": false,
+    "semicolon": [true, "never"],
     "ordered-imports": true,
     "object-literal-sort-keys": false,
     "jsx-boolean-value": false,

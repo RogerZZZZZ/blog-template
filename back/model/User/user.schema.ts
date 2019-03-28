@@ -3,7 +3,7 @@ import * as passwordHash from 'password-hash'
 import { IUser } from './IUser'
 
 export interface IUserModel extends IUser, Document {
-  fullName(): string;
+  fullName(): string
 }
 
 export const UserSchema: Schema = new Schema({

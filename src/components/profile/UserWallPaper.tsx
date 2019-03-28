@@ -12,10 +12,10 @@ interface IWallPaperProp extends IComponentProps {
 const UserWallPaper = ({ classes, data }: IWallPaperProp) => {
   const renderTip = (icon: string, name?: string) => (
     !!name 
-    ? <>
-        <Icon type={icon}/>
+    ? <div className={classes.email}>
+        <Icon type={icon} className={classes.icon}/>
         <span className={classes.subItem}>{name}</span>
-      </>
+      </div>
     : <div />
   )
   
@@ -23,9 +23,7 @@ const UserWallPaper = ({ classes, data }: IWallPaperProp) => {
 
   const renderLink = (icon: string, url?: string) => (
     !!url
-    ? <div>
-        <Icon type={icon} onClick={() => direct(url)} className={classes.icon}/>
-      </div>
+    ? <Icon type={icon} onClick={() => direct(url)} className={classes.icon}/>
     : <div />
   )
 
@@ -35,7 +33,13 @@ const UserWallPaper = ({ classes, data }: IWallPaperProp) => {
         <h1 className={classes.title}>{data.name}</h1>
         <h2 className={classes.subTitle}>{data.introduction}</h2>
         {renderTip('mail', data.email)}
-        {renderLink('github', data.github)}
+        <div>
+          {renderLink('github', data.github)}
+          {renderLink('facebook', data.facebook)}
+          {renderLink('weibo', data.weibo)}
+          {renderLink('twitter', data.twitter)}
+          {renderLink('linkedIn', data.linkedIn)}
+        </div>
       </div>
     </div>
   )
@@ -75,5 +79,12 @@ export default injectSheet({
   },
   icon: {
     cursor: 'pointer',
+    fontSize: '20px',
+    margin: '0 10px',
+  },
+  email: {
+    display: 'flex',
+    marginBottom: '10px',
+    justifyContent: 'center',
   }
 })(UserWallPaper)

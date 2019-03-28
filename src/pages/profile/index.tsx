@@ -19,8 +19,12 @@ const { Content } = Layout
 const ProfilePage = ({ classes }: IRouterProps) => {
   const [basicInfo, setBasicInfo] = useState({} as IBasicInfo)
   
-  const { success, name, username, github, introduction, email,
-      education, project, experience } = useMappedState(profileState)
+  const { 
+    success, 
+    name, username, github, introduction, email, weibo, facebook, linkedIn, twitter,
+    education, 
+    project, 
+    experience } = useMappedState(profileState)
   
   const dispatch = useDispatch()
 
@@ -34,6 +38,10 @@ const ProfilePage = ({ classes }: IRouterProps) => {
       username,
       email,
       github,
+      weibo,
+      facebook,
+      linkedIn,
+      twitter,
       introduction,
     })
   }, [success])
