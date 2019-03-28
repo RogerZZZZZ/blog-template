@@ -21,6 +21,8 @@ interface IEducationInputProp extends IComponentProps {
   idx?: number
 }
 
+type ShoolFields = 'major' | 'school' | 'degree'
+
 const EducationInput = ({ idx, onChange, data }: IEducationInputProp) => {
   const [value, setValue] = useState(data)
   const [defaultDate, setDefaultDate] = useState([moment(), moment()] as [Moment, Moment])
@@ -40,18 +42,8 @@ const EducationInput = ({ idx, onChange, data }: IEducationInputProp) => {
     udpateValue(value)
   }
 
-  const updateSchool = (school: string) => {
-    value.school = school
-    udpateValue(value)
-  }
-
-  const updateMajor = (major: string) => {
-    value.major = major
-    udpateValue(value)
-  }
-
-  const updateDegree = (degree: string) => {
-    value.degree = degree
+  const updateFiled = (fieldName: ShoolFields, newValue: string) => {
+    value[fieldName] = newValue
     udpateValue(value)
   }
 
@@ -72,19 +64,19 @@ const EducationInput = ({ idx, onChange, data }: IEducationInputProp) => {
 
       <Flex>
         <InputTitleWrapper title="School">
-          <Input value={value.school} onChange={(e) => updateSchool(e.target.value)} />
+          <Input value={value.school} onChange={(e) => updateFiled('school', e.target.value)} />
         </InputTitleWrapper>
       </Flex>
 
       <Flex>
         <InputTitleWrapper title="Major">
-          <Input value={value.major} onChange={(e) => updateMajor(e.target.value)}/>
+          <Input value={value.major} onChange={(e) => updateFiled('major', e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
 
       <Flex>
         <InputTitleWrapper title="Degree">
-          <Input value={value.degree} onChange={(e) => updateDegree(e.target.value)}/>
+          <Input value={value.degree} onChange={(e) => updateFiled('degree', e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
     </Flex>

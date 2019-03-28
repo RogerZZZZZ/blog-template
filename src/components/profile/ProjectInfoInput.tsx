@@ -21,6 +21,8 @@ interface IProjectInfoProp extends IComponentProps {
   data: IProject
 }
 
+type ProjectFields = 'name' | 'intro' | 'skill' | 'link'
+
 const EducationInput = ({ idx, onChange, data }: IProjectInfoProp) => {
   const [value, setValue] = useState(data)
   const [defaultDate, setDefaultDate] = useState(moment() as Moment)
@@ -36,29 +38,14 @@ const EducationInput = ({ idx, onChange, data }: IProjectInfoProp) => {
     updateValue(value)
   }
 
-  const udpateName = (name: string) => {
-    value.name = name
-    updateValue(value)
-  }
-  
-  const updateIntroduction = (intro: string) => {
-    value.intro = intro
-    updateValue(value)
-  }
-
-  const updateSkill = (skill: string) => {
-    value.skill = skill
-    updateValue(value)
-  }
-
-  const updateLink = (link: string) => {
-    value.link = link
-    updateValue(value)
-  }
-
   const updateValue = (value: IProject) => {
     setValue(value)
     onChange(idx, value)
+  }
+
+  const updateField = (fieldName: ProjectFields, newValue: string) => {
+    value[fieldName] = newValue
+    updateValue(value)
   }
 
   return (
@@ -73,19 +60,19 @@ const EducationInput = ({ idx, onChange, data }: IProjectInfoProp) => {
 
       <Flex>
         <InputTitleWrapper title="Name">
-          <Input value={value.name} onChange={(e) => udpateName(e.target.value)} />
+          <Input value={value.name} onChange={(e) => updateField('name', e.target.value)} />
         </InputTitleWrapper>
       </Flex>
       
       <Flex>
         <InputTitleWrapper title="Tech Stack">
-          <Input value={value.skill} onChange={(e) => updateSkill(e.target.value)}/>
+          <Input value={value.skill} onChange={(e) => updateField('skill', e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
 
       <Flex>
         <InputTitleWrapper title="Link">
-          <Input value={value.link} onChange={(e) => updateLink(e.target.value)}/>
+          <Input value={value.link} onChange={(e) => updateField('link', e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
 
@@ -94,7 +81,7 @@ const EducationInput = ({ idx, onChange, data }: IProjectInfoProp) => {
           <TextArea value={value.intro} 
                     rows={4}
                     style={{ width: 400 }}
-                    onChange={(e) => updateIntroduction(e.target.value)}/>
+                    onChange={(e) => updateField('intro', e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
     </Flex>

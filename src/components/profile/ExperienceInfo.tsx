@@ -21,6 +21,8 @@ interface IExperienceInfo extends IComponentProps {
   data: IExperience
 }
 
+type ExperienceFields = 'company' | 'title'
+
 const ExperienceInfoInput = ({ idx, onChange, data }: IExperienceInfo) => {
   const [value, setValue] = useState(data)
   const [defaultDate, setDefaultDate] = useState([moment(), moment()] as [Moment, Moment])
@@ -40,13 +42,8 @@ const ExperienceInfoInput = ({ idx, onChange, data }: IExperienceInfo) => {
     udpateValue(value)
   }
 
-  const udpateCompany = (company: string) => {
-    value.company = company
-    udpateValue(value)
-  }
-
-  const udpateTitle = (title: string) => {
-    value.title = title
+  const updateField = (fieldName: ExperienceFields, newValue: string) => {
+    value[fieldName] = newValue
     udpateValue(value)
   }
 
@@ -67,13 +64,13 @@ const ExperienceInfoInput = ({ idx, onChange, data }: IExperienceInfo) => {
 
       <Flex>
         <InputTitleWrapper title="Company">
-          <Input value={value.company} onChange={(e) => udpateCompany(e.target.value)} />
+          <Input value={value.company} onChange={(e) => updateField('company', e.target.value)} />
         </InputTitleWrapper>
       </Flex>
 
       <Flex>
         <InputTitleWrapper title="Title">
-          <Input value={value.title} onChange={(e) => udpateTitle(e.target.value)}/>
+          <Input value={value.title} onChange={(e) => updateField('title', e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
     </Flex>

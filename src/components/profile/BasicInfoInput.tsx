@@ -17,6 +17,8 @@ interface IBasicInfoProps extends IComponentProps {
   data: IBasicInfo
 }
 
+type BasicFields = 'name' | 'github' | 'facebook' | 'twitter' | 'weibo' | 'introduction' | 'linkedIn' | 'email'
+
 const BasicInfoInput = ({ onChange, data }: IBasicInfoProps) => {
   const [value, setValue] = useState(data)
 
@@ -29,7 +31,7 @@ const BasicInfoInput = ({ onChange, data }: IBasicInfoProps) => {
     onChange(value)
   }
 
-  const updateField = (fieldName: string, newVal: string) => {
+  const updateField = (fieldName: BasicFields, newVal: string) => {
     value[fieldName] = newVal
     udpateValue(value)
   }
