@@ -1,7 +1,7 @@
 import Header from '@components/header/index'
 import PostCard from '@components/postcard'
 import { IPostCard, IRouterProps } from '@interface/index'
-import services from '@services';
+import services from '@services'
 import { useEffect, useState } from 'react'
 import * as React from 'react'
 import injectSheet from 'react-jss'

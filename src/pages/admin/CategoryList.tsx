@@ -34,7 +34,7 @@ const CategoryList = ({ classes, history }: IRouterProps) => {
     setCurChoose(category._id)
     setCurName(category.name)
 
-    const posts: IPostCard[] = await service.post.fetchByIds<IPostCard[]>({
+    const posts: IPostCard[] = await service.post.fetchByIdsInternal<IPostCard[]>({
       articles: ids.filter(v => v !== 'undefined' && v !== ''),
     })
     setArticles(posts)

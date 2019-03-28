@@ -6,7 +6,8 @@ const router = new Router()
 
 router.get('/fetchPinned', async (ctx) => {
   const posts = await postModel.find({
-    pinned: true
+    pinned: true,
+    open: true,
   })
   ctx.body = posts
   ctx.status = 200
@@ -14,7 +15,9 @@ router.get('/fetchPinned', async (ctx) => {
 })
 
 router.get('/fetchAll', async (ctx) => {
-  const posts = await postModel.find({})
+  const posts = await postModel.find({
+    open: true,
+  })
   ctx.body = posts
   ctx.status = 200
   return ctx
@@ -41,7 +44,8 @@ router.get('/fetchByIds', async (ctx) => {
     _id: {
       $in: ids.filter((v: string) => v !== '')
             .map((el: string) => Types.ObjectId(el))
-    }
+    },
+    open: true,
   })
   ctx.status = 200
   return ctx

@@ -1,6 +1,6 @@
 import { IPostCard, IRouterProps, ITagFull } from '@interface/index'
-import services from '@services';
-import { Button, Divider, Input, List, Tag } from 'antd';
+import services from '@services'
+import { Button, Divider, Input, List, Tag } from 'antd'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { TwitterPicker } from 'react-color'
@@ -25,7 +25,7 @@ const TagList = ({ classes }: IRouterProps) => {
     setCurName(tag.name)
     setCurHex(tag.hex)
 
-    const posts: IPostCard[] = await services.post.fetchByIds<IPostCard[]>({
+    const posts: IPostCard[] = await services.post.fetchByIdsInternal<IPostCard[]>({
       articles: ids.filter(v => v !== 'undefined' && v !== ''),
     })
     setArticles(posts)

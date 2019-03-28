@@ -1,9 +1,9 @@
-import { ActionType } from 'typesafe-actions';
+import { ActionType } from 'typesafe-actions'
 
-import * as actions from '@actions/login';
-import { LogCons } from '@constants';
+import * as actions from '@actions/login'
+import { LogCons } from '@constants'
 
-import { ReducersUtils } from './utils';
+import { ReducersUtils } from './utils'
 
 type LoginAction = ActionType<typeof actions>
 

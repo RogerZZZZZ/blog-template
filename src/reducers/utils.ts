@@ -1,6 +1,6 @@
 interface IAction {
-  type: string;
-  payload: any;
+  type: string
+  payload: any
 }
 
 export class ReducersUtils<K extends IAction, T> {

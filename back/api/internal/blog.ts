@@ -1,4 +1,5 @@
 import * as Router from 'koa-router'
+import { Types } from 'mongoose'
 import { postModel } from '../../model'
 import { postIdOutTag } from './tag'
 
@@ -31,6 +32,26 @@ export const removeArticlesCategory = async (ids: string[]) => {
     })
   }
 }
+
+router.get('/fetchAll', async (ctx) => {
+  const posts = await postModel.find({})
+  ctx.body = posts
+  ctx.status = 200
+  return ctx
+})
+
+router.get('/fetchByIds', async (ctx) => {
+  const ids = ctx.query.articles.split(',')
+  console.log('articles: ', ids)
+  ctx.body = await postModel.find({
+    _id: {
+      $in: ids.filter((v: string) => v !== '')
+            .map((el: string) => Types.ObjectId(el))
+    },
+  })
+  ctx.status = 200
+  return ctx
+})
 
 router.post('/create', async (ctx) => {
   console.log('createOrUpdate post')

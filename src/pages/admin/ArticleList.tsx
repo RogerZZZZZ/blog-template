@@ -1,7 +1,7 @@
-import { PostCons } from '@constants';
+import { PostCons } from '@constants'
 import { IPostCard, IRouterProps } from '@interface/index'
 import { postState } from '@reducers/state'
-import service from '@services';
+import service from '@services'
 import { Button, Icon, List, message as Message, Popconfirm, Skeleton, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 import * as React from 'react'
@@ -18,7 +18,7 @@ const ArticleList = ({ classes, history }: IRouterProps) => {
   const { deleteSuccess, doing, message } = useMappedState(postState)
 
   const fetchBlog = async () => {
-    const blogs: IPostCard[] = await service.post.fetchAll<IPostCard[]>(null)
+    const blogs: IPostCard[] = await service.post.fetchAllInternal<IPostCard[]>(null)
     setBlogs(blogs)
     setFetching(false)
   }
@@ -95,7 +95,7 @@ const ArticleList = ({ classes, history }: IRouterProps) => {
           size="large"
           pagination={{
             onChange: (page) => {
-              console.log(page);
+              console.log(page)
             },
             pageSize: 5,
           }}

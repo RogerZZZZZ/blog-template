@@ -52,10 +52,12 @@ const post = {
   fetchAll: rs('GET', 'external/post/fetchAll'),
   fetchByCategory: rs('GET', 'external/post/fetchByCategory'),
   fetchById: rs('GET', 'external/post/fetchById'),
+  fetchByIds: rs('GET', 'external/post/fetchByIds'),
 
   create: rs('POST', 'internal/post/create'),
   deleteById: rs('GET', 'internal/post/deleteById'),
-  fetchByIds: rs('GET', 'external/post/fetchByIds'),
+  fetchByIdsInternal: rs('GET', 'internal/post/fetchByIds'),
+  fetchAllInternal: rs('GET', 'internal/post/fetchAll'),
 }
 
 const category = {

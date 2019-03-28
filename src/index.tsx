@@ -9,7 +9,7 @@ import reduxPersist from './redux-persist'
 
 declare global {
   interface IWindow {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: () => {};
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: () => {}
   }
 }
 
@@ -29,4 +29,4 @@ ReactDOM.render(
       <App />
     </PersistGate>
   </StoreContext.Provider>,
-  document.getElementById('root'));
+  document.getElementById('root'))

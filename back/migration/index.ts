@@ -25,7 +25,7 @@ const action = {
 }
 
 const up = async () => {
-  const model = await versionModel.findOne({ version: 'version' });
+  const model = await versionModel.findOne({ version: 'version' })
   const version = (model && model.value) || 0
   for (let v = version; v <= getVersion(); v++) {
     const migrate = action[v]

@@ -4,10 +4,10 @@ import * as bodyParser from 'koa-bodyparser'
 import * as Router from 'koa-router'
 import * as mongoose from 'mongoose'
 
-import * as cors from '@koa/cors';
+import * as cors from '@koa/cors'
 
-import api from './api';
-import migrate from './migration';
+import api from './api'
+import migrate from './migration'
 
 (async () => {
   const app = new Koa()
@@ -55,9 +55,9 @@ import migrate from './migration';
     try {
       await next()
     } catch (err) {
-      ctx.status = err.status || 500;
-      ctx.body = err.message;
-      ctx.app.emit('error', err, ctx);
+      ctx.status = err.status || 500
+      ctx.body = err.message
+      ctx.app.emit('error', err, ctx)
     }
   })
 

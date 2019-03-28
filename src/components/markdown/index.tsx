@@ -29,10 +29,10 @@ const md = new MarkDown({
   highlight: (str, lang) => {
     if (lang && hljs.getLanguage(lang)) {
       try {
-        return hljs.highlight(lang, str).value;
+        return hljs.highlight(lang, str).value
       } catch (__) {console.log(__)}
     }
-    return ''; // use external default escaping
+    return '' // use external default escaping
   }
 })
 
@@ -56,13 +56,13 @@ const MarkDownEditor = ({ classes, exposeFn, value }: IProps) => {
       event$.pipe(
         withLatestFrom(inputs$.pipe(map(([editorEle]) => editorEle))),
         switchMap(([event, editorEle]) => {
-          const leftStyle = getComputedStyle(editorEle.current);
-          const width0 = parseFloat(leftStyle.getPropertyValue("width"));
-          const startX = event.clientX;
+          const leftStyle = getComputedStyle(editorEle.current)
+          const width0 = parseFloat(leftStyle.getPropertyValue("width"))
+          const startX = event.clientX
           return fromEvent(window, "mousemove").pipe(
             map((moveEvent: any) => moveEvent.clientX - startX + width0),
             takeUntil(fromEvent(window, "mouseup"))
-          );
+          )
         })
       ),
     null,

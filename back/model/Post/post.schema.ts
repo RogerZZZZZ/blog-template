@@ -2,7 +2,7 @@ import { Document, Model, model, Schema } from 'mongoose'
 import { IPost } from './IPost'
 
 export interface IPostModel extends IPost, Document {
-  updatedAt: number;
+  updatedAt: number
 }
 
 export const PostSchema: Schema = new Schema({
@@ -26,6 +26,10 @@ export const PostSchema: Schema = new Schema({
   },
   updatedAt: Number,
   createdAt: Number,
+  open: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 PostSchema.pre<IPostModel>('save', function (next: any) {

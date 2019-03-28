@@ -23,7 +23,7 @@ const AdminPage = ({ classes }: IRouterProps) => {
   }, [])
 
   const healthCheck = async () => {
-    await service.health.admin(null); 
+    await service.health.admin(null)
   }
 
   return (

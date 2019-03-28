@@ -2,7 +2,7 @@ import Header from '@components/header/index'
 import PostList from '@components/postlist'
 import TagList from '@components/taglist'
 import { ICategory, IPostCard, IRouterProps, ITagFull } from '@interface/index'
-import services from '@services';
+import services from '@services'
 import { Layout } from 'antd'
 import { useEffect, useState } from 'react'
 import * as React from 'react'

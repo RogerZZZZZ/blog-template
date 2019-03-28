@@ -1,13 +1,13 @@
-import { BackTop, Layout, Tag } from 'antd';
+import { BackTop, Layout, Tag } from 'antd'
 import * as hljs from 'highlight.js'
 import * as MarkDown from 'markdown-it'
 import { useEffect, useState } from 'react'
-import * as React from 'react';
-import injectSheet from 'react-jss';
+import * as React from 'react'
+import injectSheet from 'react-jss'
 
 import Header from '@components/header/index'
 import { ICategory, IPostCard, IRouterProps, ITag } from '@interface/index'
-import service from '@services';
+import service from '@services'
 
 import 'highlight.js/styles/github.css'
 
@@ -16,10 +16,10 @@ const md = new MarkDown({
   highlight: (str, lang) => {
     if (lang && hljs.getLanguage(lang)) {
       try {
-        return hljs.highlight(lang, str).value;
+        return hljs.highlight(lang, str).value
       } catch (__) {console.log(__)}
     }
-    return ''; // use external default escaping
+    return '' // use external default escaping
   }
 })
 
