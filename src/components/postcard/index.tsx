@@ -23,12 +23,23 @@ const PostCard = (props: IPostCard) => {
     window.location.href = `/blog?id=${props._id}`
   }
 
+  const renderTime = () => (
+    !!props.minutes ?
+      Array.from({length: Math.ceil(props.minutes / 10)}).map((el, idx) => <Icon type="coffee" key={idx}/>)
+    : <div />
+  )
+
   return (
     <Card className={classes.post}>
       <div className={classes.titleContent}>
         <a className={classes.title}>{props.title}</a>
         {dateRender()}
       </div>
+
+      <span>
+        {renderTime()}
+        {props.minutes} mins read
+      </span>
 
       <div className={classes.postContent}>
         {props.abstract}
@@ -53,7 +64,7 @@ export default injectSheet({
     flexDirection: 'column',
   },
   title: {
-    fontSize: '2rem',
+    fontSize: '1.6rem',
   },
   postContent: {
     marginBottom: '10px',

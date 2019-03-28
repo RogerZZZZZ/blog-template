@@ -1,4 +1,4 @@
-import { BackTop, Layout, Tag } from 'antd'
+import { BackTop, Icon, Layout, Tag } from 'antd'
 import * as hljs from 'highlight.js'
 import * as MarkDown from 'markdown-it'
 import { useEffect, useState } from 'react'
@@ -31,6 +31,7 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
   const [abstract, updateAbstract] = useState('')
   const [tags, setTags] = useState<ITag[]>([])
   const [title, updateTitle] = useState('')
+  const [minutes, setMinutes] = useState(0)
   const [pinned, updatePinned] = useState(false)
   const [renderMarked, updateRenderMarked] = useState('')
 
@@ -43,6 +44,7 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
         updateAbstract(data.abstract)
         updateTitle(data.title)
         updatePinned(data.pinned)
+        setMinutes(data.minutes || 0)
 
         fetchCategory(data.categoryId || '')
         fetchTags(data.tags || [])
@@ -85,6 +87,12 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
       : <div />
   )
 
+  const renderTime = () => (
+    !!minutes ?
+      Array.from({length: Math.ceil(minutes / 10)}).map((el, idx) => <Icon type="coffee" key={idx}/>)
+    : <div />
+  )
+
   return (
     <Layout className={classes.blogBody}>
       <Header />
@@ -100,6 +108,10 @@ const Blog = ({ classes, history, location }: IRouterProps) => {
               <div>
                 {renderTags()}
               </div>
+              <span>
+                {renderTime()}
+                {minutes} mins read
+              </span>
             </div>
             {abstract}
             <div dangerouslySetInnerHTML={{__html: renderMarked}}/>

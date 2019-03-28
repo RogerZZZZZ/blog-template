@@ -1,7 +1,8 @@
 import Flex from '@components/common/Flex'
+import NumericInput from '@components/common/NumericInput'
 import Header from '@components/header/index'
 import InputTitleWrapper from '@components/profile/InputTitleWrapper'
-import { AutoComplete, Button, Input, Layout, message, Switch } from 'antd'
+import { AutoComplete, Button, Input, InputNumber, Layout, message, Switch, } from 'antd'
 import { useEffect, useState } from 'react'
 import * as React from 'react'
 import injectSheet from 'react-jss'
@@ -31,6 +32,7 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
   const [title, updateTitle] = useState('')
   const [pinned, updatePinned] = useState(false)
   const [open, setOpen] = useState(false)
+  const [minutes, setMinutes] = useState(0)
   const [editId, setEditId] = useState('')
   const [categories, setCategories] = useState([] as ICategory[])
   const [cateSearch, setCateSearch] = useState([] as IDataSourceItem[])
@@ -53,6 +55,7 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
         updatePinned(data.pinned)
         updateCategory(data.categoryId)
         setOpen(data.open || false)
+        setMinutes(data.minutes || 0)
       }
     }
   }
@@ -93,6 +96,7 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
       tags,
       open,
       title,
+      minutes,
       pinned,
       id: editId,
     }
@@ -166,6 +170,14 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
                           value={abstract}
                           style={{ width: 800 }}
                           onChange={(e) => updateAbstract(e.target.value)}/>
+              </InputTitleWrapper>
+            </Flex>
+
+            <Flex>
+              <InputTitleWrapper title="Time to read">
+                <NumericInput value={minutes}
+                              addonAfter="minutes"
+                              onChange={setMinutes}/>
               </InputTitleWrapper>
             </Flex>
 

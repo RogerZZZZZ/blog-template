@@ -30,6 +30,10 @@ export const PostSchema: Schema = new Schema({
     type: Boolean,
     default: true,
   },
+  minutes: {
+    type: Number,
+    default: 0,
+  },
 })
 
 PostSchema.pre<IPostModel>('save', function (next: any) {

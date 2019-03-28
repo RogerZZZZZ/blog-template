@@ -19,6 +19,7 @@ export interface IPostCard extends IBasicProps {
   categoryId: string
   pinned: boolean
   _id: string
+  minutes: number
   updatedAt: number
   createdAt: number
   open: boolean,
