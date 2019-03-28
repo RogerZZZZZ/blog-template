@@ -19,6 +19,9 @@ export const UserSchema: Schema = new Schema({
   github: String,
   email: String,
   linkedIn: String,
+  twitter: String,
+  facebook: String,
+  weibo: String,
   education: [],
   experience: [],
   project: []

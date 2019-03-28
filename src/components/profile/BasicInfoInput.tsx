@@ -24,44 +24,49 @@ const BasicInfoInput = ({ onChange, data }: IBasicInfoProps) => {
     setValue(data)
   }, [data])
 
-  const updateUsername = (name: any) => {
-    value.name = name
-    udpateValue(value)
-  }
-
-  const updateGithub = (github: string) => {
-    value.github = github
-    udpateValue(value)
-  }
-
-  const udpateEmail = (email: string) => {
-    value.email = email
-    udpateValue(value)
-  }
-
-  const updateIntruction = (introduction: string) => {
-    value.introduction = introduction
-    udpateValue(value)
-  }
-
   const udpateValue = (value: IBasicInfo) => {
     setValue(value)
     onChange(value)
+  }
+
+  const updateField = (fieldName: string, newVal: string) => {
+    value[fieldName] = newVal
+    udpateValue(value)
   }
 
   return (
     <Flex direction="column">
       <Flex>
         <InputTitleWrapper title="Username">
-          <Input value={value.name} onChange={(e) => updateUsername(e.target.value)} />
+          <Input value={value.name} onChange={(e) => updateField('name', e.target.value)} />
         </InputTitleWrapper>
 
         <InputTitleWrapper title="Github">
-          <Input value={value.github} onChange={(e) => updateGithub(e.target.value)} />
+          <Input value={value.github} onChange={(e) => updateField('github', e.target.value)} />
         </InputTitleWrapper>
 
         <InputTitleWrapper title="Email">
-          <Input value={value.email} onChange={(e) => udpateEmail(e.target.value)} />
+          <Input value={value.email} onChange={(e) => updateField('email', e.target.value)} />
+        </InputTitleWrapper>
+      </Flex>
+
+      <Flex>
+        <InputTitleWrapper title="Twitter">
+          <Input value={value.twitter} onChange={(e) => updateField('twitter', e.target.value)}/>
+        </InputTitleWrapper>
+
+        <InputTitleWrapper title="Facebook">
+          <Input value={value.facebook} onChange={(e) => updateField('facebook', e.target.value)}/>
+        </InputTitleWrapper>
+
+        <InputTitleWrapper title="Weibo">
+          <Input value={value.weibo} onChange={(e) => updateField('weibo', e.target.value)}/>
+        </InputTitleWrapper>
+      </Flex>
+
+      <Flex>
+        <InputTitleWrapper title="LinkedIn">
+          <Input value={value.linkedIn} onChange={(e) => updateField('linkedIn', e.target.value)}/>
         </InputTitleWrapper>
       </Flex>
 
@@ -70,7 +75,7 @@ const BasicInfoInput = ({ onChange, data }: IBasicInfoProps) => {
           <TextArea value={value.introduction} 
                     rows={4}
                     style={{ width: 400}}
-                    onChange={(e) => updateIntruction(e.target.value)} />
+                    onChange={(e) => updateField('introduction', e.target.value)} />
         </InputTitleWrapper>
       </Flex>
     </Flex>

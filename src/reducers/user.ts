@@ -14,6 +14,9 @@ export interface IUserState {
   readonly name?: string
   readonly github?: string
   readonly linkedIn?: string
+  readonly facebook?: string
+  readonly twitter?: string
+  readonly weibo?: string
   readonly email?: string
   readonly introduction?: string
   readonly education?: IEducation[]
@@ -30,6 +33,9 @@ export const defaultState: IUserState = {
   github: '',
   linkedIn: '',
   email: '',
+  facebook: '',
+  twitter: '',
+  weibo: '',
   introduction: '',
   education: [],
   project: [],

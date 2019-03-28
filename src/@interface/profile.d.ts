@@ -26,5 +26,9 @@ export interface IBasicInfo {
   name?: string,
   github?: string,
   email?: string,
+  twitter?: string,
+  facebook?: string,
+  linkedIn?: string,
+  weibo?: string,
   introduction?: string,
 }

@@ -28,8 +28,12 @@ const Profile = ({ classes }: IRouterProps) => {
 
   const dispatch = useDispatch()
   
-  const { success, name, username, github, introduction, email, 
-    education, project, experience } = useMappedState(profileState)
+  const { success, 
+    name, username, github, introduction, email, facebook, linkedIn, twitter, weibo, // basic info
+    education,
+    project,
+    experience
+  } = useMappedState(profileState)
     
   const EducationChild = useMemo(() => <Education data={education || []} onChange={setEducation}/>, [education])
   const ExperienceChild = useMemo(() => <Experience data={experience || []} onChange={setExperience} />, [experience])
@@ -44,6 +48,10 @@ const Profile = ({ classes }: IRouterProps) => {
       name,
       username,
       github,
+      linkedIn,
+      facebook,
+      weibo,
+      twitter,
       introduction,
       email,
     })
@@ -61,7 +69,6 @@ const Profile = ({ classes }: IRouterProps) => {
     }
     await dispatch({ type: UserCons.EDIT_USER, payload })
     window.location.reload()
-    console.log(payload)
   }
 
   return (
