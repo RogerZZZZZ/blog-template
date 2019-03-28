@@ -30,6 +30,7 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
   const [tags, updateTags] = useState<string[]>([])
   const [title, updateTitle] = useState('')
   const [pinned, updatePinned] = useState(false)
+  const [open, setOpen] = useState(false)
   const [editId, setEditId] = useState('')
   const [categories, setCategories] = useState([] as ICategory[])
   const [cateSearch, setCateSearch] = useState([] as IDataSourceItem[])
@@ -51,6 +52,7 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
         updateTitle(data.title)
         updatePinned(data.pinned)
         updateCategory(data.categoryId)
+        setOpen(data.open || false)
       }
     }
   }
@@ -89,6 +91,7 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
       abstract,
       categoryId,
       tags,
+      open,
       title,
       pinned,
       id: editId,
@@ -127,7 +130,16 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
                 <Switch checkedChildren="Pinned" 
                         unCheckedChildren="Unpinned"
                         checked={pinned} 
-                        onChange={updatePinned}/>
+                        onChange={updatePinned} />
+              </InputTitleWrapper>
+            </Flex>
+
+            <Flex>
+              <InputTitleWrapper title="Show or Not">
+                <Switch checkedChildren="Show" 
+                        unCheckedChildren="Hide" 
+                        onChange={setOpen}
+                        checked={open} />
               </InputTitleWrapper>
             </Flex>
 

@@ -21,6 +21,7 @@ export interface IPostCard extends IBasicProps {
   _id: string
   updatedAt: number
   createdAt: number
+  open: boolean,
 }
 
 export interface IHeader extends IBasicProps {
