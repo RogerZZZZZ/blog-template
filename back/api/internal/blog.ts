@@ -1,6 +1,7 @@
 import * as Router from 'koa-router'
 import { Types } from 'mongoose'
 import { postModel } from '../../model'
+import upload from '../../upload'
 import { postIdOutTag } from './tag'
 
 const router = new Router()
@@ -84,6 +85,10 @@ router.get('/deleteById', async (ctx) => {
   })
   ctx.status = 200
   return ctx
+})
+
+router.post('/upload', upload.single('file'), async (ctx) => {
+  console.log(ctx)
 })
 
 export default router

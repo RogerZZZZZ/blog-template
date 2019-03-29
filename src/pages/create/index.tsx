@@ -1,8 +1,9 @@
 import Flex from '@components/common/Flex'
 import NumericInput from '@components/common/NumericInput'
+import UploadBtn from '@components/common/UploadBtn'
 import Header from '@components/header/index'
 import InputTitleWrapper from '@components/profile/InputTitleWrapper'
-import { AutoComplete, Button, Input, InputNumber, Layout, message, Switch, } from 'antd'
+import { AutoComplete, Button, Input, Layout, message, Switch } from 'antd'
 import { useEffect, useState } from 'react'
 import * as React from 'react'
 import injectSheet from 'react-jss'
@@ -123,6 +124,10 @@ const BlogCreate = ({ classes, history, location }: IRouterProps) => {
 
         <Layout className={classes.content}>
           <Flex direction="column">
+            <Flex>
+              <UploadBtn />
+            </Flex>
+
             <Flex>
               <InputTitleWrapper title="Title">
                 <Input value={title} onChange={(e) => updateTitle(e.target.value)}/>

@@ -27,8 +27,8 @@ const putParamsCreate = (obj: any) => {
 export const headerFactory = (url: string, method: string, data: any) => {
   const header = {
     method,
-      url,
-      json: true,
+    url,
+    json: true,
   }
   if (method === 'POST') {
     return Object.assign(header, {data})

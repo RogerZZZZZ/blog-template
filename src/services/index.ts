@@ -30,9 +30,19 @@ const auth = {
   login: (obj: any) => axios.post('external/auth/login', obj).then(r => r),
 }
 
-const rs = (method: string, url: string) => {
+const rs = (method: string, url: string, formMethod: boolean = false) => {
   return <T>(data: any) => {
-    return axios(headerFactory(url, method, data))
+    const config = headerFactory(url, method, data)
+    if (formMethod) {
+      Object.assign(config, {
+        config: {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      })
+    }
+    return axios(config)
     .then((r: AxiosResponse<T>) => r.data)
   }
 }
@@ -58,6 +68,7 @@ const post = {
   deleteById: rs('GET', 'internal/post/deleteById'),
   fetchByIdsInternal: rs('GET', 'internal/post/fetchByIds'),
   fetchAllInternal: rs('GET', 'internal/post/fetchAll'),
+  upload: rs('POST', 'internal/post/upload', true),
 }
 
 const category = {

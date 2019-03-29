@@ -50,6 +50,7 @@ import migrate from './migration'
 
   router.use('/api', api.routes())
   app.use(router.routes())
+  app.use(router.allowedMethods())
 
   app.use(async (ctx, next) => {
     try {
