@@ -6,7 +6,7 @@
     "@ant-design/icons": "^1.1.15",
     "@ant-design/icons-react": "^1.1.2",
     "@koa/cors": "2",
-    "antd": "3.10.9",
+    "antd": "3.18.0",
     "axios": "^0.18.0",
     "dotenv": "^6.2.0",
     "dotenv-webpack": "^1.7.0",

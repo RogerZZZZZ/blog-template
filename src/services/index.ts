@@ -10,13 +10,15 @@ axios.interceptors.response.use(response => {
   return response
 }, error => {
   console.log(error)
-  if (error.response.status === 401) {
-    reduxPersist.getStore().dispatch({
-      type: LogCons.CLEAR_AUTH,
-    })
-    window.location.href = '/login'
-  } else if (error.response.status === 500) {
-    console.log(error)
+  if (error && error.response) {
+    if (error.response.status === 401) {
+      reduxPersist.getStore().dispatch({
+        type: LogCons.CLEAR_AUTH,
+      })
+      window.location.href = '/login'
+    } else if (error.response.status === 500) {
+      console.log(error)
+    }
   }
   return Promise.reject(error)
 })

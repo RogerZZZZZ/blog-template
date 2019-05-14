@@ -46,7 +46,7 @@ const PostList = ({ classes, data }: IPostListProps) => {
 
   const renderItem = (data: IPostCard[]) => (
     <List 
-      itemLayout="horizatal"
+      itemLayout="horizontal"
       dataSource={data}
       renderItem={(item: IPostCard) => (
         <p>
